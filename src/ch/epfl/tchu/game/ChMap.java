@@ -176,7 +176,18 @@ public final class ChMap {
             new Route("WIN_ZUR_1", WIN, ZUR, 1, Level.OVERGROUND, Color.BLUE),
             new Route("WIN_ZUR_2", WIN, ZUR, 1, Level.OVERGROUND, Color.VIOLET),
             new Route("ZOU_ZUR_1", ZOU, ZUR, 1, Level.OVERGROUND, Color.GREEN),
-            new Route("ZOU_ZUR_2", ZOU, ZUR, 1, Level.OVERGROUND, Color.RED));
+            new Route("ZOU_ZUR_2", ZOU, ZUR, 1, Level.OVERGROUND, Color.RED),
+            //EXTENTION---PLANE----
+            new Route("DEL_STG_PLANE",DEL,STG,1,Level.SKY,null),
+            new Route("DEL_GEN_PLANE",DEL,GEN,1,Level.SKY,null),
+            new Route("DEL_LUG_PLANE",DEL,LUG,1,Level.SKY,null),
+            new Route("GEN_LUG_PLANE",GEN,LUG,1,Level.SKY,null),
+            new Route("GEN_STG_PLANE",GEN,STG,1,Level.SKY,null),
+            new Route("LUG_STG_PLANE",LUG,STG,1,Level.SKY,null));
+
+
+
+
 
     // Tickets
     private static final Ticket deToNeighbors = ticketToNeighbors(DE, 0, 5, 13, 5);
