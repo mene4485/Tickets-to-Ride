@@ -136,7 +136,7 @@ public final class Route {
      */
     public List<SortedBag<Card>> possibleClaimCards() {
         List<SortedBag<Card>> result = new ArrayList<>();
-if(level.equals(Level.SKY)) return List.of(SortedBag.of(Card.PLANE));
+    if(level.equals(Level.SKY)) return List.of(SortedBag.of(1,Card.PLANE));
         //if it's a non-coloured route
         if (this.color == null) {
             if (level.equals(Level.UNDERGROUND)) {
