@@ -115,7 +115,9 @@ public final class PlayerState extends PublicPlayerState {
         Preconditions.checkArgument(carCount() >= route.length());
 
 
-    if(route.level().equals(Route.Level.SKY)) return List.of(cards.union(route.possibleClaimCards().get(0)));
+    if(route.level().equals(Route.Level.SKY)){
+        return route.possibleClaimCards();
+    }
 
 
 Color colorRoute = route.color();
@@ -163,10 +165,14 @@ Color colorRoute = route.color();
      * if the set of cards drawn does not exactly contain 3 cards
      */
     public List<SortedBag<Card>> possibleAdditionalCards(int additionalCardsCount, SortedBag<Card> initialCards, SortedBag<Card> drawnCards) {
-        Preconditions.checkArgument(additionalCardsCount >= 1 && additionalCardsCount <= Constants.ADDITIONAL_TUNNEL_CARDS && initialCards.toSet().size() <= 2 && initialCards.size() != 0 && drawnCards.size() == Constants.ADDITIONAL_TUNNEL_CARDS);
+        Preconditions.checkArgument(additionalCardsCount >= 1 && additionalCardsCount <= Constants.ADDITIONAL_TUNNEL_CARDS && initialCards.toSet().size() <= 2 && initialCards.size() != 0);
 
 
-        if(initialCards.contains(Card.PLANE)) return List.of(SortedBag.of(additionalCardsCount,Card.LOCOMOTIVE));
+        if(initialCards.contains(Card.PLANE)){
+            if(cards.contains(SortedBag.of(additionalCardsCount,Card.LOCOMOTIVE)))
+            return List.of(SortedBag.of(additionalCardsCount,Card.LOCOMOTIVE));
+            return List.of();
+        }
 
 
 

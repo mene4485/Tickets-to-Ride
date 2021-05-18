@@ -53,6 +53,17 @@ public final class StringsFr {
             "%s a pris possession de la route %s au moyen de %s.\n";
     public static final String ATTEMPTS_TUNNEL_CLAIM =
             "%s tente de s'emparer du tunnel %s au moyen de %s !\n";
+
+    public static final String ATTEMPTS_SKYROUTE_CLAIM =
+            "%s tente de s'emparer du la route aérienne %s au moyen de %s !\n";
+
+    public static final String ADDITIONNAL_SKYROUTE_COUNT =
+            "Après un tirage au sort, si %s veut s'emparer de la route aérienne %s il devra utiliser %s !\n";
+
+    public static final String NO_ADDITIONNAL_SKYROUTE =
+            "Après un tirage au sort, %s n'a besoin d'aucune carte supplémentaire pour s'emparer de la route aérienne %s !\n";
+
+
     public static final String ADDITIONAL_CARDS_ARE =
             "Les cartes supplémentaires sont %s. ";
     public static final String NO_ADDITIONAL_COST =

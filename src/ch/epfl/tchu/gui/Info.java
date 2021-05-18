@@ -159,6 +159,38 @@ public final class Info {
         return String.format(StringsFr.ATTEMPTS_TUNNEL_CLAIM, playerName, Info.routeName(route), StringsFr.sortedBagName(initialCards));
     }
 
+
+    /**
+     * @param route Route
+     * @param initialCards SortedBag<Card>
+     * @return the message stating that
+     */
+    public String attemptsSkyRouteClaim(Route route, SortedBag<Card> initialCards) {
+        return String.format(StringsFr.ATTEMPTS_SKYROUTE_CLAIM, playerName, Info.routeName(route), StringsFr.sortedBagName(initialCards));
+    }
+
+
+    /**
+     * @param route Route
+     * @param initialCards SortedBag<Card>
+     * @return the message stating that
+     */
+    public String additionalSkyRouteCount(Route route, SortedBag<Card> initialCards) {
+        return String.format(StringsFr.ADDITIONNAL_SKYROUTE_COUNT, playerName, Info.routeName(route), StringsFr.sortedBagName(initialCards));
+    }
+
+    /**
+     * @param route Route
+     * @return the message stating that
+     */
+    public String noadditionalSkyRoute(Route route) {
+        return String.format(StringsFr.NO_ADDITIONNAL_SKYROUTE, playerName, Info.routeName(route));
+    }
+
+
+
+
+
     /**
      * @param drawnCard SortedBag<Card>
      * @param additionalCost int

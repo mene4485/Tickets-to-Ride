@@ -177,7 +177,7 @@ public final class Route {
      *                                  <li> the number of drawn cards is different of what it has to be
      */
     public int additionalClaimCardsCount(SortedBag<Card> claimCards, SortedBag<Card> drawnCards) {
-        Preconditions.checkArgument((level == Level.UNDERGROUND || level==Level.SKY) && drawnCards.size() == Constants.ADDITIONAL_TUNNEL_CARDS);
+        //Preconditions.checkArgument(drawnCards.size() == Constants.ADDITIONAL_TUNNEL_CARDS);
         if(level==Level.SKY) return new Random().nextInt(4);
         int additional = 0;
         for (Card drawn : drawnCards) {
