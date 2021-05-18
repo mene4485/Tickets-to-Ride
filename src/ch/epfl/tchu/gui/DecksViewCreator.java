@@ -30,7 +30,7 @@ class DecksViewCreator {
      * @param observableGameState the ObservableGameState of the player
      * @return a hand view (the bottom part of the interface) that updates depending on <i>observableGameState</i>
      */
-    public static Node createHandView(ObservableGameState observableGameState) {
+    public static HBox createHandView(ObservableGameState observableGameState) {
 
         ListView<Ticket> view = new ListView<>(observableGameState.getPlayerTickets());
         view.setId("tickets");

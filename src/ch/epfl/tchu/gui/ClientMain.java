@@ -34,7 +34,7 @@ public class ClientMain extends Application {
 
         RemotePlayerClient playerClient =
                 new RemotePlayerClient(new GraphicalPlayerAdapter(),
-                        hostName,//"128.179.167.180",
+                        hostName,
                         port);
 
         new Thread(playerClient::run).start();

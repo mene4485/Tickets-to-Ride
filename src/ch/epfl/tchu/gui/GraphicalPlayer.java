@@ -3,20 +3,20 @@ package ch.epfl.tchu.gui;
 import ch.epfl.tchu.SortedBag;
 import ch.epfl.tchu.game.*;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldListCell;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 import static javafx.application.Platform.isFxApplicationThread;
+import static javafx.application.Platform.runLater;
 
 /**
  * Class putting all the interfaces together and creates the complete interface
@@ -35,6 +36,20 @@ import static javafx.application.Platform.isFxApplicationThread;
  * @author Menelik Nouvellon (328132)
  */
 public class GraphicalPlayer {
+        Canvas canvas;
+        GraphicsContext gc;
+        StackPane pane =new StackPane();
+        Stage stage=new Stage();
+        Slider slide =new Slider();
+        ColorPicker cp =new ColorPicker();
+        Label label=new Label("1");
+        GridPane grid =new GridPane();
+        Button reset=new Button("Reset");
+        ToggleButton draw= new ToggleButton("Draw");
+
+
+
+
 
     public final static int MAX_MESSAGE_NUMBER=5;
 
@@ -44,6 +59,9 @@ public class GraphicalPlayer {
     private final ObjectProperty<ActionHandlers.DrawTicketsHandler> drawTicketsHandlerObjectProperty = new SimpleObjectProperty<>();
     private final ObjectProperty<ActionHandlers.ClaimRouteHandler> claimRouteHandlerObjectProperty = new SimpleObjectProperty<>();
     private final Stage mainStage = new Stage();
+
+
+    private BooleanProperty drawIsOn=new SimpleBooleanProperty(false);
 
     /**
      * Constructor of a graphical player
@@ -63,14 +81,110 @@ public class GraphicalPlayer {
 
         Node cardsView = DecksViewCreator.
                 createCardsView(observableGameState, drawTicketsHandlerObjectProperty, drawCardHandlerObjectProperty);
-        Node handView = DecksViewCreator
+        HBox handView = DecksViewCreator
                 .createHandView(observableGameState);
 
         Node infoView = InfoViewCreator.createInfoView(identity, playerNames, observableGameState, strings);
+
+
+
+
         BorderPane mainPane =
-                new BorderPane(mapView, null, cardsView, handView, infoView);
-        mainStage.setScene(new Scene(mainPane));
-        mainStage.show();
+                new BorderPane(mapView,null , cardsView, handView, infoView);
+   canvas =new Canvas(1100,735);
+
+
+
+        Scene scene1= new Scene(pane);
+
+       // Scene scene=new Scene(mainPane);
+
+       canvas.disableProperty().bind(drawIsOn.not());
+
+
+         pane.getChildren().addAll(mainPane, canvas//,grid
+            );
+
+            reset.setOnAction(e->reset());
+            gc=canvas.getGraphicsContext2D();
+            gc.setStroke(Color.BLACK);
+            gc.setLineWidth(1);
+
+
+            slide.setMin(1);
+            slide.setMax(20);
+            slide.setValue(2);
+            slide.setShowTickLabels(true);
+            slide.setShowTickMarks(true);
+            slide.setMaxWidth(5);
+            slide.valueProperty().addListener(e->{
+                gc.setLineWidth(slide.getValue());
+                label.setText(String.format("%.0f",slide.getValue()));
+            });
+
+
+
+            cp.setValue(Color.BLACK);
+            cp.setMaxWidth(75);
+
+            cp.setOnAction(e-> gc.setStroke(cp.getValue()));
+
+            canvas.setOnMousePressed(e->{
+                    gc.beginPath();
+                if(drawIsOn.getValue()) {
+                    gc.lineTo(e.getX(), e.getY());
+                    gc.stroke();
+                }
+            });
+            canvas.setOnMouseDragged(e->{
+                if(drawIsOn.getValue()) {
+                    gc.lineTo(e.getX(), e.getY());
+                    gc.stroke();
+                }
+            });
+         //   ToggleButton rainbow=  new ToggleButton("Arc-en-Ciel");
+
+
+
+            grid.addRow(0,cp,slide,label,reset,draw);
+          //  grid.addRow(1,rainbow);
+            grid.setHgap(10);
+            grid.setAlignment(Pos.TOP_CENTER);
+
+        draw.setOnAction(e->{
+            if(drawIsOn.getValue()){
+                drawIsOn.set(false);
+            }else{
+                drawIsOn.set(true);
+            }
+        });
+
+        handView.getChildren().addAll(grid);
+
+            canvas.setTranslateY(-50);
+            canvas.setTranslateX(70);
+
+
+
+
+            stage.setScene(scene1);
+            stage.show();
+
+
+
+
+
+       // mainStage.setScene(scene);
+        //mainStage.show();
+    }
+
+    private void reset(){
+        gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
+        gc.beginPath();
+        slide.setValue(1);
+        cp.setValue(Color.BLACK);
+        gc.setStroke(Color.BLACK);
+
     }
 
     /**
