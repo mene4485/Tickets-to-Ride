@@ -91,13 +91,29 @@ class DecksViewCreator {
         //add the face up cards
         for (int i = 0; i < Constants.FACE_UP_CARDS_COUNT; i++) {
             ReadOnlyObjectProperty<Card> card = observableGameState.cardStateFUC(i);
-            StackPane stackPane =createRectangle("train-image");
+
+            Rectangle outside = new Rectangle(60, 90);
+            outside.getStyleClass().add("outside");
+
+            Rectangle inside = new Rectangle(RECTANGLE_WIDTH, RECTANGLE_HEIGHT);
+            inside.getStyleClass().addAll("filled", "inside");
+
+            Rectangle trainImage = new Rectangle(RECTANGLE_WIDTH, RECTANGLE_HEIGHT);
+            trainImage.getStyleClass().add("train-image");
+
+
+            StackPane stackPane =new StackPane(outside, inside, trainImage);
 
             //StackPane stackPane = createRectangle("train-car.png");
 
 
             card.addListener((owner, old, newValue) -> {
-                if(newValue.equals(Card.PLANE)) stackPane=createRectangle("plane-image");
+                if(newValue.equals(Card.PLANE)) {
+                    trainImage.getStyleClass().set(0,"plane-image");
+                }else{
+                    trainImage.getStyleClass().set(0,"train-image");
+                }
+
                 String color = newValue.color() == null ? "NEUTRAL" : newValue.name();
                 stackPane.getStyleClass().set(0, color);
             });
