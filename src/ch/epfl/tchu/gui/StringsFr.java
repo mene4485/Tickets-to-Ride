@@ -16,6 +16,7 @@ public final class StringsFr {
     public static final String WHITE_CARD = "blanche";
     public static final String YELLOW_CARD = "jaune";
     public static final String LOCOMOTIVE_CARD = "locomotive";
+    public static final String PLANE_CARD = "avion";
 
     // Étiquettes des boutons
     public static final String TICKETS = "Billets";

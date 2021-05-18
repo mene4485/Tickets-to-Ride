@@ -80,6 +80,9 @@ public final class Info {
             case LOCOMOTIVE:
                 s = StringsFr.LOCOMOTIVE_CARD;
                 break;
+            case PLANE:
+                s = StringsFr.PLANE_CARD;
+                break;
         }
         return s + StringsFr.plural(count);
     }
