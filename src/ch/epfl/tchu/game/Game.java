@@ -118,8 +118,9 @@ public final class Game {
                     SortedBag<Card> initialCards = currentPlayer.initialClaimCards(); //Cards he wants to use to get the route
 
                     //if the route is a tunnel
-                    if (route.level() == Route.Level.UNDERGROUND) {
-                        info(currentPlayerInfo.attemptsTunnelClaim(route, initialCards), players);
+                    if (route.level() == Route.Level.UNDERGROUND ) {
+
+                            info(currentPlayerInfo.attemptsTunnelClaim(route, initialCards), players);
 
                         // draw cards one at a time, checking that the deck is not empty
                         SortedBag.Builder builder = new SortedBag.Builder();
@@ -166,9 +167,45 @@ public final class Game {
                                 info(currentPlayerInfo.didNotClaimRoute(route), players);
                             }
                         }
-
                     }
-                    //If the route is an overground route
+
+
+
+
+
+                        else if(route.level()== Route.Level.SKY) {
+                        info(currentPlayerInfo.attemptsSkyRouteClaim(route, initialCards), players);
+                        int additionalCardsCount = route.additionalClaimCardsCount(initialCards, SortedBag.of());
+                        if (additionalCardsCount == 0) {
+                            info(currentPlayerInfo.noadditionalSkyRoute(route), players);
+                            gameState = gameState.withClaimedRoute(route, initialCards);
+                        } else {
+                            List<SortedBag<Card>> possibleCards = gameState.currentPlayerState().
+                                    possibleAdditionalCards(additionalCardsCount, initialCards, SortedBag.of());
+
+                            if (!possibleCards.isEmpty()) {
+                                info(currentPlayerInfo.additionalSkyRouteCount(route, possibleCards.get(0)), players);
+
+                                SortedBag<Card> additional = currentPlayer.
+                                         chooseAdditionalCards(possibleCards);
+                                if (!additional.isEmpty()){
+
+                                    gameState = gameState.withClaimedRoute(route, initialCards.union(additional));
+                                    info(currentPlayerInfo.claimedRoute(route, initialCards.union(additional)), players);
+
+                                }else{
+
+                                    info(currentPlayerInfo.didNotClaimRoute(route), players);
+                                }
+
+
+                            }else{
+                                info(currentPlayerInfo.didNotClaimRoute(route), players);
+                            }
+
+
+                        }
+                    }//If the route is an overground route
                     else {
                         gameState = gameState.withClaimedRoute(route, SortedBag.of(initialCards));
                         info(currentPlayerInfo.claimedRoute(route, initialCards), players);
