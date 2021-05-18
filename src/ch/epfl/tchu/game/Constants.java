@@ -41,7 +41,7 @@ public final class Constants {
 
 
 
-    public static final int PLANE_COUNT=1;
+    public static final int PLANE_COUNT=10;
     /**
      * Numéro d'emplacement fictif désignant la pioche de cartes.
      */
