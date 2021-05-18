@@ -115,7 +115,9 @@ public final class PlayerState extends PublicPlayerState {
         Preconditions.checkArgument(carCount() >= route.length());
 
 
-    if(route.level().equals(Route.Level.SKY)) return List.of(cards.union(route.possibleClaimCards().get(0)));
+    if(route.level().equals(Route.Level.SKY)){
+        return route.possibleClaimCards();
+    }
 
 
 Color colorRoute = route.color();
