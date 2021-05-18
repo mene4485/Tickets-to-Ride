@@ -4,6 +4,10 @@ ImageView {
     -fx-image: url("map.png");
 }
 
+.plane {
+    -fx-background-image: url("plane.png");
+}
+
 .track {
     -fx-stroke: dimgray;
     -fx-stroke-width: 1;
@@ -256,6 +260,7 @@ ImageView {
 #BEL_WAS_2_4 { -fx-translate-x: 649; -fx-translate-y: 450; -fx-rotate: -124 }
 #BEL_LUG_2_1 { -fx-translate-x: 741; -fx-translate-y: 625; -fx-rotate: -81 }
 
+#DEL_STG_PLANE_1 { -fx-translate-x: 10; -fx-translate-y: 10; -fx-rotate: 10}
 
 /* Local Variables: */
 /* css-fontify-colors: nil */

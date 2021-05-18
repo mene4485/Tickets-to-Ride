@@ -4,6 +4,10 @@ ImageView {
     -fx-image: url("map.png");
 }
 
+.plane {
+    -fx-background-image: url("plane.png");
+}
+
 .track {
     -fx-stroke: dimgray;
     -fx-stroke-width: 1;
