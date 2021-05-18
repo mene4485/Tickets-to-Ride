@@ -32,12 +32,16 @@ public final class Constants {
     private static SortedBag<Card> computeAllCards() {
         var cardsBuilder = new SortedBag.Builder<Card>();
         cardsBuilder.add(LOCOMOTIVE_CARDS_COUNT, Card.LOCOMOTIVE);
+        cardsBuilder.add(PLANE_COUNT,Card.PLANE);
         for (Card card : Card.CARS)
             cardsBuilder.add(CAR_CARDS_COUNT, card);
         assert cardsBuilder.size() == TOTAL_CARDS_COUNT;
         return cardsBuilder.build();
     }
 
+
+
+    public static final int PLANE_COUNT=1;
     /**
      * Numéro d'emplacement fictif désignant la pioche de cartes.
      */

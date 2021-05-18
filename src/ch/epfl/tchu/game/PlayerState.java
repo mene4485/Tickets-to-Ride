@@ -114,7 +114,11 @@ public final class PlayerState extends PublicPlayerState {
     public List<SortedBag<Card>> possibleClaimCards(Route route) {
         Preconditions.checkArgument(carCount() >= route.length());
 
-        Color colorRoute = route.color();
+
+    if(route.level() == Route.Level.SKY) return List.of(cards.union(route.possibleClaimCards().get(0)));
+
+
+Color colorRoute = route.color();
         List<SortedBag<Card>> result = new ArrayList<>();
         if (cards.isEmpty()) return List.of();
         Set<SortedBag<Card>> allPossibilities = cards.subsetsOfSize(route.length());
@@ -160,6 +164,12 @@ public final class PlayerState extends PublicPlayerState {
      */
     public List<SortedBag<Card>> possibleAdditionalCards(int additionalCardsCount, SortedBag<Card> initialCards, SortedBag<Card> drawnCards) {
         Preconditions.checkArgument(additionalCardsCount >= 1 && additionalCardsCount <= Constants.ADDITIONAL_TUNNEL_CARDS && initialCards.toSet().size() <= 2 && initialCards.size() != 0 && drawnCards.size() == Constants.ADDITIONAL_TUNNEL_CARDS);
+
+
+        if(initialCards.contains(Card.PLANE)) return List.of(SortedBag.of(additionalCardsCount,Card.LOCOMOTIVE));
+
+
+
         SortedBag<Card> currentCards = cards.difference(initialCards);
 
         //Find the color of the tunnel
