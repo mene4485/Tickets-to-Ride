@@ -7,7 +7,6 @@ import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -27,7 +26,6 @@ import java.util.List;
 import java.util.Map;
 
 import static javafx.application.Platform.isFxApplicationThread;
-import static javafx.application.Platform.runLater;
 
 /**
  * Class putting all the interfaces together and creates the complete interface
@@ -61,7 +59,7 @@ public class GraphicalPlayer {
     private final Stage mainStage = new Stage();
 
 
-    private BooleanProperty drawIsOn=new SimpleBooleanProperty(false);
+    private final BooleanProperty drawIsOn=new SimpleBooleanProperty(false);
 
     /**
      * Constructor of a graphical player
@@ -72,7 +70,7 @@ public class GraphicalPlayer {
     public GraphicalPlayer(PlayerId identity, Map<PlayerId, String> playerNames) {
 
         observableGameState = new ObservableGameState(identity);
-        mainStage.setTitle("tCHu \u2014" + playerNames.get(identity));
+        stage.setTitle("tCHu \u2014" + playerNames.get(identity));
 
         MapViewCreator.CardChooser cardChooser = this::chooseClaimCards;
 
@@ -152,11 +150,7 @@ public class GraphicalPlayer {
             grid.setAlignment(Pos.TOP_CENTER);
 
         draw.setOnAction(e->{
-            if(drawIsOn.getValue()){
-                drawIsOn.set(false);
-            }else{
-                drawIsOn.set(true);
-            }
+            drawIsOn.set(!drawIsOn.getValue());
         });
 
         handView.getChildren().addAll(grid);
@@ -172,10 +166,6 @@ public class GraphicalPlayer {
 
 
 
-
-
-       // mainStage.setScene(scene);
-        //mainStage.show();
     }
 
     private void reset(){
@@ -315,7 +305,6 @@ public class GraphicalPlayer {
         ListView<SortedBag<Card>> listView = new ListView<>(cards);
         listView.setCellFactory(v ->
                 new TextFieldListCell<>(new CardBagStringConverter()));
-
         Button butt = new Button(StringsFr.CHOOSE);
         TextFlow flow = new TextFlow(t);
 

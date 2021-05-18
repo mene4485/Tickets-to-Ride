@@ -21,12 +21,13 @@ public enum Card {
     ORANGE(Color.ORANGE),
     RED(Color.RED),
     WHITE(Color.WHITE),
-    LOCOMOTIVE(null);
+    LOCOMOTIVE(null),
+    PLANE(null);
 
     /**
      * List of all colored cards
      */
-    public final static List<Card> CARS = List.of(Card.values()).subList(0, WHITE.ordinal() + 1);
+    public final static List<Card> CARS = List.of(Card.values()).subList(0, Color.COUNT);
 
     /**
      * List of all cards

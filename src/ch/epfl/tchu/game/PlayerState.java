@@ -113,6 +113,7 @@ public final class PlayerState extends PublicPlayerState {
      */
     public List<SortedBag<Card>> possibleClaimCards(Route route) {
         Preconditions.checkArgument(carCount() >= route.length());
+
         Color colorRoute = route.color();
         List<SortedBag<Card>> result = new ArrayList<>();
         if (cards.isEmpty()) return List.of();

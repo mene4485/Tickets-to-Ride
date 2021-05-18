@@ -5,6 +5,7 @@ import ch.epfl.tchu.SortedBag;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static java.util.Objects.requireNonNull;
 
@@ -20,7 +21,7 @@ public final class Route {
      * <li><i>OVERGROUND</i>
      * <li><i>UNDERGROUND</i>
      */
-    public enum Level {OVERGROUND, UNDERGROUND}
+    public enum Level {OVERGROUND, UNDERGROUND,SKY}
 
     private final String id;
     private final Station station1, station2;
@@ -135,7 +136,7 @@ public final class Route {
      */
     public List<SortedBag<Card>> possibleClaimCards() {
         List<SortedBag<Card>> result = new ArrayList<>();
-
+if(level.equals(Level.SKY)) return List.of(SortedBag.of(Card.PLANE));
         //if it's a non-coloured route
         if (this.color == null) {
             if (level.equals(Level.UNDERGROUND)) {
@@ -176,7 +177,8 @@ public final class Route {
      *                                  <li> the number of drawn cards is different of what it has to be
      */
     public int additionalClaimCardsCount(SortedBag<Card> claimCards, SortedBag<Card> drawnCards) {
-        Preconditions.checkArgument(level == Level.UNDERGROUND && drawnCards.size() == Constants.ADDITIONAL_TUNNEL_CARDS);
+        Preconditions.checkArgument((level == Level.UNDERGROUND || level==Level.SKY) && drawnCards.size() == Constants.ADDITIONAL_TUNNEL_CARDS);
+        if(level==Level.SKY) return new Random().nextInt(4);
         int additional = 0;
         for (Card drawn : drawnCards) {
             boolean isIn = false;
