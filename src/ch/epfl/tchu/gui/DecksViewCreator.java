@@ -50,7 +50,7 @@ class DecksViewCreator {
             counter.textProperty().bind(Bindings.convert(count));
             counter.visibleProperty().bind(Bindings.greaterThan(count, 1));
 
-            StackPane stackPane = createRectangle();
+            StackPane stackPane = card.equals(Card.PLANE) ? createRectangle("plane-image") : createRectangle("train-image");
             String color = card.color() == null ? "NEUTRAL" : card.color().name();
             stackPane.getStyleClass().addAll(color, "card");
             stackPane.visibleProperty().bind(Bindings.greaterThan(count, 0));
@@ -92,8 +92,9 @@ class DecksViewCreator {
         for (int i = 0; i < Constants.FACE_UP_CARDS_COUNT; i++) {
             ReadOnlyObjectProperty<Card> card = observableGameState.cardStateFUC(i);
 
-            if (card.equals(Card.PlANE)) StackPane stackPane = createRectangle("plane.png");
-            else StackPane stackPane = createRectangle("train-image.png");
+            StackPane stackPane = card.equals(Card.PLANE) ? createRectangle("plane-image") : createRectangle("train-image");
+            //StackPane stackPane = createRectangle("train-car.png");
+
 
             card.addListener((owner, old, newValue) -> {
                 String color = newValue.color() == null ? "NEUTRAL" : newValue.name();
