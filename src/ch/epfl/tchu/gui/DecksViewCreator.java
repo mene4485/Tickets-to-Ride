@@ -97,7 +97,7 @@ class DecksViewCreator {
 
 
             card.addListener((owner, old, newValue) -> {
-                if(newValue.equals(Card.PLANE)) stackPane=createRectangle("plane-image");
+                //if(newValue.equals(Card.PLANE)) stackPane=createRectangle("plane-image");
                 String color = newValue.color() == null ? "NEUTRAL" : newValue.name();
                 stackPane.getStyleClass().set(0, color);
             });
