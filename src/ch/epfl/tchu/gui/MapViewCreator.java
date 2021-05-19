@@ -41,19 +41,18 @@ class MapViewCreator {
 
         ImageView view = new ImageView();
         view.getStyleClass().add("map");
-        //view.setX(60);
-        //view.setY(60);
-        ImageView planes = new ImageView();
-        planes.getStyleClass().add("plane");
-        //planes.getStyleClass().add("plane");
-        //planes.setX(40);
-        //planes.setY(40);
-        planes.setFitHeight(40);
-        planes.setFitWidth(40);
+        ImageView planeLugano = new ImageView();
+        planeLugano.getStyleClass().addAll("plane","lugano");
+        ImageView planeGeneve = new ImageView();
+        planeLugano.getStyleClass().add("plane");
+        ImageView planeDelemont = new ImageView();
+        planeLugano.getStyleClass().add("plane");
+        ImageView planeStGall = new ImageView();
+        planeLugano.getStyleClass().add("plane");
 
 
         Pane gamePane = new Pane();
-        gamePane.getChildren().addAll(view,planes);
+        gamePane.getChildren().addAll(view,planeLugano);
         gamePane.getStylesheets().addAll("map.css", "colors.css");
 
         //routes

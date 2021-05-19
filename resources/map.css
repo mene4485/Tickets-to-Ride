@@ -7,7 +7,11 @@ ImageView.map {
 }
 
 ImageView.plane  {
-    -fx-image: url("airport.png");
+    -fx-image: url("airportNone.png");
+    -fx-scale-x: 0.05;
+    -fx-scale-y: 0.05;
+    -fx-translate-x: 530;
+    -fx-translate-y: 380;
 }
 
 .track {
@@ -262,7 +266,8 @@ ImageView.plane  {
 #BEL_WAS_2_4 { -fx-translate-x: 649; -fx-translate-y: 450; -fx-rotate: -124 }
 #BEL_LUG_2_1 { -fx-translate-x: 741; -fx-translate-y: 625; -fx-rotate: -81 }
 
-#DEL_STG_PLANE_1 { -fx-translate-x: 10; -fx-translate-y: 10; -fx-rotate: 10}
+#Genève-Saint-Gall { -fx-translate-x: 20; -fx-translate-y: 20}
+
 
 /* Local Variables: */
 /* css-fontify-colors: nil */
