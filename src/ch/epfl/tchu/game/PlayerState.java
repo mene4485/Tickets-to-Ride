@@ -116,7 +116,6 @@ public final class PlayerState extends PublicPlayerState {
 
 
         if (route.level().equals(Route.Level.SKY)) {
-
             return route.possibleClaimCards();
         }
 
@@ -124,6 +123,8 @@ public final class PlayerState extends PublicPlayerState {
         Color colorRoute = route.color();
         List<SortedBag<Card>> result = new ArrayList<>();
         if (cards.isEmpty()) return List.of();
+
+
         Set<SortedBag<Card>> allPossibilities = cards.subsetsOfSize(route.length());
 
         if (colorRoute != null) {
@@ -134,7 +135,7 @@ public final class PlayerState extends PublicPlayerState {
                         if ((cd.color() == route.color()) || (cd.color() == null)) aux += 1;
                     if (route.level() == Route.Level.OVERGROUND) if (cd.color() == route.color()) aux += 1;
                 }
-                if (aux == sd.size()) result.add(sd);
+                if (aux == sd.size()&&!(sd.contains(Card.PLANE))) result.add(sd);
             }
         } else {
             for (Color color : Color.ALL) {
