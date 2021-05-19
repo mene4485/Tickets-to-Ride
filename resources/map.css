@@ -266,7 +266,8 @@ ImageView.plane  {
 #BEL_WAS_2_4 { -fx-translate-x: 649; -fx-translate-y: 450; -fx-rotate: -124 }
 #BEL_LUG_2_1 { -fx-translate-x: 741; -fx-translate-y: 625; -fx-rotate: -81 }
 
-#Genève-Saint-Gall { -fx-translate-x: 20; -fx-translate-y: 20}
+#10-27 { -fx-translate-x: 20; -fx-translate-y: 20}
+#27-10 { -fx-translate-x: 40; -fx-translate-y: 40}
 
 
 /* Local Variables: */

@@ -44,12 +44,12 @@ class MapViewCreator {
      */
     public static Node createMapView(ObservableGameState observableGameState, ObjectProperty<ActionHandlers.ClaimRouteHandler> claimRouteHandlerProperty, CardChooser cardChooser) {
 
-        BooleanProperty oneFlyRoadOwned= new SimpleBooleanProperty(false);
+        BooleanProperty oneFlyRoadOwned = new SimpleBooleanProperty(false);
 
         ImageView view = new ImageView();
         view.getStyleClass().add("map");
         ImageView planeLugano = new ImageView();
-        planeLugano.getStyleClass().addAll("plane","lugano");
+        planeLugano.getStyleClass().addAll("plane", "lugano");
         ImageView planeGeneve = new ImageView();
         planeLugano.getStyleClass().add("plane");
         ImageView planeDelemont = new ImageView();
@@ -59,14 +59,11 @@ class MapViewCreator {
 
 
         Pane gamePane = new Pane();
-        gamePane.getChildren().addAll(view,planeLugano);
+        gamePane.getChildren().addAll(view, planeLugano);
         gamePane.getStylesheets().addAll("map.css", "colors.css");
 
         //routes
-        for (Route route : ChMap.routes().subList(0,ChMap.TRAIN_ROUTE_LAST_INDEX)) {
-
-
-
+        for (Route route : ChMap.routes().subList(0, ChMap.TRAIN_ROUTE_LAST_INDEX)) {
 
 
             List<Node> list = new ArrayList<>();
@@ -119,38 +116,36 @@ class MapViewCreator {
         }
 
 
+        for (Route route : ChMap.routes().subList(ChMap.TRAIN_ROUTE_LAST_INDEX, ChMap.routes().size())) {
 
 
-            for (Route route : ChMap.routes().subList(ChMap.TRAIN_ROUTE_LAST_INDEX,ChMap.routes().size())){
+            for (Station station : route.stations()) {
 
 
-                for (Station station:route.stations()) {
+                StackPane stackpaneClaimed = new StackPane();
 
-
-                StackPane stackpaneClaimed =new StackPane();
-
-                Rectangle r2 = new Rectangle(RECTANGLE_WIDTH*2, RECTANGLE_HEIGHT);
+                Rectangle r2 = new Rectangle(RECTANGLE_WIDTH * 2, RECTANGLE_HEIGHT);
                 r2.getStyleClass().add("filled");
 
-                Text text1= new Text("VOL ANNULÉ");
+                // Text text1= new Text("VOL ANNULÉ");
 
 
-                stackpaneClaimed.getChildren().addAll(r2,text1);
+                stackpaneClaimed.getChildren().addAll(r2);
 
 
                 stackpaneClaimed.getStyleClass().add("car");
 
-                StackPane stackpane =new StackPane();
+                StackPane stackpane = new StackPane();
 
 
-                Rectangle voie = new Rectangle(RECTANGLE_WIDTH*2, RECTANGLE_HEIGHT);
+                Rectangle voie = new Rectangle(RECTANGLE_WIDTH * 2, RECTANGLE_HEIGHT);
                 voie.getStyleClass().addAll("track", "filled");
 
 
-                Text text2= new Text("-> "+route.stationOpposite(station));
+                Text text2 = new Text("-> " + route.stationOpposite(station));
 
 
-                stackpane.getChildren().addAll(voie,text2);
+                stackpane.getChildren().addAll(voie, text2);
 
 
                 Node routeNode = new Group(stackpaneClaimed, stackpane);
@@ -164,18 +159,19 @@ class MapViewCreator {
                 routeNode.disableProperty().bind(oneFlyRoadOwned);
 
 
-                 routeNode.setId(station +"-"+route.stationOpposite(station));
+                routeNode.setId(new StringBuilder().append(station.id()).append("-").append(route.stationOpposite(station).id()).toString());
 
 
-
-
-                    observableGameState.routesProperty(route).addListener((owner, old, newValue) -> {
-                        String p = newValue.name();
-                        routeNode.getStyleClass().add(p);
-                    });
-
-
-
+                observableGameState.routesProperty(route).addListener((owner, old, newValue) -> {
+                    String p = newValue.name();
+                    routeNode.getStyleClass().add(p);
+                    oneFlyRoadOwned.set(true);
+                });
+                oneFlyRoadOwned.addListener((owner, old, newValue) -> {
+                    if (observableGameState.routesProperty(route).getValue()==null) {
+                    text2.setText("VOL ANNULÉ");
+                    }
+                });
 
 
                 routeNode.setOnMouseClicked(event -> {
@@ -194,12 +190,14 @@ class MapViewCreator {
 
 
                 });
+
+
                 gamePane.getChildren().add(routeNode);
+
+
             }
 
-                }
-
-
+        }
 
 
         return gamePane;
