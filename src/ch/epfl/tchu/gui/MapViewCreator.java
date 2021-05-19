@@ -44,11 +44,11 @@ class MapViewCreator {
         Pane gamePane = new Pane();
         gamePane.getChildren().add(view);
         gamePane.getStylesheets().addAll("map.css", "colors.css");
+
         //routes
         for (Route route : ChMap.routes()) {
 
             List<Node> list = new ArrayList<>();
-
 
             for (int i = 1; i <= route.length(); i++) {
                 Rectangle r2 = new Rectangle(RECTANGLE_WIDTH, RECTANGLE_HEIGHT);
@@ -75,9 +75,9 @@ class MapViewCreator {
                 String p = newValue.name();
                 routeNode.getStyleClass().add(p);
             });
+
             routeNode.getStyleClass().addAll("route", route.level().name(), route.color() == null ? "NEUTRAL" : route.color().name());
             routeNode.disableProperty().bind(claimRouteHandlerProperty.isNull().or(observableGameState.getClaimableRoute(route).not()));
-
 
             routeNode.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 1 && event.getButton() == MouseButton.PRIMARY) {
