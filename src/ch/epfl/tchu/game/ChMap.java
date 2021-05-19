@@ -92,7 +92,7 @@ public final class ChMap {
             LUG, MAR, NEU, OLT, PFA, SAR, SCE, SCZ, SIO, SOL, STG, VAD, WAS, WIN, YVE, ZOU, ZUR,
             DE1, DE2, DE3, DE4, DE5, AT1, AT2, AT3, IT1, IT2, IT3, IT4, IT5, FR1, FR2, FR3, FR4);
 
-    private static final List<Station> AEROPORTS=List.of(DEL,GEN,LUG,STG);
+    private static final List<Station> AEROPORTS=List.of(BRU,DEL,GEN,STG);
 
 
 
@@ -189,10 +189,10 @@ public final class ChMap {
             //EXTENTION---PLANE----
             new Route("DEL_STG_PLANE",DEL,STG,1,Level.SKY,null),
             new Route("DEL_GEN_PLANE",DEL,GEN,1,Level.SKY,null),
-            new Route("DEL_LUG_PLANE",DEL,LUG,1,Level.SKY,null),
-            new Route("GEN_LUG_PLANE",GEN,LUG,1,Level.SKY,null),
+            new Route("DEL_BRU_PLANE",DEL,BRU,1,Level.SKY,null),
+            new Route("GEN_BRU_PLANE",GEN,BRU,1,Level.SKY,null),
             new Route("GEN_STG_PLANE",GEN,STG,1,Level.SKY,null),
-            new Route("LUG_STG_PLANE",LUG,STG,1,Level.SKY,null));
+            new Route("BRU_STG_PLANE",BRU,STG,1,Level.SKY,null));
 
 
 
