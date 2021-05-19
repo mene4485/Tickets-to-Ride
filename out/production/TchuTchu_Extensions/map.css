@@ -280,14 +280,18 @@ ImageView.plane.StGall.PLAYER_2 {-fx-image: url("airportPlayer2.png");-fx-scale-
 
 /*Geneve : 10 , SaintGall : 27, Delemont : 8, Lugano : 17*/
 
-#10-27 { -fx-translate-x: 150; -fx-translate-y: 700}
+/*Geneve --> */
+#10-8 { -fx-translate-x: 120; -fx-translate-y: 600}
+#10-17 { -fx-translate-x: 120; -fx-translate-y: 615}
+#10-27 { -fx-translate-x: 120; -fx-translate-y: 630}
 
+/*Delemont --> */
+#8-10 { -fx-translate-x: 160; -fx-translate-y: 115}
+#8-17 { -fx-translate-x: 160; -fx-translate-y: 130}
+#8-27 { -fx-translate-x: 160; -fx-translate-y: 145}
 
+#27-10 { -fx-translate-x: 40; -fx-translate-y: 40}
 
-
-#27-8 { -fx-translate-x: 940; -fx-translate-y: 115}
-#27-10 { -fx-translate-x: 940; -fx-translate-y: 130}
-#27-17 { -fx-translate-x: 940; -fx-translate-y: 145}
 
 /* Local Variables: */
 /* css-fontify-colors: nil */

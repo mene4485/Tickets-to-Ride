@@ -48,8 +48,8 @@ class MapViewCreator {
 
         ImageView view = new ImageView();
         view.getStyleClass().add("map");
-        ImageView planeLugano = new ImageView();
-        planeLugano.getStyleClass().addAll("plane", "Lugano");
+        ImageView planeBrusio = new ImageView();
+        planeBrusio.getStyleClass().addAll("plane", "Brusio");
         ImageView planeGeneve = new ImageView();
         planeGeneve.getStyleClass().addAll("plane", "Geneve");
         ImageView planeDelemont = new ImageView();
@@ -59,7 +59,7 @@ class MapViewCreator {
 
 
         Pane gamePane = new Pane();
-        gamePane.getChildren().addAll(view, planeLugano, planeGeneve, planeDelemont, planeStGall);
+        gamePane.getChildren().addAll(view, planeBrusio, planeGeneve, planeDelemont, planeStGall);
         gamePane.getStylesheets().addAll("map.css", "colors.css");
 
         //routes
@@ -178,7 +178,7 @@ class MapViewCreator {
                                     planeDelemont.getStyleClass().add(p);
                                     break;
                                 case 17 :
-                                    planeLugano.getStyleClass().add(p);
+                                    planeBrusio.getStyleClass().add(p);
                                     break;
                             }
                         }
