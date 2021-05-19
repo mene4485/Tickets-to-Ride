@@ -281,23 +281,24 @@ ImageView.plane.StGall.PLAYER_2 {-fx-image: url("airportPlayer2.png");-fx-scale-
 /*Geneve : 10 , SaintGall : 27, Delemont : 8, Brusio : 5*/
 
 /*Geneve --> */
-#10-5 { -fx-translate-x: 120; -fx-translate-y: 600}
-#10-8 { -fx-translate-x: 120; -fx-translate-y: 615}
-#10-27 { -fx-translate-x: 120; -fx-translate-y: 630}
+#10-5 { -fx-translate-x: 100; -fx-translate-y: 615}
+#10-8 { -fx-translate-x: 100; -fx-translate-y: 630}
+#10-27 { -fx-translate-x: 100; -fx-translate-y: 645}
 
 /*Delemont --> */
 #8-5 { -fx-translate-x: 160; -fx-translate-y: 115}
 #8-10 { -fx-translate-x: 160; -fx-translate-y: 130}
 #8-27 { -fx-translate-x: 160; -fx-translate-y: 145}
 
-
-
-
+/*Saint-Gall --> */
 #27-5 { -fx-translate-x: 940; -fx-translate-y: 115}
 #27-8 { -fx-translate-x: 940; -fx-translate-y: 130}
 #27-10 { -fx-translate-x: 940; -fx-translate-y: 145}
 
-/*Brus*/
+/*Brusio*/
+#5-8 { -fx-translate-x: 860; -fx-translate-y: 560}
+#5-10 { -fx-translate-x: 860; -fx-translate-y: 575}
+#5-27 { -fx-translate-x: 860; -fx-translate-y: 590}
 
 /* Local Variables: */
 /* css-fontify-colors: nil */

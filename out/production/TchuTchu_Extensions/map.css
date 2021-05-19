@@ -6,9 +6,9 @@ ImageView.map {
     -fx-image: url("map.png");
 }
 
-ImageView.plane.Lugano { -fx-image: url("airportNone.png");-fx-scale-x: 0.05;-fx-scale-y: 0.05;-fx-translate-x: 530;-fx-translate-y: 390;}
-ImageView.plane.Lugano.PLAYER_1 { -fx-image: url("airportPlayer1.png");-fx-scale-x: 0.05;-fx-scale-y: 0.05;-fx-translate-x: 530;-fx-translate-y: 390;}
-ImageView.plane.Lugano.PLAYER_2 { -fx-image: url("airportPlayer2.png");-fx-scale-x: 0.05;-fx-scale-y: 0.05;-fx-translate-x: 530;-fx-translate-y: 390;}
+ImageView.plane.Brusio { -fx-image: url("airportNone.png");-fx-scale-x: 0.05;-fx-scale-y: 0.05;-fx-translate-x: 530;-fx-translate-y: 390;}
+ImageView.plane.Brusio.PLAYER_1 { -fx-image: url("airportPlayer1.png");-fx-scale-x: 0.05;-fx-scale-y: 0.05;-fx-translate-x: 530;-fx-translate-y: 390;}
+ImageView.plane.Brusio.PLAYER_2 { -fx-image: url("airportPlayer2.png");-fx-scale-x: 0.05;-fx-scale-y: 0.05;-fx-translate-x: 530;-fx-translate-y: 390;}
 
 
 ImageView.plane.Geneve {-fx-image: url("airportNone.png");-fx-scale-x: 0.05;-fx-scale-y: 0.05;-fx-translate-x: -230;-fx-translate-y: 340;}
@@ -278,20 +278,27 @@ ImageView.plane.StGall.PLAYER_2 {-fx-image: url("airportPlayer2.png");-fx-scale-
 #BEL_WAS_2_4 { -fx-translate-x: 649; -fx-translate-y: 450; -fx-rotate: -124 }
 #BEL_LUG_2_1 { -fx-translate-x: 741; -fx-translate-y: 625; -fx-rotate: -81 }
 
-/*Geneve : 10 , SaintGall : 27, Delemont : 8, Lugano : 17*/
+/*Geneve : 10 , SaintGall : 27, Delemont : 8, Brusio : 5*/
 
 /*Geneve --> */
-#10-8 { -fx-translate-x: 120; -fx-translate-y: 600}
-#10-17 { -fx-translate-x: 120; -fx-translate-y: 615}
-#10-27 { -fx-translate-x: 120; -fx-translate-y: 630}
+#10-5 { -fx-translate-x: 100; -fx-translate-y: 615}
+#10-8 { -fx-translate-x: 100; -fx-translate-y: 630}
+#10-27 { -fx-translate-x: 100; -fx-translate-y: 645}
 
 /*Delemont --> */
-#8-10 { -fx-translate-x: 160; -fx-translate-y: 115}
-#8-17 { -fx-translate-x: 160; -fx-translate-y: 130}
+#8-5 { -fx-translate-x: 160; -fx-translate-y: 115}
+#8-10 { -fx-translate-x: 160; -fx-translate-y: 130}
 #8-27 { -fx-translate-x: 160; -fx-translate-y: 145}
 
-#27-10 { -fx-translate-x: 40; -fx-translate-y: 40}
+/*Saint-Gall --> */
+#27-5 { -fx-translate-x: 940; -fx-translate-y: 115}
+#27-8 { -fx-translate-x: 940; -fx-translate-y: 130}
+#27-10 { -fx-translate-x: 940; -fx-translate-y: 145}
 
+/*Brusio*/
+#5-8 { -fx-translate-x: 860; -fx-translate-y: 560}
+#5-10 { -fx-translate-x: 860; -fx-translate-y: 575}
+#5-27 { -fx-translate-x: 860; -fx-translate-y: 590}
 
 /* Local Variables: */
 /* css-fontify-colors: nil */
