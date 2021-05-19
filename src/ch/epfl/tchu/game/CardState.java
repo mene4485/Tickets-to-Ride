@@ -2,6 +2,7 @@ package ch.epfl.tchu.game;
 
 import ch.epfl.tchu.Preconditions;
 import ch.epfl.tchu.SortedBag;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,7 +99,14 @@ public final class CardState extends PublicCardState {
      * @return a set of cards identical to the receiver (this), but with the given cards added to the discard pile.
      */
     public CardState withMoreDiscardedCards(SortedBag<Card> additionalDiscards) {
-        return new CardState(faceUpCards(), deck, discardDeck.union(additionalDiscards));
+        SortedBag<Card> realAdd;
+        if(additionalDiscards.contains(Card.PLANE)){
+            int count=additionalDiscards.countOf(Card.PLANE);
+            realAdd = additionalDiscards.difference(SortedBag.of(count,Card.PLANE));
+        }else{
+            realAdd=additionalDiscards;
+        }
+        return new CardState(faceUpCards(), deck, discardDeck.union(realAdd));
 
     }
 }
