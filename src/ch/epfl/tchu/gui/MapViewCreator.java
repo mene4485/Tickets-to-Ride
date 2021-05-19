@@ -40,10 +40,19 @@ class MapViewCreator {
     public static Node createMapView(ObservableGameState observableGameState, ObjectProperty<ActionHandlers.ClaimRouteHandler> claimRouteHandlerProperty, CardChooser cardChooser) {
 
         ImageView view = new ImageView();
+        ImageView planes = new ImageView("plane.png");
+        view.getStyleClass().add("map");
+        //planes.getStyleClass().add("plane");
+        planes.setX(40);
+        planes.setY(40);
+        planes.setFitHeight(40);
+        planes.setFitWidth(40);
+
 
         Pane gamePane = new Pane();
         gamePane.getChildren().add(view);
         gamePane.getStylesheets().addAll("map.css", "colors.css");
+        gamePane.getChildren().add(planes);
 
         //routes
         for (Route route : ChMap.routes()) {
