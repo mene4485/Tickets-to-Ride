@@ -18,8 +18,7 @@
 }
 
 .card .plane-image {
-    -fx-fill: url("plane.png");
-    -fx-opacity: 0.3;
+    -fx-fill: url("planeShadow.png");
 }
 
 .card.NEUTRAL .train-image {
