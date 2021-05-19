@@ -7,8 +7,8 @@ ImageView.map {
 }
 
 ImageView.plane.Brusio { -fx-image: url("airportNone.png");-fx-scale-x: 0.05;-fx-scale-y: 0.05;-fx-translate-x: 800;-fx-translate-y: 310;}
-ImageView.plane.Brusio.PLAYER_1 { -fx-image: url("airportPlayer1.png");-fx-scale-x: 0.05;-fx-scale-y: 0.05;-fx-translate-x: 800;-fx-translate-y: 310;}
-ImageView.plane.Brusio.PLAYER_2 { -fx-image: url("airportPlayer2.png");-fx-scale-x: 0.05;-fx-scale-y: 0.05;-fx-translate-x: 800;-fx-translate-y: 310;}
+ImageView.plane.Brusio.PLAYER_1 { -fx-image: url("airportPlayer1.png");-fx-scale-x: 0.05;-fx-scale-y: 0.05;-fx-translate-x: 900;-fx-translate-y: 350;}
+ImageView.plane.Brusio.PLAYER_2 { -fx-image: url("airportPlayer2.png");-fx-scale-x: 0.05;-fx-scale-y: 0.05;-fx-translate-x: 900;-fx-translate-y: 350;}
 
 
 ImageView.plane.Geneve {-fx-image: url("airportNone.png");-fx-scale-x: 0.05;-fx-scale-y: 0.05;-fx-translate-x: -230;-fx-translate-y: 340;}

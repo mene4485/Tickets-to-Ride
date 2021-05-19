@@ -179,7 +179,7 @@ class MapViewCreator {
                                 case 8:
                                     planeDelemont.getStyleClass().add(p);
                                     break;
-                                case 17 :
+                                case 5 :
                                     planeBrusio.getStyleClass().add(p);
                                     break;
                             }
