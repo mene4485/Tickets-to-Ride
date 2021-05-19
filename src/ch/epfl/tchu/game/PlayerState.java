@@ -115,12 +115,13 @@ public final class PlayerState extends PublicPlayerState {
         Preconditions.checkArgument(carCount() >= route.length());
 
 
-    if(route.level().equals(Route.Level.SKY)){
-        return route.possibleClaimCards();
-    }
+        if (route.level().equals(Route.Level.SKY)) {
+
+            return route.possibleClaimCards();
+        }
 
 
-Color colorRoute = route.color();
+        Color colorRoute = route.color();
         List<SortedBag<Card>> result = new ArrayList<>();
         if (cards.isEmpty()) return List.of();
         Set<SortedBag<Card>> allPossibilities = cards.subsetsOfSize(route.length());
@@ -161,19 +162,18 @@ Color colorRoute = route.color();
      * @return all possible set of cards that the player can put after putting <i>initialCards</i>
      * to get a tunnel and picking up <i>drawncards</i>.
      * @throws IllegalArgumentException if the number of additional cards is not between 1 and 3 (inclusive),
-     * if the set of initial cards is empty or contains more than 2 different types of cards, or
-     * if the set of cards drawn does not exactly contain 3 cards
+     *                                  if the set of initial cards is empty or contains more than 2 different types of cards, or
+     *                                  if the set of cards drawn does not exactly contain 3 cards
      */
     public List<SortedBag<Card>> possibleAdditionalCards(int additionalCardsCount, SortedBag<Card> initialCards, SortedBag<Card> drawnCards) {
         Preconditions.checkArgument(additionalCardsCount >= 1 && additionalCardsCount <= Constants.ADDITIONAL_TUNNEL_CARDS && initialCards.toSet().size() <= 2 && initialCards.size() != 0);
 
 
-        if(initialCards.contains(Card.PLANE)){
-            if(cards.contains(SortedBag.of(additionalCardsCount,Card.LOCOMOTIVE)))
-            return List.of(SortedBag.of(additionalCardsCount,Card.LOCOMOTIVE));
+        if (initialCards.contains(Card.PLANE)) {
+            if (cards.contains(SortedBag.of(additionalCardsCount, Card.LOCOMOTIVE)))
+                return List.of(SortedBag.of(additionalCardsCount, Card.LOCOMOTIVE));
             return List.of();
         }
-
 
 
         SortedBag<Card> currentCards = cards.difference(initialCards);
@@ -191,7 +191,7 @@ Color colorRoute = route.color();
 
             for (int i = 0; i <= additionalCardsCount; ++i) {
                 int numberOfColor = additionalCardsCount - i,
-                    numberOfLocomotive = i;
+                        numberOfLocomotive = i;
                 SortedBag.Builder<Card> r = new SortedBag.Builder<>();
                 r.add(numberOfColor, Card.of(color));
                 if (color != null) r.add(numberOfLocomotive, Card.LOCOMOTIVE);

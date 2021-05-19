@@ -49,24 +49,21 @@ class MapViewCreator {
         ImageView view = new ImageView();
         view.getStyleClass().add("map");
         ImageView planeLugano = new ImageView();
-        planeLugano.getStyleClass().addAll("plane","Lugano");
+        planeLugano.getStyleClass().addAll("plane", "Lugano");
         ImageView planeGeneve = new ImageView();
-        planeGeneve.getStyleClass().addAll("plane","Geneve");
+        planeGeneve.getStyleClass().addAll("plane", "Geneve");
         ImageView planeDelemont = new ImageView();
-        planeDelemont.getStyleClass().addAll("plane","Delemont");
+        planeDelemont.getStyleClass().addAll("plane", "Delemont");
         ImageView planeStGall = new ImageView();
-        planeStGall.getStyleClass().addAll("plane","StGall");
+        planeStGall.getStyleClass().addAll("plane", "StGall");
 
 
         Pane gamePane = new Pane();
-        gamePane.getChildren().addAll(view,planeLugano,planeGeneve,planeDelemont,planeStGall);
+        gamePane.getChildren().addAll(view, planeLugano, planeGeneve, planeDelemont, planeStGall);
         gamePane.getStylesheets().addAll("map.css", "colors.css");
 
         //routes
-        for (Route route : ChMap.routes().subList(0,ChMap.TRAIN_ROUTE_LAST_INDEX)) {
-
-
-
+        for (Route route : ChMap.routes().subList(0, ChMap.TRAIN_ROUTE_LAST_INDEX)) {
 
 
             List<Node> list = new ArrayList<>();
@@ -154,7 +151,7 @@ class MapViewCreator {
                 Node routeNode = new Group(stackpaneClaimed, stackpane);
 
 
-                routeNode.getStyleClass().addAll("route","NEUTRAL");
+                routeNode.getStyleClass().addAll("route", "NEUTRAL");
 
 
                 routeNode.disableProperty().bind(claimRouteHandlerProperty.isNull().or(observableGameState.getClaimableRoute(route).not()));
@@ -169,17 +166,30 @@ class MapViewCreator {
                     String p = newValue.name();
                     routeNode.getStyleClass().add(p);
                     oneFlyRoadOwned.set(true);
-                    for(Station aeroport:ChMap.aeroports()){
-                        if(route.station1().toString().equals(aeroport.toString())){
-
+                    for (Station aeroport : ChMap.aeroports()) {
+                        if (route.station1().id()==aeroport.id()||route.station2().id()==aeroport.id()) {
+                            switch (aeroport.id()){
+                                case 27:
+                                    planeStGall.getStyleClass().add(p);
+                                    break;
+                                case 10:
+                                    planeGeneve.getStyleClass().add(p);
+                                    break;
+                                case 8:
+                                    planeDelemont.getStyleClass().add(p);
+                                    break;
+                                case 17 :
+                                    planeLugano.getStyleClass().add(p);
+                                    break;
+                            }
                         }
                     }
 
 
                 });
                 oneFlyRoadOwned.addListener((owner, old, newValue) -> {
-                    if (observableGameState.routesProperty(route).getValue()==null) {
-                    text2.setText("VOL ANNULÉ");
+                    if (observableGameState.routesProperty(route).getValue() == null) {
+                        text2.setText("VOL ANNULÉ");
                     }
                 });
 
