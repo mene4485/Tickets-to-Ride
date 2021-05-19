@@ -14,8 +14,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
@@ -127,8 +129,6 @@ class MapViewCreator {
                 Rectangle r2 = new Rectangle(RECTANGLE_WIDTH * 2.5, RECTANGLE_HEIGHT);
                 r2.getStyleClass().add("filled");
 
-                // Text text1= new Text("VOL ANNULÉ");
-
 
                 stackpaneClaimed.getChildren().addAll(r2);
 
@@ -143,6 +143,8 @@ class MapViewCreator {
 
 
                 Text text2 = new Text("-> " + route.stationOpposite(station));
+                text2.setFont(Font.font ("Verdana", 20));
+                text2.setFill(Color.RED);
 
 
                 stackpane.getChildren().addAll(voie, text2);
