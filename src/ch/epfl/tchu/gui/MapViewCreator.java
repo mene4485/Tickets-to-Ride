@@ -49,17 +49,17 @@ class MapViewCreator {
         ImageView view = new ImageView();
         view.getStyleClass().add("map");
         ImageView planeLugano = new ImageView();
-        planeLugano.getStyleClass().addAll("plane","lugano");
+        planeLugano.getStyleClass().addAll("plane","Lugano");
         ImageView planeGeneve = new ImageView();
-        planeLugano.getStyleClass().add("plane");
+        planeGeneve.getStyleClass().addAll("plane","Geneve");
         ImageView planeDelemont = new ImageView();
-        planeLugano.getStyleClass().add("plane");
+        planeDelemont.getStyleClass().addAll("plane","Delemont");
         ImageView planeStGall = new ImageView();
-        planeLugano.getStyleClass().add("plane");
+        planeStGall.getStyleClass().addAll("plane","StGall");
 
 
         Pane gamePane = new Pane();
-        gamePane.getChildren().addAll(view,planeLugano);
+        gamePane.getChildren().addAll(view,planeLugano,planeGeneve,planeDelemont,planeStGall);
         gamePane.getStylesheets().addAll("map.css", "colors.css");
 
         //routes

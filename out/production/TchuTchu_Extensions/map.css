@@ -6,13 +6,38 @@ ImageView.map {
     -fx-image: url("map.png");
 }
 
-ImageView.plane  {
+ImageView.plane.Lugano {
     -fx-image: url("airportNone.png");
     -fx-scale-x: 0.05;
     -fx-scale-y: 0.05;
     -fx-translate-x: 530;
     -fx-translate-y: 380;
 }
+
+ImageView.plane.Geneve {
+    -fx-image: url("airportNone.png");
+    -fx-scale-x: 0.05;
+    -fx-scale-y: 0.05;
+    -fx-translate-x: -230;
+    -fx-translate-y: 340;
+}
+
+ImageView.plane.Delemont {
+    -fx-image: url("airportNone.png");
+    -fx-scale-x: 0.05;
+    -fx-scale-y: 0.05;
+    -fx-translate-x: 530;
+    -fx-translate-y: 380;
+}
+
+ImageView.plane.StGall {
+    -fx-image: url("airportNone.png");
+    -fx-scale-x: 0.05;
+    -fx-scale-y: 0.05;
+    -fx-translate-x: 530;
+    -fx-translate-y: 380;
+}
+
 
 .track {
     -fx-stroke: dimgray;
@@ -266,7 +291,8 @@ ImageView.plane  {
 #BEL_WAS_2_4 { -fx-translate-x: 649; -fx-translate-y: 450; -fx-rotate: -124 }
 #BEL_LUG_2_1 { -fx-translate-x: 741; -fx-translate-y: 625; -fx-rotate: -81 }
 
-#DEL_STG_PLANE_1 { -fx-translate-x: 10; -fx-translate-y: 10; -fx-rotate: 10}
+#Genève-Saint-Gall { -fx-translate-x: 20; -fx-translate-y: 20}
+
 
 /* Local Variables: */
 /* css-fontify-colors: nil */
