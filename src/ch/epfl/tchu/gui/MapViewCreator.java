@@ -157,9 +157,8 @@ class MapViewCreator {
                 routeNode.getStyleClass().addAll("route","NEUTRAL");
 
 
-                routeNode.disableProperty().bind(claimRouteHandlerProperty.isNull().or(observableGameState.getClaimableRoute(route).not()));
+                routeNode.disableProperty().bind(claimRouteHandlerProperty.isNull().or(observableGameState.getClaimableRoute(route).not()).or(oneFlyRoadOwned));
 
-                routeNode.disableProperty().bind(oneFlyRoadOwned);
 
 
                 routeNode.setId(new StringBuilder().append(station.id()).append("-").append(route.stationOpposite(station).id()).toString());

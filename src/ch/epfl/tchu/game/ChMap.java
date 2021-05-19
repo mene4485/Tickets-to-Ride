@@ -265,7 +265,7 @@ public final class ChMap {
 
 
 
-    public final static int TRAIN_ROUTE_LAST_INDEX = 87;
+    public final static int TRAIN_ROUTE_LAST_INDEX = 88;
 
 
 }

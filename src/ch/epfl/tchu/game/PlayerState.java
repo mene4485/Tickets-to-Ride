@@ -101,7 +101,8 @@ public final class PlayerState extends PublicPlayerState {
     public boolean canClaimRoute(Route route) {
 
         for (SortedBag<Card> possibleClaimCards : route.possibleClaimCards()) {
-            if (cards.contains(possibleClaimCards) && (carCount() >= route.length())) return true;
+            if (cards.contains(possibleClaimCards) && (carCount() >= route.length()))
+                return true;
         }
         return false;
     }
@@ -116,7 +117,7 @@ public final class PlayerState extends PublicPlayerState {
 
 
     if(route.level().equals(Route.Level.SKY)){
-        return route.possibleClaimCards();
+       return cards.contains(route.possibleClaimCards().get(0))? route.possibleClaimCards():List.of();
     }
 
 

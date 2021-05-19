@@ -135,8 +135,12 @@ public final class Route {
      * @return the different ways for the player to choose his cards to claim the route
      */
     public List<SortedBag<Card>> possibleClaimCards() {
+
+    if(level==Level.SKY) return List.of(SortedBag.of(Card.PLANE));
+
+
         List<SortedBag<Card>> result = new ArrayList<>();
-    if(level.equals(Level.SKY)) return List.of(SortedBag.of(1,Card.PLANE));
+
         //if it's a non-coloured route
         if (this.color == null) {
             if (level.equals(Level.UNDERGROUND)) {
