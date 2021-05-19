@@ -6,12 +6,12 @@ ImageView.map {
     -fx-image: url("map.png");
 }
 
-ImageView.plane  {
+ImageView.plane.Lugano {
     -fx-image: url("airportNone.png");
     -fx-scale-x: 0.05;
     -fx-scale-y: 0.05;
     -fx-translate-x: 530;
-    -fx-translate-y: 380;
+    -fx-translate-y: 395;
 }
 
 ImageView.plane.Geneve {
@@ -26,16 +26,16 @@ ImageView.plane.Delemont {
     -fx-image: url("airportNone.png");
     -fx-scale-x: 0.05;
     -fx-scale-y: 0.05;
-    -fx-translate-x: 530;
-    -fx-translate-y: 380;
+    -fx-translate-x: 90;
+    -fx-translate-y: -100;
 }
 
 ImageView.plane.StGall {
     -fx-image: url("airportNone.png");
     -fx-scale-x: 0.05;
     -fx-scale-y: 0.05;
-    -fx-translate-x: 530;
-    -fx-translate-y: 380;
+    -fx-translate-x: 660;
+    -fx-translate-y: -100;
 }
 
 
