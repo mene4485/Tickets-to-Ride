@@ -18,6 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
@@ -126,7 +127,7 @@ class MapViewCreator {
 
                 StackPane stackpaneClaimed = new StackPane();
 
-                Rectangle r2 = new Rectangle(RECTANGLE_WIDTH * 2.5, RECTANGLE_HEIGHT);
+                Rectangle r2 = new Rectangle(RECTANGLE_WIDTH * 2.5, RECTANGLE_HEIGHT+3);
                 r2.getStyleClass().add("filled");
 
 
@@ -138,13 +139,13 @@ class MapViewCreator {
                 StackPane stackpane = new StackPane();
 
 
-                Rectangle voie = new Rectangle(RECTANGLE_WIDTH * 2.5, RECTANGLE_HEIGHT);
+                Rectangle voie = new Rectangle(RECTANGLE_WIDTH * 2.5, RECTANGLE_HEIGHT+3);
                 voie.getStyleClass().addAll("track", "filled");
 
 
                 Text text2 = new Text("-> " + route.stationOpposite(station));
-                text2.setFont(Font.font ("Verdana", 20));
-                text2.setFill(Color.RED);
+                text2.setFont(Font.font("Helvetica"));
+                text2.setFill(Color.WHITE);
 
 
                 stackpane.getChildren().addAll(voie, text2);
@@ -153,7 +154,7 @@ class MapViewCreator {
                 Node routeNode = new Group(stackpaneClaimed, stackpane);
 
 
-                routeNode.getStyleClass().addAll("route", "NEUTRAL");
+                routeNode.getStyleClass().addAll("route", "PLANE");
 
 
                 routeNode.disableProperty().bind(claimRouteHandlerProperty.isNull().or(observableGameState.getClaimableRoute(route).not()).or(oneFlyRoadOwned));
@@ -166,6 +167,7 @@ class MapViewCreator {
                 observableGameState.routesProperty(route).addListener((owner, old, newValue) -> {
                     String p = newValue.name();
                     routeNode.getStyleClass().add(p);
+                    text2.setFill(Color.BLACK);
                     oneFlyRoadOwned.set(true);
                     for (Station aeroport : ChMap.aeroports()) {
                         if (route.station1().id()==aeroport.id()||route.station2().id()==aeroport.id()) {
@@ -191,6 +193,7 @@ class MapViewCreator {
                 oneFlyRoadOwned.addListener((owner, old, newValue) -> {
                     if (observableGameState.routesProperty(route).getValue() == null) {
                         text2.setText("VOL ANNULÉ");
+                        text2.setFill(Color.DARKRED);
                     }
                 });
 
