@@ -158,7 +158,11 @@ public class GraphicalPlayerAdapter implements Player {
      */
     @Override
     public Route claimedRoute() {
-        return routeQueue.remove();
+        try {
+        return routeQueue.take();
+        }catch (InterruptedException e) {
+            throw new Error();
+        }
     }
 
     /**
@@ -167,7 +171,11 @@ public class GraphicalPlayerAdapter implements Player {
      */
     @Override
     public SortedBag<Card> initialClaimCards() {
-        return cardQueue.remove();
+        try {
+            return cardQueue.take();
+        }catch (InterruptedException e) {
+            throw new Error();
+        }
 
     }
 
