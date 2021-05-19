@@ -2,11 +2,12 @@
 
 
 
-.map ImageView {
+ImageView.map {
     -fx-image: url("map.png");
 }
-.plane ImageView  {
-    -fx-image: url("plane.png");
+
+ImageView.plane  {
+    -fx-image: url("airport.png");
 }
 
 .track {
