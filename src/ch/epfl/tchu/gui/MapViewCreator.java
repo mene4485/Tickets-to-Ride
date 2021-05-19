@@ -55,7 +55,7 @@ class MapViewCreator {
         gamePane.getChildren().add(planes);
 
         //routes
-        for (Route route : ChMap.routes()) {
+        for (Route route : ChMap.routes().subList(0,ChMap.TRAIN_ROUTE_LAST_INDEX)) {
 
             List<Node> list = new ArrayList<>();
 
@@ -103,9 +103,54 @@ class MapViewCreator {
                 }
             });
 
-
             gamePane.getChildren().add(routeNode);
         }
+
+
+
+
+            for (Route route : ChMap.routes().subList(ChMap.TRAIN_ROUTE_LAST_INDEX,ChMap.routes().size())){
+
+                Rectangle r2 = new Rectangle(RECTANGLE_WIDTH*3, RECTANGLE_HEIGHT);
+                r2.getStyleClass().add("filled");
+                Circle c1 = new Circle(CENTER_X, CENTER_Y, RADIUS);
+                Circle c2 = new Circle(CENTER_X * 2, CENTER_Y, RADIUS);
+
+                Node wagonGroup = new Group(r2, c1, c2);
+                wagonGroup.getStyleClass().add("car");
+
+                Rectangle voie = new Rectangle(RECTANGLE_WIDTH, RECTANGLE_HEIGHT);
+                voie.getStyleClass().addAll("track", "filled");
+
+                Node routeNode = new Group(voie, wagonGroup);
+
+               routeNode.setId(route.id());
+
+                routeNode.getStyleClass().addAll("route", route.level().name(), route.color() == null ? "NEUTRAL" : route.color().name());
+                routeNode.disableProperty().bind(claimRouteHandlerProperty.isNull().or(observableGameState.getClaimableRoute(route).not()));
+
+                routeNode.setOnMouseClicked(event -> {
+                    if (event.getClickCount() == 1 && event.getButton() == MouseButton.PRIMARY) {
+                        List<SortedBag<Card>> possibleClaimCards = observableGameState.getPlayerState().possibleClaimCards(route);
+                        ActionHandlers.ClaimRouteHandler claimRouteH = claimRouteHandlerProperty.get();
+
+                        if (possibleClaimCards.size() == 1) {
+                            claimRouteH.onClaimRoute(route, possibleClaimCards.get(0));
+                        } else {
+                            ActionHandlers.ChooseCardsHandler chooseCardsH =
+                                    chosenCards -> claimRouteH.onClaimRoute(route, chosenCards);
+                            cardChooser.chooseCards(possibleClaimCards, chooseCardsH);
+                        }
+                    }
+
+
+                });
+
+            }
+
+
+
+
 
         return gamePane;
     }
