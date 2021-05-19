@@ -154,7 +154,7 @@ class MapViewCreator {
                 Node routeNode = new Group(stackpaneClaimed, stackpane);
 
 
-                routeNode.getStyleClass().addAll("NEUTRAL");
+                routeNode.getStyleClass().addAll("route","NEUTRAL");
 
 
                 routeNode.disableProperty().bind(claimRouteHandlerProperty.isNull().or(observableGameState.getClaimableRoute(route).not()));
@@ -169,6 +169,13 @@ class MapViewCreator {
                     String p = newValue.name();
                     routeNode.getStyleClass().add(p);
                     oneFlyRoadOwned.set(true);
+                    for(Station aeroport:ChMap.aeroports()){
+                        if(route.station1().toString().equals(aeroport.toString())){
+
+                        }
+                    }
+
+
                 });
                 oneFlyRoadOwned.addListener((owner, old, newValue) -> {
                     if (observableGameState.routesProperty(route).getValue()==null) {
