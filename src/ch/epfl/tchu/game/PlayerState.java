@@ -146,7 +146,7 @@ public final class PlayerState extends PublicPlayerState {
                             if ((cd.color() == color) || (cd.color() == null)) aux += 1;
                         if (route.level() == Route.Level.OVERGROUND) if (cd.color() == color) aux += 1;
                     }
-                    if (aux == sd.size()) result.add(sd);
+                    if (aux == sd.size()&&!(sd.contains(Card.PLANE))) result.add(sd);
                 }
             }
         }
