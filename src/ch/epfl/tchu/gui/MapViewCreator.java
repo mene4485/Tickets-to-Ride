@@ -4,14 +4,19 @@ import ch.epfl.tchu.game.Card;
 import ch.epfl.tchu.SortedBag;
 import ch.epfl.tchu.game.ChMap;
 import ch.epfl.tchu.game.Route;
+import ch.epfl.tchu.game.Station;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +44,8 @@ class MapViewCreator {
      */
     public static Node createMapView(ObservableGameState observableGameState, ObjectProperty<ActionHandlers.ClaimRouteHandler> claimRouteHandlerProperty, CardChooser cardChooser) {
 
+        BooleanProperty oneFlyRoadOwned= new SimpleBooleanProperty(false);
+
         ImageView view = new ImageView();
         view.getStyleClass().add("map");
         ImageView planeLugano = new ImageView();
@@ -56,7 +63,11 @@ class MapViewCreator {
         gamePane.getStylesheets().addAll("map.css", "colors.css");
 
         //routes
-        for (Route route : ChMap.routes()) {
+        for (Route route : ChMap.routes().subList(0,ChMap.TRAIN_ROUTE_LAST_INDEX)) {
+
+
+
+
 
             List<Node> list = new ArrayList<>();
 
@@ -104,9 +115,92 @@ class MapViewCreator {
                 }
             });
 
-
             gamePane.getChildren().add(routeNode);
         }
+
+
+
+
+            for (Route route : ChMap.routes().subList(ChMap.TRAIN_ROUTE_LAST_INDEX,ChMap.routes().size())){
+
+
+                for (Station station:route.stations()) {
+
+
+                StackPane stackpaneClaimed =new StackPane();
+
+                Rectangle r2 = new Rectangle(RECTANGLE_WIDTH*2, RECTANGLE_HEIGHT);
+                r2.getStyleClass().add("filled");
+
+                Text text1= new Text("VOL ANNULÉ");
+
+
+                stackpaneClaimed.getChildren().addAll(r2,text1);
+
+
+                stackpaneClaimed.getStyleClass().add("car");
+
+                StackPane stackpane =new StackPane();
+
+
+                Rectangle voie = new Rectangle(RECTANGLE_WIDTH*2, RECTANGLE_HEIGHT);
+                voie.getStyleClass().addAll("track", "filled");
+
+
+                Text text2= new Text("-> "+route.stationOpposite(station));
+
+
+                stackpane.getChildren().addAll(voie,text2);
+
+
+                Node routeNode = new Group(stackpaneClaimed, stackpane);
+
+
+                routeNode.getStyleClass().addAll("NEUTRAL");
+
+
+                routeNode.disableProperty().bind(claimRouteHandlerProperty.isNull().or(observableGameState.getClaimableRoute(route).not()));
+
+                routeNode.disableProperty().bind(oneFlyRoadOwned);
+
+
+                 routeNode.setId(station +"-"+route.stationOpposite(station));
+
+
+
+
+                    observableGameState.routesProperty(route).addListener((owner, old, newValue) -> {
+                        String p = newValue.name();
+                        routeNode.getStyleClass().add(p);
+                    });
+
+
+
+
+
+                routeNode.setOnMouseClicked(event -> {
+                    if (event.getClickCount() == 1 && event.getButton() == MouseButton.PRIMARY) {
+                        List<SortedBag<Card>> possibleClaimCards = observableGameState.getPlayerState().possibleClaimCards(route);
+                        ActionHandlers.ClaimRouteHandler claimRouteH = claimRouteHandlerProperty.get();
+
+                        if (possibleClaimCards.size() == 1) {
+                            claimRouteH.onClaimRoute(route, possibleClaimCards.get(0));
+                        } else {
+                            ActionHandlers.ChooseCardsHandler chooseCardsH =
+                                    chosenCards -> claimRouteH.onClaimRoute(route, chosenCards);
+                            cardChooser.chooseCards(possibleClaimCards, chooseCardsH);
+                        }
+                    }
+
+
+                });
+                gamePane.getChildren().add(routeNode);
+            }
+
+                }
+
+
+
 
         return gamePane;
     }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class ChMap {
+
     private ChMap() {
     }
 
@@ -188,7 +189,6 @@ public final class ChMap {
 
 
 
-
     // Tickets
     private static final Ticket deToNeighbors = ticketToNeighbors(DE, 0, 5, 13, 5);
     private static final Ticket atToNeighbors = ticketToNeighbors(AT, 5, 0, 6, 14);
@@ -252,4 +252,12 @@ public final class ChMap {
         if (fr != 0) trips.addAll(Trip.all(from, FR, fr));
         return new Ticket(trips);
     }
+
+
+
+
+
+    public final static int TRAIN_ROUTE_LAST_INDEX = 87;
+
+
 }
