@@ -22,6 +22,10 @@ public final class ChMap {
         return ALL_TICKETS;
     }
 
+    public static List<Station> aeroports() {
+        return AEROPORTS;
+    }
+
     // Stations - cities
     private static final Station BAD = new Station(0, "Baden");
     private static final Station BAL = new Station(1, "Bâle");
@@ -87,6 +91,10 @@ public final class ChMap {
             BAD, BAL, BEL, BER, BRI, BRU, COI, DAV, DEL, FRI, GEN, INT, KRE, LAU, LCF, LOC, LUC,
             LUG, MAR, NEU, OLT, PFA, SAR, SCE, SCZ, SIO, SOL, STG, VAD, WAS, WIN, YVE, ZOU, ZUR,
             DE1, DE2, DE3, DE4, DE5, AT1, AT2, AT3, IT1, IT2, IT3, IT4, IT5, FR1, FR2, FR3, FR4);
+
+    private static final List<Station> AEROPORTS=List.of(DEL,GEN,LUG,STG);
+
+
 
     // Routes
     private static final List<Route> ALL_ROUTES = List.of(
