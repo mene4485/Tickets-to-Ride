@@ -124,7 +124,7 @@ class MapViewCreator {
 
                 StackPane stackpaneClaimed = new StackPane();
 
-                Rectangle r2 = new Rectangle(RECTANGLE_WIDTH * 2, RECTANGLE_HEIGHT);
+                Rectangle r2 = new Rectangle(RECTANGLE_WIDTH * 2.5, RECTANGLE_HEIGHT);
                 r2.getStyleClass().add("filled");
 
                 // Text text1= new Text("VOL ANNULÉ");
@@ -138,7 +138,7 @@ class MapViewCreator {
                 StackPane stackpane = new StackPane();
 
 
-                Rectangle voie = new Rectangle(RECTANGLE_WIDTH * 2, RECTANGLE_HEIGHT);
+                Rectangle voie = new Rectangle(RECTANGLE_WIDTH * 2.5, RECTANGLE_HEIGHT);
                 voie.getStyleClass().addAll("track", "filled");
 
 
