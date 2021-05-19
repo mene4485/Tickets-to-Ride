@@ -48,8 +48,8 @@ class MapViewCreator {
 
         ImageView view = new ImageView();
         view.getStyleClass().add("map");
-        ImageView planeLugano = new ImageView();
-        planeLugano.getStyleClass().addAll("plane", "Lugano");
+        ImageView planeBrusio = new ImageView();
+        planeBrusio.getStyleClass().addAll("plane", "Brusio");
         ImageView planeGeneve = new ImageView();
         planeGeneve.getStyleClass().addAll("plane", "Geneve");
         ImageView planeDelemont = new ImageView();
@@ -59,7 +59,7 @@ class MapViewCreator {
 
 
         Pane gamePane = new Pane();
-        gamePane.getChildren().addAll(view, planeLugano, planeGeneve, planeDelemont, planeStGall);
+        gamePane.getChildren().addAll(view, planeBrusio, planeGeneve, planeDelemont, planeStGall);
         gamePane.getStylesheets().addAll("map.css", "colors.css");
 
         //routes
@@ -124,7 +124,7 @@ class MapViewCreator {
 
                 StackPane stackpaneClaimed = new StackPane();
 
-                Rectangle r2 = new Rectangle(RECTANGLE_WIDTH * 2, RECTANGLE_HEIGHT);
+                Rectangle r2 = new Rectangle(RECTANGLE_WIDTH * 2.5, RECTANGLE_HEIGHT);
                 r2.getStyleClass().add("filled");
 
                 // Text text1= new Text("VOL ANNULÉ");
@@ -138,7 +138,7 @@ class MapViewCreator {
                 StackPane stackpane = new StackPane();
 
 
-                Rectangle voie = new Rectangle(RECTANGLE_WIDTH * 2, RECTANGLE_HEIGHT);
+                Rectangle voie = new Rectangle(RECTANGLE_WIDTH * 2.5, RECTANGLE_HEIGHT);
                 voie.getStyleClass().addAll("track", "filled");
 
 
@@ -178,7 +178,7 @@ class MapViewCreator {
                                     planeDelemont.getStyleClass().add(p);
                                     break;
                                 case 17 :
-                                    planeLugano.getStyleClass().add(p);
+                                    planeBrusio.getStyleClass().add(p);
                                     break;
                             }
                         }
