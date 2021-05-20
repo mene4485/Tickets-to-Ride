@@ -40,10 +40,10 @@ public class GraphicalPlayer {
         Stage stage=new Stage();
         Slider slide =new Slider();
         ColorPicker cp =new ColorPicker();
-        Label label=new Label("1");
+        Label label=new Label("5");
         GridPane grid =new GridPane();
         Button reset=new Button("Reset");
-        ToggleButton draw= new ToggleButton("Draw");
+        ToggleButton draw= new ToggleButton("DESSIN");
 
 
 
@@ -95,26 +95,25 @@ public class GraphicalPlayer {
 
         Scene scene1= new Scene(pane);
 
-       // Scene scene=new Scene(mainPane);
 
        canvas.disableProperty().bind(drawIsOn.not());
 
 
-         pane.getChildren().addAll(mainPane, canvas//,grid
+         pane.getChildren().addAll(mainPane, canvas
             );
 
             reset.setOnAction(e->reset());
             gc=canvas.getGraphicsContext2D();
             gc.setStroke(Color.BLACK);
-            gc.setLineWidth(1);
+            gc.setLineWidth(5);
 
 
             slide.setMin(1);
             slide.setMax(20);
-            slide.setValue(2);
+            slide.setValue(5);
             slide.setShowTickLabels(true);
             slide.setShowTickMarks(true);
-            slide.setMaxWidth(5);
+            slide.setMaxWidth(20);
             slide.valueProperty().addListener(e->{
                 gc.setLineWidth(slide.getValue());
                 label.setText(String.format("%.0f",slide.getValue()));
@@ -127,26 +126,38 @@ public class GraphicalPlayer {
 
             cp.setOnAction(e-> gc.setStroke(cp.getValue()));
 
+
+   ToggleButton gomme= new ToggleButton("GOMME");
+
             canvas.setOnMousePressed(e->{
                     gc.beginPath();
                 if(drawIsOn.getValue()) {
-                    gc.lineTo(e.getX(), e.getY());
-                    gc.stroke();
+                    if(gomme.isSelected()){
+                        gc.clearRect(e.getX(),e.getY(),gc.getLineWidth()*2,gc.getLineWidth()*2);
+                    }else {
+                        gc.lineTo(e.getX(), e.getY());
+                        gc.stroke();
+                    }
                 }
             });
             canvas.setOnMouseDragged(e->{
                 if(drawIsOn.getValue()) {
-                    gc.lineTo(e.getX(), e.getY());
-                    gc.stroke();
+                    if(gomme.isSelected()){
+                        gc.clearRect(e.getX(),e.getY(),gc.getLineWidth()*2,gc.getLineWidth()*2);
+                    }else {
+                        gc.lineTo(e.getX(), e.getY());
+                        gc.stroke();
+                    }
                 }
             });
-         //   ToggleButton rainbow=  new ToggleButton("Arc-en-Ciel");
 
 
 
-            grid.addRow(0,cp,slide,label,reset,draw);
-          //  grid.addRow(1,rainbow);
-            grid.setHgap(10);
+
+
+            grid.addRow(0,cp,slide,label);
+            grid.addRow(1,reset,draw,gomme);
+           // grid.setHgap(10);
             grid.setAlignment(Pos.TOP_CENTER);
 
         draw.setOnAction(e->{
@@ -171,7 +182,7 @@ public class GraphicalPlayer {
     private void reset(){
         gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
         gc.beginPath();
-        slide.setValue(1);
+        slide.setValue(5);
         cp.setValue(Color.BLACK);
         gc.setStroke(Color.BLACK);
 
