@@ -88,6 +88,13 @@ public final class Ticket implements Comparable<Ticket> {
     }
 
 
+    public List<Trip> getTrips(){
+        return trips;
+    }
+
+
+
+
 
     /**
      *<b>Redefinition of the method compareTo of Object</b>

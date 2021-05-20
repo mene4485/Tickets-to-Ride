@@ -7,8 +7,8 @@ ImageView.map {
 }
 
 ImageView.plane.Brusio { -fx-image: url("airportNone.png");-fx-scale-x: 0.05;-fx-scale-y: 0.05;-fx-translate-x: 800;-fx-translate-y: 310;}
-ImageView.plane.Brusio.PLAYER_1 { -fx-image: url("airportPlayer1.png");-fx-scale-x: 0.05;-fx-scale-y: 0.05;-fx-translate-x: 800;-fx-translate-y: 350;}
-ImageView.plane.Brusio.PLAYER_2 { -fx-image: url("airportPlayer2.png");-fx-scale-x: 0.05;-fx-scale-y: 0.05;-fx-translate-x: 800;-fx-translate-y: 350;}
+ImageView.plane.Brusio.PLAYER_1 { -fx-image: url("airportPlayer1.png");-fx-scale-x: 0.05;-fx-scale-y: 0.05;-fx-translate-x: 800;-fx-translate-y: 310;}
+ImageView.plane.Brusio.PLAYER_2 { -fx-image: url("airportPlayer2.png");-fx-scale-x: 0.05;-fx-scale-y: 0.05;-fx-translate-x: 800;-fx-translate-y: 310;}
 
 
 ImageView.plane.Geneve {-fx-image: url("airportNone.png");-fx-scale-x: 0.05;-fx-scale-y: 0.05;-fx-translate-x: -230;-fx-translate-y: 340;}
@@ -277,6 +277,70 @@ ImageView.plane.StGall.PLAYER_2 {-fx-image: url("airportPlayer2.png");-fx-scale-
 #BEL_WAS_2_3 { -fx-translate-x: 672; -fx-translate-y: 484; -fx-rotate: -124 }
 #BEL_WAS_2_4 { -fx-translate-x: 649; -fx-translate-y: 450; -fx-rotate: -124 }
 #BEL_LUG_2_1 { -fx-translate-x: 741; -fx-translate-y: 625; -fx-rotate: -81 }
+
+
+
+
+#0{-fx-translate-x: 549; -fx-translate-y: 144}
+#1{-fx-translate-x: 398; -fx-translate-y: 120}
+#2{-fx-translate-x: 755; -fx-translate-y: 595}
+#3{-fx-translate-x: 362; -fx-translate-y: 338}
+#4{-fx-translate-x: 490; -fx-translate-y: 543}
+#5{-fx-translate-x: 995; -fx-translate-y: 566}
+#6{-fx-translate-x: 853; -fx-translate-y: 373}
+#7{-fx-translate-x: 965; -fx-translate-y: 373}
+#8{-fx-translate-x: 312; -fx-translate-y: 189}
+#9{-fx-translate-x: 44; -fx-translate-y: 595}
+#10{-fx-translate-x: 741; -fx-translate-y: 625}
+#11{-fx-translate-x: 121; -fx-translate-y: 625}
+#12{-fx-translate-x: 741; -fx-translate-y: 625}
+#13{-fx-translate-x: 741; -fx-translate-y: 625}
+#14{-fx-translate-x: 741; -fx-translate-y: 625}
+#15{-fx-translate-x: 741; -fx-translate-y: 625}
+#16{-fx-translate-x: 741; -fx-translate-y: 625}
+#17{-fx-translate-x: 741; -fx-translate-y: 625}
+#18{-fx-translate-x: 741; -fx-translate-y: 625}
+#19{-fx-translate-x: 741; -fx-translate-y: 625}
+#20{-fx-translate-x: 741; -fx-translate-y: 625}
+#21{-fx-translate-x: 741; -fx-translate-y: 625}
+#22{-fx-translate-x: 741; -fx-translate-y: 625}
+#23{-fx-translate-x: 741; -fx-translate-y: 625}
+#24{-fx-translate-x: 741; -fx-translate-y: 625}
+#25{-fx-translate-x: 741; -fx-translate-y: 625}
+#26{-fx-translate-x: 741; -fx-translate-y: 625}
+#27{-fx-translate-x: 741; -fx-translate-y: 625}
+#28{-fx-translate-x: 741; -fx-translate-y: 625}
+#29{-fx-translate-x: 741; -fx-translate-y: 625}
+#30{-fx-translate-x: 741; -fx-translate-y: 625}
+#31{-fx-translate-x: 741; -fx-translate-y: 625}
+#32{-fx-translate-x: 741; -fx-translate-y: 625}
+#33{-fx-translate-x: 741; -fx-translate-y: 625}
+#34{-fx-translate-x: 741; -fx-translate-y: 625}
+#35{-fx-translate-x: 741; -fx-translate-y: 625}
+#36{-fx-translate-x: 741; -fx-translate-y: 625}
+#37{-fx-translate-x: 741; -fx-translate-y: 625}
+#38{-fx-translate-x: 741; -fx-translate-y: 625}
+#39{-fx-translate-x: 741; -fx-translate-y: 625}
+#40{-fx-translate-x: 741; -fx-translate-y: 625}
+#41{-fx-translate-x: 741; -fx-translate-y: 625}
+#42{-fx-translate-x: 741; -fx-translate-y: 625}
+#43{-fx-translate-x: 741; -fx-translate-y: 625}
+#44{-fx-translate-x: 741; -fx-translate-y: 625}
+#45{-fx-translate-x: 741; -fx-translate-y: 625}
+#46{-fx-translate-x: 741; -fx-translate-y: 625}
+#47{-fx-translate-x: 741; -fx-translate-y: 625}
+#48{-fx-translate-x: 741; -fx-translate-y: 625}
+#49{-fx-translate-x: 741; -fx-translate-y: 625}
+#50{-fx-translate-x: 741; -fx-translate-y: 625}
+
+
+
+
+
+
+
+
+
 
 /*Geneve : 10 , SaintGall : 27, Delemont : 8, Brusio : 5*/
 

@@ -45,7 +45,7 @@ class MapViewCreator {
      * @param cardChooser               way used to choose the cards to claim a route
      * @return The MapView (central part of the interface) that updates depending on <i>observableGameState</i>
      */
-    public static Node createMapView(ObservableGameState observableGameState, ObjectProperty<ActionHandlers.ClaimRouteHandler> claimRouteHandlerProperty, CardChooser cardChooser) {
+    public static Pane createMapView(ObservableGameState observableGameState, ObjectProperty<ActionHandlers.ClaimRouteHandler> claimRouteHandlerProperty, CardChooser cardChooser) {
 
         BooleanProperty oneFlyRoadOwned = new SimpleBooleanProperty(false);
 
@@ -169,9 +169,9 @@ class MapViewCreator {
                     routeNode.getStyleClass().add(p);
                     text2.setFill(Color.BLACK);
                     oneFlyRoadOwned.set(true);
-                    for (Station aeroport : ChMap.aeroports()) {
-                        if (route.station1().id()==aeroport.id()||route.station2().id()==aeroport.id()) {
-                            switch (aeroport.id()){
+                    for (Station airport : ChMap.aeroports()) {
+                        if (route.station1().id()==airport.id()||route.station2().id()==airport.id()) {
+                            switch (airport.id()){
                                 case 27:
                                     planeStGall.getStyleClass().add(p);
                                     break;
@@ -222,6 +222,18 @@ class MapViewCreator {
             }
 
         }
+
+
+gamePane.setOnMouseClicked(event -> {
+    System.out.println(event.getX());
+    System.out.println(event.getY());
+
+});
+
+
+
+
+
 
 
         return gamePane;

@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -16,14 +17,14 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static javafx.application.Platform.isFxApplicationThread;
 
@@ -74,7 +75,7 @@ public class GraphicalPlayer {
 
         MapViewCreator.CardChooser cardChooser = this::chooseClaimCards;
 
-        Node mapView = MapViewCreator
+        Pane mapView = MapViewCreator
                 .createMapView(observableGameState, claimRouteHandlerObjectProperty, cardChooser);
 
         Node cardsView = DecksViewCreator.
@@ -83,6 +84,55 @@ public class GraphicalPlayer {
                 .createHandView(observableGameState);
 
         Node infoView = InfoViewCreator.createInfoView(identity, playerNames, observableGameState, strings);
+
+
+
+ObservableList<Station> stations= new SimpleListProperty<>(FXCollections.observableArrayList());
+BooleanProperty stationsContainStation= new SimpleBooleanProperty(false);
+
+
+        for (Station station:ChMap.stations()) {
+            Circle c =new Circle(7);
+            c.setStroke(Color.GREEN);
+            c.setFill(Color.GREEN);
+            c.setId(Integer.toString(station.id()));
+
+            observableGameState.ticketSelectedProperty().addListener((e,o,n)->{
+    Set<Station> newStations =new HashSet<>();
+                for (Trip trip: n.getTrips()) {
+                    newStations.addAll(List.of(trip.from(),trip.to()));
+                }
+
+                stations.setAll(newStations);
+             /*   for (Station s:stations) {
+                    boolean change=false;
+                    if(s.id()==station.id()){
+                        stationsContainStation.set(true);
+                        change=true;
+                    }
+                    if(!change)stationsContainStation.set(false);
+
+                }*/
+                if(stations.contains(station)){
+                    stationsContainStation.set(true);
+                }else{
+                    stationsContainStation.set(false);
+                }
+
+});
+
+      /*      stationsContainStation.addListener((e,o,n)->{
+                c.visibleProperty().set(n);
+            });*/
+
+
+
+
+            //c.visibleProperty().bind(stationsContainStation);
+
+            mapView.getChildren().add(c);
+
+        }
 
 
 
