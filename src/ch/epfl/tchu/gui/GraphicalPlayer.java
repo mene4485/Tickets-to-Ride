@@ -100,9 +100,9 @@ public class GraphicalPlayer {
 
 
         for (Station station : ChMap.stations()) {
-            Circle c = new Circle(7);
-            c.setStroke(Color.GREEN);
-            c.setFill(Color.GREEN);
+            Circle c = new Circle(11);
+            c.setStroke(Color.FLORALWHITE);
+            c.setFill(Color.DEEPPINK);
             c.setId(Integer.toString(station.id()));
 
             observableGameState.ticketSelectedProperty().addListener((e, o, n) -> {
