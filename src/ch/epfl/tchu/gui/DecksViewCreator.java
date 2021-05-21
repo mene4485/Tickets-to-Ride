@@ -7,6 +7,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -34,6 +35,19 @@ class DecksViewCreator {
 
         ListView<Ticket> view = new ListView<>(observableGameState.getPlayerTickets());
         view.setId("tickets");
+
+
+       view.addEventHandler(MouseEvent.ANY,e->{
+
+           if(view.getSelectionModel().getSelectedItem()!=null){
+
+        observableGameState.setTicketSelected(view.getSelectionModel().getSelectedItem());
+           }
+       });
+
+
+
+        view.getSelectionModel().getSelectedItems();
 
         HBox hBox = new HBox();
         hBox.getChildren().add(view);

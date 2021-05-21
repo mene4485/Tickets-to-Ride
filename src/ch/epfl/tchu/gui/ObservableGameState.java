@@ -46,6 +46,14 @@ public class ObservableGameState {
     private final Map<Card, IntegerProperty> playerCardsCount = createMapPropertiesCard();
     private final Map<Route, BooleanProperty> claimableRoute = createMapPropertiesClaimableRoutes();
 
+
+
+    public ObjectProperty<Ticket> ticketSelectedProperty() {
+        return ticketSelected;
+    }
+
+    private final ObjectProperty<Ticket> ticketSelected =new SimpleObjectProperty<>();
+
     /**
      * Constructor of ObservableGameState
      *
@@ -53,6 +61,14 @@ public class ObservableGameState {
      */
     public ObservableGameState(PlayerId owner) {
         this.owner = owner;
+    }
+
+
+
+
+
+    public void setTicketSelected(Ticket t){
+        ticketSelected.setValue(t);
     }
 
 

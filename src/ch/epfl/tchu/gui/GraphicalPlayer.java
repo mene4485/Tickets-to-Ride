@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -16,14 +17,14 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static javafx.application.Platform.isFxApplicationThread;
 
@@ -40,10 +41,10 @@ public class GraphicalPlayer {
         Stage stage=new Stage();
         Slider slide =new Slider();
         ColorPicker cp =new ColorPicker();
-        Label label=new Label("1");
+        Label label=new Label("5");
         GridPane grid =new GridPane();
         Button reset=new Button("Reset");
-        ToggleButton draw= new ToggleButton("Draw");
+        ToggleButton draw= new ToggleButton("DESSIN");
 
 
 
@@ -74,7 +75,7 @@ public class GraphicalPlayer {
 
         MapViewCreator.CardChooser cardChooser = this::chooseClaimCards;
 
-        Node mapView = MapViewCreator
+        Pane mapView = MapViewCreator
                 .createMapView(observableGameState, claimRouteHandlerObjectProperty, cardChooser);
 
         Node cardsView = DecksViewCreator.
@@ -83,6 +84,55 @@ public class GraphicalPlayer {
                 .createHandView(observableGameState);
 
         Node infoView = InfoViewCreator.createInfoView(identity, playerNames, observableGameState, strings);
+
+
+
+ObservableList<Station> stations= new SimpleListProperty<>(FXCollections.observableArrayList());
+BooleanProperty stationsContainStation= new SimpleBooleanProperty(false);
+
+
+        for (Station station:ChMap.stations()) {
+            Circle c =new Circle(7);
+            c.setStroke(Color.GREEN);
+            c.setFill(Color.GREEN);
+            c.setId(Integer.toString(station.id()));
+
+            observableGameState.ticketSelectedProperty().addListener((e,o,n)->{
+    Set<Station> newStations =new HashSet<>();
+                for (Trip trip: n.getTrips()) {
+                    newStations.addAll(List.of(trip.from(),trip.to()));
+                }
+
+                stations.setAll(newStations);
+             /*   for (Station s:stations) {
+                    boolean change=false;
+                    if(s.id()==station.id()){
+                        stationsContainStation.set(true);
+                        change=true;
+                    }
+                    if(!change)stationsContainStation.set(false);
+
+                }*/
+                if(stations.contains(station)){
+                    stationsContainStation.set(true);
+                }else{
+                    stationsContainStation.set(false);
+                }
+
+});
+
+      /*      stationsContainStation.addListener((e,o,n)->{
+                c.visibleProperty().set(n);
+            });*/
+
+
+
+
+            //c.visibleProperty().bind(stationsContainStation);
+
+            mapView.getChildren().add(c);
+
+        }
 
 
 
@@ -95,26 +145,25 @@ public class GraphicalPlayer {
 
         Scene scene1= new Scene(pane);
 
-       // Scene scene=new Scene(mainPane);
 
        canvas.disableProperty().bind(drawIsOn.not());
 
 
-         pane.getChildren().addAll(mainPane, canvas//,grid
+         pane.getChildren().addAll(mainPane, canvas
             );
 
             reset.setOnAction(e->reset());
             gc=canvas.getGraphicsContext2D();
             gc.setStroke(Color.BLACK);
-            gc.setLineWidth(1);
+            gc.setLineWidth(5);
 
 
             slide.setMin(1);
             slide.setMax(20);
-            slide.setValue(2);
+            slide.setValue(5);
             slide.setShowTickLabels(true);
             slide.setShowTickMarks(true);
-            slide.setMaxWidth(5);
+            slide.setMaxWidth(20);
             slide.valueProperty().addListener(e->{
                 gc.setLineWidth(slide.getValue());
                 label.setText(String.format("%.0f",slide.getValue()));
@@ -127,26 +176,38 @@ public class GraphicalPlayer {
 
             cp.setOnAction(e-> gc.setStroke(cp.getValue()));
 
+
+   ToggleButton gomme= new ToggleButton("GOMME");
+
             canvas.setOnMousePressed(e->{
                     gc.beginPath();
                 if(drawIsOn.getValue()) {
-                    gc.lineTo(e.getX(), e.getY());
-                    gc.stroke();
+                    if(gomme.isSelected()){
+                        gc.clearRect(e.getX(),e.getY(),gc.getLineWidth()*2,gc.getLineWidth()*2);
+                    }else {
+                        gc.lineTo(e.getX(), e.getY());
+                        gc.stroke();
+                    }
                 }
             });
             canvas.setOnMouseDragged(e->{
                 if(drawIsOn.getValue()) {
-                    gc.lineTo(e.getX(), e.getY());
-                    gc.stroke();
+                    if(gomme.isSelected()){
+                        gc.clearRect(e.getX(),e.getY(),gc.getLineWidth()*2,gc.getLineWidth()*2);
+                    }else {
+                        gc.lineTo(e.getX(), e.getY());
+                        gc.stroke();
+                    }
                 }
             });
-         //   ToggleButton rainbow=  new ToggleButton("Arc-en-Ciel");
 
 
 
-            grid.addRow(0,cp,slide,label,reset,draw);
-          //  grid.addRow(1,rainbow);
-            grid.setHgap(10);
+
+
+            grid.addRow(0,cp,slide,label);
+            grid.addRow(1,reset,draw,gomme);
+           // grid.setHgap(10);
             grid.setAlignment(Pos.TOP_CENTER);
 
         draw.setOnAction(e->{
@@ -171,7 +232,7 @@ public class GraphicalPlayer {
     private void reset(){
         gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
         gc.beginPath();
-        slide.setValue(1);
+        slide.setValue(5);
         cp.setValue(Color.BLACK);
         gc.setStroke(Color.BLACK);
 
