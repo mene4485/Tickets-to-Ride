@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/TchuTchu_Extensions.iml" filepath="$PROJECT_DIR$/.idea/TchuTchu_Extensions.iml" />
+      <module fileurl="file://$PROJECT_DIR$/audio/audio.iml" filepath="$PROJECT_DIR$/audio/audio.iml" />
     </modules>
   </component>
 </project>
