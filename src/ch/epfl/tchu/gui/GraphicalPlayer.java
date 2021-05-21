@@ -35,16 +35,27 @@ import static javafx.application.Platform.isFxApplicationThread;
  * @author Menelik Nouvellon (328132)
  */
 public class GraphicalPlayer {
-    Canvas canvas;
-    GraphicsContext gc;
-    StackPane pane = new StackPane();
-    Stage stage = new Stage();
-    Slider slide = new Slider();
-    ColorPicker cp = new ColorPicker();
-    Label label = new Label("5");
-    GridPane grid = new GridPane();
-    Button reset = new Button("Reset");
-    ToggleButton draw = new ToggleButton();
+
+
+     private Map<Station,BooleanProperty> stationInticket=ticketMapBuilder();
+
+    private Map<Station, BooleanProperty> ticketMapBuilder() {
+        Map<Station, BooleanProperty> map =new HashMap<>();
+                          ChMap.stations().forEach(e->map.put(e,new SimpleBooleanProperty(false)));
+
+                          return map;
+    }
+
+    private Canvas canvas;
+    private GraphicsContext gc;
+    private StackPane pane = new StackPane();
+    private Stage stage = new Stage();
+    private Slider slide = new Slider();
+    private ColorPicker cp = new ColorPicker();
+    private Label label = new Label("5");
+    private GridPane grid = new GridPane();
+    private Button reset = new Button("Reset");
+    private ToggleButton draw = new ToggleButton();
 
 
     public final static int MAX_MESSAGE_NUMBER = 5;
@@ -111,9 +122,9 @@ public class GraphicalPlayer {
 
                 }*/
                 if (stations.contains(station)) {
-                    stationsContainStation.set(true);
+                    stationInticket.get(station).set(true);
                 } else {
-                    stationsContainStation.set(false);
+                    stationInticket.get(station).set(false);
                 }
 
             });
@@ -123,7 +134,7 @@ public class GraphicalPlayer {
             });*/
 
 
-            //c.visibleProperty().bind(stationsContainStation);
+            c.visibleProperty().bind(stationInticket.get(station));
 
             mapView.getChildren().add(c);
 
