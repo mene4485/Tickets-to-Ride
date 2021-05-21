@@ -11,8 +11,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.IOException;
 
 
 /**
@@ -102,6 +109,7 @@ class DecksViewCreator {
 
         vBox.getChildren().add(buttonGraphicTicket);
 
+        Clip cardChoosingSound = createAudio("resources/CardSound.wav");
         //add the face up cards
         for (int i = 0; i < Constants.FACE_UP_CARDS_COUNT; i++) {
             ReadOnlyObjectProperty<Card> card = observableGameState.cardStateFUC(i);
@@ -133,7 +141,12 @@ class DecksViewCreator {
             });
             stackPane.getStyleClass().addAll("null", "card");
             int j = i;
-            stackPane.setOnMouseClicked(e -> cardHandler.get().onDrawCard(j));
+
+            stackPane.setOnMouseClicked(e -> {
+                cardHandler.get().onDrawCard(j);
+                cardChoosingSound.start();
+                cardChoosingSound.setMicrosecondPosition(0);
+            });
 
 
             vBox.getChildren().add(stackPane);
@@ -146,14 +159,41 @@ class DecksViewCreator {
 
         buttonGraphicCard.getStyleClass().add("gauged");
         buttonGraphicCard.setText(StringsFr.CARDS);
-        buttonGraphicCard.setOnMouseClicked(e -> cardHandler.get().onDrawCard(Constants.DECK_SLOT));
+        buttonGraphicCard.setOnMouseClicked(e -> {
+            cardHandler.get().onDrawCard(Constants.DECK_SLOT);
+            cardChoosingSound.start();
+            cardChoosingSound.setMicrosecondPosition(0);
+        });
 
         buttonGraphicCard.disableProperty().bind(cardHandler.isNull());
 
         vBox.getChildren().add(buttonGraphicCard);
 
-
         return vBox;
+    }
+
+    /**
+     * Methode qui créer un audioclip à partir d'un fichier audio
+     * @param audioFile le nom du file
+     * @return le Clip audio du file
+     */
+    public static Clip createAudio(String audioFile){
+        File file = new File(audioFile);
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
+            try {
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                return clip;
+            } catch (LineUnavailableException e) {
+                e.printStackTrace();
+            }
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private static StackPane createRectangle(String image) {

@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
@@ -53,12 +54,13 @@ class InfoViewCreator {
             Circle circle = new Circle(5);
             circle.getStyleClass().add("filled");
             ReadOnlyIntegerProperty ticketCount = playerId == owner ? observableGameState.playerTicketCountProperty() : observableGameState.otherPlayerTicketCountProperty();
+
             ReadOnlyIntegerProperty cardCount = playerId == owner ? observableGameState.playerCardCountProperty() : observableGameState.otherPlayerCardCountProperty();
             ReadOnlyIntegerProperty carCount = playerId == owner ? observableGameState.playerCarCountProperty() : observableGameState.otherPlayerCarCountProperty();
             ReadOnlyIntegerProperty points = playerId == owner ? observableGameState.playerPointsProperty() : observableGameState.otherPlayerPointsProperty();
             Text text = new Text();
             text.textProperty().bind(Bindings.format(StringsFr.PLAYER_STATS, playerNames.get(playerId), ticketCount, cardCount, carCount, points));
-
+            text.setFont(new Font("Tahoma",15));
             stat.getChildren().addAll(circle, text);
             playerStats.getChildren().add(stat);
         }

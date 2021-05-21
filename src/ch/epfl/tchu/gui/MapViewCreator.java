@@ -21,6 +21,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+import javax.sound.sampled.Clip;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,9 +93,12 @@ class MapViewCreator {
             Node routeNode = new Group(list);
             routeNode.setId(route.id());
 
+            Clip cardChoosingSound = DecksViewCreator.createAudio("resources/tchutchu.wav");
             observableGameState.routesProperty(route).addListener((owner, old, newValue) -> {
                 String p = newValue.name();
                 routeNode.getStyleClass().add(p);
+                cardChoosingSound.start();
+                cardChoosingSound.setMicrosecondPosition(0);
             });
 
             routeNode.getStyleClass().addAll("route", route.level().name(), route.color() == null ? "NEUTRAL" : route.color().name());
@@ -108,8 +112,8 @@ class MapViewCreator {
                     if (possibleClaimCards.size() == 1) {
                         claimRouteH.onClaimRoute(route, possibleClaimCards.get(0));
                     } else {
-                        ActionHandlers.ChooseCardsHandler chooseCardsH =
-                                chosenCards -> claimRouteH.onClaimRoute(route, chosenCards);
+                        // ou est-ce qu'on sait si le mec a pu prendre la route ou pas ?
+                        ActionHandlers.ChooseCardsHandler chooseCardsH = chosenCards -> claimRouteH.onClaimRoute(route, chosenCards);
                         cardChooser.chooseCards(possibleClaimCards, chooseCardsH);
                     }
                 }
@@ -121,48 +125,35 @@ class MapViewCreator {
 
         for (Route route : ChMap.routes().subList(ChMap.TRAIN_ROUTE_LAST_INDEX, ChMap.routes().size())) {
 
-
             for (Station station : route.stations()) {
-
 
                 StackPane stackpaneClaimed = new StackPane();
 
-                Rectangle r2 = new Rectangle(RECTANGLE_WIDTH * 2.5, RECTANGLE_HEIGHT+3);
+                Rectangle r2 = new Rectangle(RECTANGLE_WIDTH * 2.5, RECTANGLE_HEIGHT + 3);
                 r2.getStyleClass().add("filled");
 
-
                 stackpaneClaimed.getChildren().addAll(r2);
-
 
                 stackpaneClaimed.getStyleClass().add("car");
 
                 StackPane stackpane = new StackPane();
 
-
-                Rectangle voie = new Rectangle(RECTANGLE_WIDTH * 2.5, RECTANGLE_HEIGHT+3);
+                Rectangle voie = new Rectangle(RECTANGLE_WIDTH * 2.5, RECTANGLE_HEIGHT + 3);
                 voie.getStyleClass().addAll("track", "filled");
-
 
                 Text text2 = new Text("-> " + route.stationOpposite(station));
                 text2.setFont(Font.font("Helvetica"));
                 text2.setFill(Color.WHITE);
 
-
                 stackpane.getChildren().addAll(voie, text2);
-
 
                 Node routeNode = new Group(stackpaneClaimed, stackpane);
 
-
                 routeNode.getStyleClass().addAll("route", "PLANE");
-
 
                 routeNode.disableProperty().bind(claimRouteHandlerProperty.isNull().or(observableGameState.getClaimableRoute(route).not()).or(oneFlyRoadOwned));
 
-
-
                 routeNode.setId(new StringBuilder().append(station.id()).append("-").append(route.stationOpposite(station).id()).toString());
-
 
                 observableGameState.routesProperty(route).addListener((owner, old, newValue) -> {
                     String p = newValue.name();
@@ -170,8 +161,10 @@ class MapViewCreator {
                     text2.setFill(Color.BLACK);
                     oneFlyRoadOwned.set(true);
                     for (Station airport : ChMap.aeroports()) {
-                        if (route.station1().id()==airport.id()||route.station2().id()==airport.id()) {
-                            switch (airport.id()){
+                        if (route.station1().id() == airport.id() || route.station2().id() == airport.id()) {
+                            Clip audioChoosingAirRoute = DecksViewCreator.createAudio("resources/airplane.wav");
+                            audioChoosingAirRoute.start();
+                            switch (airport.id()) {
                                 case 27:
                                     planeStGall.getStyleClass().add(p);
                                     break;
@@ -181,14 +174,13 @@ class MapViewCreator {
                                 case 8:
                                     planeDelemont.getStyleClass().add(p);
                                     break;
-                                case 5 :
+                                case 5:
                                     planeBrusio.getStyleClass().add(p);
                                     break;
                             }
+                            audioChoosingAirRoute.setMicrosecondPosition(0);
                         }
                     }
-
-
                 });
                 oneFlyRoadOwned.addListener((owner, old, newValue) -> {
                     if (observableGameState.routesProperty(route).getValue() == null) {
@@ -196,7 +188,6 @@ class MapViewCreator {
                         text2.setFill(Color.DARKRED);
                     }
                 });
-
 
                 routeNode.setOnMouseClicked(event -> {
                     if (event.getClickCount() == 1 && event.getButton() == MouseButton.PRIMARY) {
@@ -211,29 +202,14 @@ class MapViewCreator {
                             cardChooser.chooseCards(possibleClaimCards, chooseCardsH);
                         }
                     }
-
-
                 });
 
-
                 gamePane.getChildren().add(routeNode);
-
-
             }
-
         }
 
 
-gamePane.setOnMouseClicked(event -> {
-    System.out.println(event.getX());
-    System.out.println(event.getY());
-
-});
-
-
-
-
-
+        gamePane.setOnMouseClicked(event -> System.out.println("(" + event.getX() + "," + event.getY() + ")"));
 
 
         return gamePane;

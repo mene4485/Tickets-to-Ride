@@ -282,40 +282,43 @@ ImageView.plane.StGall.PLAYER_2 {-fx-image: url("airportPlayer2.png");-fx-scale-
 
 
 #0{-fx-translate-x: 549; -fx-translate-y: 144}
-#1{-fx-translate-x: 398; -fx-translate-y: 120}
-#2{-fx-translate-x: 755; -fx-translate-y: 595}
+#1{-fx-translate-x: 397; -fx-translate-y: 122}
+#2{-fx-translate-x: 755; -fx-translate-y: 597}
 #3{-fx-translate-x: 362; -fx-translate-y: 338}
-#4{-fx-translate-x: 490; -fx-translate-y: 543}
-#5{-fx-translate-x: 995; -fx-translate-y: 566}
-#6{-fx-translate-x: 853; -fx-translate-y: 373}
-#7{-fx-translate-x: 965; -fx-translate-y: 373}
-#8{-fx-translate-x: 312; -fx-translate-y: 189}
-#9{-fx-translate-x: 308; -fx-translate-y: 388}
-#10{-fx-translate-x: 44; -fx-translate-y: 595}
+#4{-fx-translate-x: 490; -fx-translate-y: 545}
+#5{-fx-translate-x: 995; -fx-translate-y: 568}
+#6{-fx-translate-x: 853; -fx-translate-y: 375}
+#7{-fx-translate-x: 965; -fx-translate-y: 376}
+#8{-fx-translate-x: 312; -fx-translate-y: 191}
+#9{-fx-translate-x: 308; -fx-translate-y: 391}
+#10{-fx-translate-x: 44; -fx-translate-y: 596}
 #11{-fx-translate-x: 464; -fx-translate-y: 434}
-#12{-fx-translate-x: 741; -fx-translate-y: 625}
-#13{-fx-translate-x: 741; -fx-translate-y: 625}
-#14{-fx-translate-x: 741; -fx-translate-y: 625}
-#15{-fx-translate-x: 741; -fx-translate-y: 625}
-#16{-fx-translate-x: 741; -fx-translate-y: 625}
-#17{-fx-translate-x: 741; -fx-translate-y: 625}
-#18{-fx-translate-x: 741; -fx-translate-y: 625}
-#19{-fx-translate-x: 741; -fx-translate-y: 625}
-#20{-fx-translate-x: 741; -fx-translate-y: 625}
-#21{-fx-translate-x: 741; -fx-translate-y: 625}
-#22{-fx-translate-x: 741; -fx-translate-y: 625}
-#23{-fx-translate-x: 741; -fx-translate-y: 625}
-#24{-fx-translate-x: 741; -fx-translate-y: 625}
-#25{-fx-translate-x: 741; -fx-translate-y: 625}
-#26{-fx-translate-x: 741; -fx-translate-y: 625}
-#27{-fx-translate-x: 741; -fx-translate-y: 625}
-#28{-fx-translate-x: 741; -fx-translate-y: 625}
-#29{-fx-translate-x: 741; -fx-translate-y: 625}
-#30{-fx-translate-x: 741; -fx-translate-y: 625}
-#31{-fx-translate-x: 741; -fx-translate-y: 625}
-#32{-fx-translate-x: 741; -fx-translate-y: 625}
-#33{-fx-translate-x: 741; -fx-translate-y: 625}
-#34{-fx-translate-x: 741; -fx-translate-y: 625}
+#12{-fx-translate-x: 777; -fx-translate-y: 86}
+#13{-fx-translate-x: 182; -fx-translate-y: 476}
+#14{-fx-translate-x: 185; -fx-translate-y: 271}
+#15{-fx-translate-x: 680; -fx-translate-y: 614}
+#16{-fx-translate-x: 561; -fx-translate-y: 303}
+#17{-fx-translate-x: 737; -fx-translate-y: 663}
+
+#18{-fx-translate-x: 256; -fx-translate-y: 638}
+#19{-fx-translate-x: 237; -fx-translate-y: 321}
+#20{-fx-translate-x: 460; -fx-translate-y: 208}
+#21{-fx-translate-x: 691; -fx-translate-y: 253}
+#22{-fx-translate-x: 824; -fx-translate-y: 311}
+#23{-fx-translate-x: 628; -fx-translate-y: 55}
+#24{-fx-translate-x: 642; -fx-translate-y: 320}
+#25{-fx-translate-x: 345; -fx-translate-y: 575}
+#26{-fx-translate-x: 380; -fx-translate-y: 222}
+#27{-fx-translate-x: 814; -fx-translate-y: 154}
+#28{-fx-translate-x: 864; -fx-translate-y: 256}
+#29{-fx-translate-x: 644; -fx-translate-y: 430}
+#30{-fx-translate-x: 659; -fx-translate-y: 121}
+#31{-fx-translate-x: 169; -fx-translate-y: 393}
+#32{-fx-translate-x: 615; -fx-translate-y: 253}
+#33{-fx-translate-x: 614; -fx-translate-y: 182}
+
+/* Countries
+#34{-fx-translate-x: 380; -fx-translate-y: 223}
 #35{-fx-translate-x: 741; -fx-translate-y: 625}
 #36{-fx-translate-x: 741; -fx-translate-y: 625}
 #37{-fx-translate-x: 741; -fx-translate-y: 625}
@@ -331,7 +334,7 @@ ImageView.plane.StGall.PLAYER_2 {-fx-image: url("airportPlayer2.png");-fx-scale-
 #47{-fx-translate-x: 741; -fx-translate-y: 625}
 #48{-fx-translate-x: 741; -fx-translate-y: 625}
 #49{-fx-translate-x: 741; -fx-translate-y: 625}
-#50{-fx-translate-x: 741; -fx-translate-y: 625}
+#50{-fx-translate-x: 741; -fx-translate-y: 625} */
 
 
 
