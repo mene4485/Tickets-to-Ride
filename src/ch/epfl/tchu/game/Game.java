@@ -51,8 +51,14 @@ public final class Game {
             gameState = gameState.withoutTopTickets(Constants.INITIAL_TICKETS_COUNT);
             updateState(players, gameState);
         }
+
         for (Map.Entry<PlayerId, Player> m : players.entrySet()) {
             gameState = gameState.withInitiallyChosenTickets(m.getKey(), m.getValue().chooseInitialTickets());
+        }
+
+
+
+        for (Map.Entry<PlayerId, Player> m : players.entrySet()) {
             PlayerState ps = gameState.playerState(m.getKey());
             int size = ps.tickets().size();
             String s = mapInfo.get(m.getKey()).keptTickets(size);
