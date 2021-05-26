@@ -112,10 +112,10 @@ public class ObservableGameState {
 
         //Players Attributes
         for (PlayerId playerId : PlayerId.values()) {
-            playerCarCount.get(playerId).setValue(playerState.carCount());
-            playerPoints.get(playerId).setValue(playerState.claimPoints());
-            playerCardCount.get(playerId).setValue(playerState.cardCount());
-            playerTicketCount.get(playerId).setValue(playerState.ticketCount());
+            playerCarCount.get(playerId).setValue(publicGameState.playerState(playerId).carCount());
+            playerPoints.get(playerId).setValue(publicGameState.playerState(playerId).claimPoints());
+            playerCardCount.get(playerId).setValue(publicGameState.playerState(playerId).cardCount());
+            playerTicketCount.get(playerId).setValue(publicGameState.playerState(playerId).ticketCount());
         }
 
 
