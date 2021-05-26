@@ -51,6 +51,7 @@ class InfoViewCreator {
             TextFlow stat = new TextFlow();
             stat.getStyleClass().add(playerId.name());
 
+
             Circle circle = new Circle(5);
             circle.getStyleClass().add("filled");
             ReadOnlyIntegerProperty ticketCount = observableGameState.playerTicketCountProperty(playerId);
@@ -59,7 +60,8 @@ class InfoViewCreator {
             ReadOnlyIntegerProperty points = observableGameState.playerPointsProperty(playerId);
             Text text = new Text();
             text.textProperty().bind(Bindings.format(StringsFr.PLAYER_STATS, playerNames.get(playerId), ticketCount, cardCount, carCount, points));
-            text.setFont(new Font("Tahoma",15));
+            Font font = Font.loadFont("file:resources/SFUIDisplay-Light.ttf",15);
+            text.setFont(font);
             stat.getChildren().addAll(circle, text);
             playerStats.getChildren().add(stat);
         }
