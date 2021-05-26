@@ -209,8 +209,6 @@ class MapViewCreator {
         }
 
 
-        gamePane.setOnMouseClicked(event -> System.out.println("(" + event.getX() + "," + event.getY() + ")"));
-
 
         return gamePane;
     }
