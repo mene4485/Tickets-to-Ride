@@ -86,7 +86,7 @@ public class GraphicalPlayer {
         this.drawTicketsHandlerObjectProperty = new SimpleObjectProperty<>();
         this.claimRouteHandlerObjectProperty = new SimpleObjectProperty<>();
         this.mainStage = new Stage();
-       
+
         pane  = new StackPane();
         stage = new Stage();
         slide = new Slider();
@@ -98,12 +98,13 @@ public class GraphicalPlayer {
         reset = new Button("Reset");
         draw  = new ToggleButton();
         eraser = new ToggleButton();
+
         drawIsOn=new SimpleBooleanProperty(false);
 
-       
 
 
-        
+
+
         stage.setTitle("tCHu \u2014" + playerNames.get(identity));
 
         MapViewCreator.CardChooser cardChooser = this::chooseClaimCards;
@@ -116,9 +117,9 @@ public class GraphicalPlayer {
         HBox handView = DecksViewCreator
                 .createHandView(observableGameState);
 
-        Node infoView = InfoViewCreator.createInfoView(identity, playerNames, observableGameState, strings);
+        VBox infoView = InfoViewCreator.createInfoView(identity, playerNames, observableGameState, strings);
 
-        handView.getStylesheets().add("graphicalPlayer.css");
+        pane.getStylesheets().add("graphicalPlayer.css");
         ObservableList<Station> stations = new SimpleListProperty<>(FXCollections.observableArrayList());
 
         selectorTicketCreator(mapView, stations);
@@ -133,7 +134,7 @@ public class GraphicalPlayer {
         Scene scene1 = new Scene(pane);
 
 
-        DrawCreator(handView);
+        DrawCreator();
 
         stage.setScene(scene1);
         stage.show();
@@ -176,9 +177,12 @@ public class GraphicalPlayer {
         }
     }
 
-    private void DrawCreator(HBox handView) {
+
+    private void DrawCreator() {
 
         draw.getStyleClass().add("toggle-button-Draw");
+        eraser.getStyleClass().add("toggle-button-Gomme");
+
         canvas.disableProperty().bind(drawIsOn.not());
 
 
@@ -193,7 +197,7 @@ public class GraphicalPlayer {
         slide.setValue(5);
         slide.setShowTickLabels(true);
         slide.setShowTickMarks(true);
-        slide.setMaxWidth(20);
+        slide.setMaxWidth(80);
         slide.valueProperty().addListener(e -> {
             gc.setLineWidth(slide.getValue());
             label.setText(String.format("%.0f", slide.getValue()));
@@ -201,12 +205,12 @@ public class GraphicalPlayer {
 
 
         cp.setValue(Color.BLACK);
-        cp.setMaxWidth(30);
+        cp.setMaxWidth(50);
+
 
         cp.setOnAction(e -> gc.setStroke(cp.getValue()));
 
 
-        eraser.getStyleClass().add("toggle-button-Gomme");
 
         canvas.setOnMousePressed(e -> {
             gc.beginPath();
@@ -239,7 +243,14 @@ public class GraphicalPlayer {
             drawIsOn.set(!drawIsOn.getValue());
         });
 
-        handView.getChildren().addAll(grid);
+        pane.getChildren().add(grid);
+
+
+        grid.setTranslateY(630);
+        grid.setTranslateX(-610);
+
+
+
 
         canvas.setTranslateY(-50);
         canvas.setTranslateX(70);
