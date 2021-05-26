@@ -33,7 +33,7 @@ class InfoViewCreator {
      * @param gameInfo            ObservableList of the
      * @return The InfoView (left part of the interface) that updates depending on <i>observableGameState</i>
      */
-    public static Node createInfoView(PlayerId owner, Map<PlayerId, String> playerNames, ObservableGameState observableGameState, ObservableList<Text> gameInfo) {
+    public static VBox createInfoView(PlayerId owner, Map<PlayerId, String> playerNames, ObservableGameState observableGameState, ObservableList<Text> gameInfo) {
         TextFlow textFlow = new TextFlow();
         textFlow.setId("game-info");
 
