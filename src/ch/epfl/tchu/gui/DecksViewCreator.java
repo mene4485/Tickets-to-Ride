@@ -3,18 +3,20 @@ package ch.epfl.tchu.gui;
 import ch.epfl.tchu.game.*;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.*;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import javax.sound.sampled.*;
@@ -32,6 +34,18 @@ class DecksViewCreator {
     private static final int RECTANGLE_HEIGHT = 70;
     private static final int RECTANGLE_WIDTH = 40;
 
+
+    public static ReadOnlyObjectProperty<Ticket> selectedTicketProperty() {
+        return selectedTicket;
+    }
+
+    private static ObjectProperty<Ticket> selectedTicket=new SimpleObjectProperty<>();
+
+
+
+
+
+
     /**
      * Create the hand view of a player
      *
@@ -48,7 +62,7 @@ class DecksViewCreator {
 
            if(view.getSelectionModel().getSelectedItem()!=null){
 
-        observableGameState.setTicketSelected(view.getSelectionModel().getSelectedItem());
+        selectedTicket.setValue(view.getSelectionModel().getSelectedItem());
            }
        });
 
@@ -99,6 +113,10 @@ class DecksViewCreator {
         vBox.setId("card-pane");
         vBox.getStylesheets().addAll("decks.css", "colors.css");
 
+        currentPlayerCreator(vBox,observableGameState);
+
+
+
         //add the ticket's button
         Button buttonGraphicTicket = buttonGraphicCreatorTicket(observableGameState);
         buttonGraphicTicket.getStyleClass().add("gauged");
@@ -126,7 +144,7 @@ class DecksViewCreator {
 
             StackPane stackPane =new StackPane(outside, inside, trainImage);
 
-            //StackPane stackPane = createRectangle("train-car.png");
+
 
 
             card.addListener((owner, old, newValue) -> {
@@ -139,7 +157,7 @@ class DecksViewCreator {
                 String color = newValue.color() == null ? "NEUTRAL" : newValue.name();
                 stackPane.getStyleClass().set(0, color);
             });
-            stackPane.getStyleClass().addAll("null", "card");
+            stackPane.getStyleClass().addAll("null", "card","fuc");
             int j = i;
 
             stackPane.setOnMouseClicked(e -> {
@@ -169,8 +187,36 @@ class DecksViewCreator {
 
         vBox.getChildren().add(buttonGraphicCard);
 
+
+
         return vBox;
     }
+
+
+    private static void currentPlayerCreator(VBox vBox, ObservableGameState observableGameState) {
+        Circle c= new Circle(10);
+        Text t=new Text();
+        t.setFont(new Font("Tahoma",9));
+
+
+        vBox.getChildren().addAll(c,t);
+
+        observableGameState.gameCurrentPlayerIdProperty().addListener((e,o,n)->{
+            if(n.equals(observableGameState.getOwner())){
+                c.setFill(Color.GREEN);
+                t.setText("C'est votre tour!");
+                t.setFill(Color.GREEN);
+            }else{
+                c.setFill(Color.RED);
+                t.setText("Patientez...");
+                t.setFill(Color.RED);
+            }
+        });
+
+
+    }
+
+
 
     /**
      * Methode qui créer un audioclip à partir d'un fichier audio

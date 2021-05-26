@@ -53,11 +53,10 @@ class InfoViewCreator {
 
             Circle circle = new Circle(5);
             circle.getStyleClass().add("filled");
-            ReadOnlyIntegerProperty ticketCount = playerId == owner ? observableGameState.playerTicketCountProperty() : observableGameState.otherPlayerTicketCountProperty();
-
-            ReadOnlyIntegerProperty cardCount = playerId == owner ? observableGameState.playerCardCountProperty() : observableGameState.otherPlayerCardCountProperty();
-            ReadOnlyIntegerProperty carCount = playerId == owner ? observableGameState.playerCarCountProperty() : observableGameState.otherPlayerCarCountProperty();
-            ReadOnlyIntegerProperty points = playerId == owner ? observableGameState.playerPointsProperty() : observableGameState.otherPlayerPointsProperty();
+            ReadOnlyIntegerProperty ticketCount = observableGameState.playerTicketCountProperty(playerId);
+            ReadOnlyIntegerProperty cardCount = observableGameState.playerCardCountProperty(playerId);
+            ReadOnlyIntegerProperty carCount = observableGameState.playerCarCountProperty(playerId);
+            ReadOnlyIntegerProperty points = observableGameState.playerPointsProperty(playerId);
             Text text = new Text();
             text.textProperty().bind(Bindings.format(StringsFr.PLAYER_STATS, playerNames.get(playerId), ticketCount, cardCount, carCount, points));
             text.setFont(new Font("Tahoma",15));

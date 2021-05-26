@@ -4,6 +4,7 @@ import ch.epfl.tchu.Preconditions;
 import ch.epfl.tchu.SortedBag;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Class representing the state of a player
@@ -150,8 +151,10 @@ public final class PlayerState extends PublicPlayerState {
                 }
             }
         }
-        result.sort(Comparator.comparingInt(cs -> cs.countOf(Card.LOCOMOTIVE)));
-        return result;
+        List<SortedBag<Card>> list2= result.stream().distinct().collect(Collectors.toList());
+        list2.sort(Comparator.comparingInt(cs -> cs.countOf(Card.LOCOMOTIVE)));
+
+        return list2;
     }
 
     /**

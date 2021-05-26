@@ -67,3 +67,12 @@ Button.gauged .foreground {
     -fx-padding: 5 50 5 50;
     -fx-spacing: 10;
 }
+
+.card .fuc{}
+
+.fuc:hover {
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+

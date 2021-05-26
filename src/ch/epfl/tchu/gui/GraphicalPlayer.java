@@ -18,6 +18,7 @@ import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
@@ -37,7 +38,11 @@ import static javafx.application.Platform.isFxApplicationThread;
 public class GraphicalPlayer {
 
 
-     private Map<Station,BooleanProperty> stationInticket=ticketMapBuilder();
+    private final Stage stage;
+    private final Slider slide;
+
+
+    private Map<Station,BooleanProperty> stationInticket=ticketMapBuilder();
 
     private Map<Station, BooleanProperty> ticketMapBuilder() {
         Map<Station, BooleanProperty> map =new HashMap<>();
@@ -46,29 +51,26 @@ public class GraphicalPlayer {
                           return map;
     }
 
-    private Canvas canvas;
-    private GraphicsContext gc;
-    private StackPane pane = new StackPane();
-    private Stage stage = new Stage();
-    private Slider slide = new Slider();
-    private ColorPicker cp = new ColorPicker();
-    private Label label = new Label("5");
-    private GridPane grid = new GridPane();
-    private Button reset = new Button("Reset");
-    private ToggleButton draw = new ToggleButton();
-
+    private final Canvas canvas;
+    private final GraphicsContext gc;
+    private final StackPane pane ;
+    private final ColorPicker cp;
+    private final Label label;
+    private final Button reset;
+    private final ToggleButton draw;
+    private final GridPane grid;
+    private final ToggleButton eraser;
+    
+    private BooleanProperty drawIsOn;
 
     public final static int MAX_MESSAGE_NUMBER = 5;
 
     private final ObservableGameState observableGameState;
-    private final ObservableList<Text> strings = new SimpleListProperty<>(FXCollections.observableArrayList());
-    private final ObjectProperty<ActionHandlers.DrawCardHandler> drawCardHandlerObjectProperty = new SimpleObjectProperty<>();
-    private final ObjectProperty<ActionHandlers.DrawTicketsHandler> drawTicketsHandlerObjectProperty = new SimpleObjectProperty<>();
-    private final ObjectProperty<ActionHandlers.ClaimRouteHandler> claimRouteHandlerObjectProperty = new SimpleObjectProperty<>();
-    private final Stage mainStage = new Stage();
-
-
-    private final BooleanProperty drawIsOn = new SimpleBooleanProperty(false);
+    private final ObservableList<Text> strings;
+    private final ObjectProperty<ActionHandlers.DrawCardHandler> drawCardHandlerObjectProperty;
+    private final ObjectProperty<ActionHandlers.DrawTicketsHandler> drawTicketsHandlerObjectProperty;
+    private final ObjectProperty<ActionHandlers.ClaimRouteHandler> claimRouteHandlerObjectProperty;
+    private final Stage mainStage;
 
     /**
      * Constructor of a graphical player
@@ -77,9 +79,31 @@ public class GraphicalPlayer {
      * @param playerNames map of the players and their name
      */
     public GraphicalPlayer(PlayerId identity, Map<PlayerId, String> playerNames) {
-        draw.getStyleClass().add("toggle-button-Draw");
-
+        assert isFxApplicationThread();
         observableGameState = new ObservableGameState(identity);
+        this.strings = new SimpleListProperty<>(FXCollections.observableArrayList());
+        this.drawCardHandlerObjectProperty = new SimpleObjectProperty<>();
+        this.drawTicketsHandlerObjectProperty = new SimpleObjectProperty<>();
+        this.claimRouteHandlerObjectProperty = new SimpleObjectProperty<>();
+        this.mainStage = new Stage();
+       
+        pane  = new StackPane();
+        stage = new Stage();
+        slide = new Slider();
+        canvas = new Canvas(1100, 735);
+        gc = canvas.getGraphicsContext2D();
+        cp    = new ColorPicker();
+        label = new Label("5");
+        grid  = new GridPane();
+        reset = new Button("Reset");
+        draw  = new ToggleButton();
+        eraser = new ToggleButton();
+        drawIsOn=new SimpleBooleanProperty(false);
+
+       
+
+
+        
         stage.setTitle("tCHu \u2014" + playerNames.get(identity));
 
         MapViewCreator.CardChooser cardChooser = this::chooseClaimCards;
@@ -96,31 +120,47 @@ public class GraphicalPlayer {
 
         handView.getStylesheets().add("graphicalPlayer.css");
         ObservableList<Station> stations = new SimpleListProperty<>(FXCollections.observableArrayList());
-        BooleanProperty stationsContainStation = new SimpleBooleanProperty(false);
+
+        selectorTicketCreator(mapView, stations);
 
 
+        BorderPane mainPane =
+                new BorderPane(mapView, null, cardsView, handView, infoView);
+
+        pane.getChildren().addAll(mainPane, canvas);
+
+
+        Scene scene1 = new Scene(pane);
+
+
+        DrawCreator(handView);
+
+        stage.setScene(scene1);
+        stage.show();
+
+
+    }
+
+
+
+
+
+
+
+    private void selectorTicketCreator(Pane mapView, ObservableList<Station> stations) {
         for (Station station : ChMap.stations()) {
             Circle c = new Circle(11);
             c.setStroke(Color.FLORALWHITE);
             c.setFill(Color.DEEPPINK);
             c.setId(Integer.toString(station.id()));
 
-            observableGameState.ticketSelectedProperty().addListener((e, o, n) -> {
+            DecksViewCreator.selectedTicketProperty().addListener((e, o, n) -> {
                 Set<Station> newStations = new HashSet<>();
                 for (Trip trip : n.getTrips()) {
                     newStations.addAll(List.of(trip.from(), trip.to()));
                 }
 
                 stations.setAll(newStations);
-             /*   for (Station s:stations) {
-                    boolean change=false;
-                    if(s.id()==station.id()){
-                        stationsContainStation.set(true);
-                        change=true;
-                    }
-                    if(!change)stationsContainStation.set(false);
-
-                }*/
                 if (stations.contains(station)) {
                     stationInticket.get(station).set(true);
                 } else {
@@ -129,34 +169,21 @@ public class GraphicalPlayer {
 
             });
 
-      /*      stationsContainStation.addListener((e,o,n)->{
-                c.visibleProperty().set(n);
-            });*/
-
-
             c.visibleProperty().bind(stationInticket.get(station));
 
             mapView.getChildren().add(c);
 
         }
+    }
 
+    private void DrawCreator(HBox handView) {
 
-        BorderPane mainPane =
-                new BorderPane(mapView, null, cardsView, handView, infoView);
-        canvas = new Canvas(1100, 735);
-
-
-        Scene scene1 = new Scene(pane);
-
-
+        draw.getStyleClass().add("toggle-button-Draw");
         canvas.disableProperty().bind(drawIsOn.not());
 
 
-        pane.getChildren().addAll(mainPane, canvas
-        );
+        reset.setOnAction(e -> resetDraw());
 
-        reset.setOnAction(e -> reset());
-        gc = canvas.getGraphicsContext2D();
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(5);
 
@@ -179,13 +206,12 @@ public class GraphicalPlayer {
         cp.setOnAction(e -> gc.setStroke(cp.getValue()));
 
 
-        ToggleButton gomme = new ToggleButton();
-        gomme.getStyleClass().add("toggle-button-Gomme");
+        eraser.getStyleClass().add("toggle-button-Gomme");
 
         canvas.setOnMousePressed(e -> {
             gc.beginPath();
             if (drawIsOn.getValue()) {
-                if (gomme.isSelected()) {
+                if (eraser.isSelected()) {
                     gc.clearRect(e.getX(), e.getY(), gc.getLineWidth() * 2, gc.getLineWidth() * 2);
                 } else {
                     gc.lineTo(e.getX(), e.getY());
@@ -195,7 +221,7 @@ public class GraphicalPlayer {
         });
         canvas.setOnMouseDragged(e -> {
             if (drawIsOn.getValue()) {
-                if (gomme.isSelected()) {
+                if (eraser.isSelected()) {
                     gc.clearRect(e.getX(), e.getY(), gc.getLineWidth() * 2, gc.getLineWidth() * 2);
                 } else {
                     gc.lineTo(e.getX(), e.getY());
@@ -206,8 +232,7 @@ public class GraphicalPlayer {
 
 
         grid.addRow(0, cp, slide, label);
-        grid.addRow(1, reset, draw, gomme);
-        // grid.setHgap(10);
+        grid.addRow(1, reset, draw, eraser);
         grid.setAlignment(Pos.TOP_CENTER);
 
         draw.setOnAction(e -> {
@@ -218,15 +243,9 @@ public class GraphicalPlayer {
 
         canvas.setTranslateY(-50);
         canvas.setTranslateX(70);
-
-
-        stage.setScene(scene1);
-        stage.show();
-
-
     }
 
-    private void reset() {
+    private void resetDraw() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         gc.beginPath();
         slide.setValue(5);

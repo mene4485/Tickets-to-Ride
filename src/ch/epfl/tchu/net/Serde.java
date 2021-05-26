@@ -61,19 +61,8 @@ public interface Serde<C> {
      * @return Serde matching a given element of the <i>list</i>
      */
     static <T> Serde<T> oneOf(List<T> list) {
-        return new Serde<>() {
-            @Override
-            public String serialize(T t) {
-                if (t != null) return String.valueOf(list.indexOf(t));
-                return "";
-            }
-
-            @Override
-            public T deserialize(String s) {
-                if (!s.equals("")) return list.get(Integer.parseInt(s));
-                return null;
-            }
-        };
+        return of(t -> t == null ? "" : String.valueOf(list.indexOf(t)),
+                s -> s.equals("") ? null : list.get(Integer.parseInt(s)));
     }
 
     /**
@@ -84,30 +73,24 @@ public interface Serde<C> {
      * @param <T>   type of object
      * @return returning a Serde capable of (de) serializing lists of values (de) serialized by the given serde
      */
-     static <T> Serde<List<T>> listOf(Serde<T> serde, char c) {
-        return new Serde<>() {
-            @Override
-            public String serialize(List<T> t) {
-                //replace elements of t with their serialization
-                if (t == null) return "";
-                List<String> aux = t.stream()
-                        .map(serde::serialize)
-                        .collect(Collectors.toList());
+    static <T> Serde<List<T>> listOf(Serde<T> serde, char c) {
+        return of(
+                t -> {
+                    //replace elements of t with their serialization
+                    List<String> aux = t.stream()
+                            .map(serde::serialize)
+                            .collect(Collectors.toList());
 
-                return String.join(String.valueOf(c), aux);
-            }
+                    return t == null ? "" : String.join(String.valueOf(c), aux);
+                },
+                s -> {
+                    //split the String with the given separator then replace each part with his deserialization
+                    return s.equals("") ? List.of() : List.of(s.split(Pattern.quote(String.valueOf(c)), -1))
+                            .stream()
+                            .map(serde::deserialize)
+                            .collect(Collectors.toList());
+                });
 
-            @Override
-            public List<T> deserialize(String s) {
-                //split the String with the given separator then replace each part with his deserialization
-                if (s.equals("")) return List.of();
-
-                return List.of(s.split(Pattern.quote(String.valueOf(c)), -1))
-                        .stream()
-                        .map(serde::deserialize)
-                        .collect(Collectors.toList());
-            }
-        };
     }
 
 
@@ -119,31 +102,20 @@ public interface Serde<C> {
      * @param <T>   type of object
      * @return returning a Serde capable of (de) serializing lists of values (de) serialized by the given serde
      */
-     static <T extends Comparable<T>> Serde<SortedBag<T>> bagOf(Serde<T> serde, char c) {
-        return new Serde<>() {
+    static <T extends Comparable<T>> Serde<SortedBag<T>> bagOf(Serde<T> serde, char c) {
+        return of(t -> {
+            //replace elements of t with their serialization
+            List<String> aux = t.stream()
+                    .map(serde::serialize)
+                    .collect(Collectors.toList());
 
-            @Override
-            public String serialize(SortedBag<T> t) {
-                //replace elements of t with their serialization
-                List<String> aux = t.stream()
-                        .map(serde::serialize)
-                        .collect(Collectors.toList());
-
-                return String.join(String.valueOf(c), aux);
-            }
-
-            @Override
-            public SortedBag<T> deserialize(String s) {
-                //split the String with the given separator then replace each part with his deserialization
-                if (s.equals("")) return SortedBag.of();
-
-                return SortedBag.of(List.of(s.split(Pattern.quote(String.valueOf(c)), -1))
-                        .stream()
-                        .map(serde::deserialize)
-                        .collect(Collectors.toList()));
-            }
-        };
-
-
+            return String.join(String.valueOf(c), aux);
+        }, s -> {
+            //split the String with the given separator then replace each part with his deserialization
+            return s.equals("") ? SortedBag.of() : SortedBag.of(List.of(s.split(Pattern.quote(String.valueOf(c)), -1))
+                    .stream()
+                    .map(serde::deserialize)
+                    .collect(Collectors.toList()));
+        });
     }
 }
