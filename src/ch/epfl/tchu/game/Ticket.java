@@ -52,6 +52,7 @@ public final class Ticket implements Comparable<Ticket> {
         int points = 0;
         int min = trips.get(0).points();
         for (Trip trip : trips) {
+            if(trip.points()<min) min= trip.points();
             points = Math.max(points, trip.points(connectivity));
         }
         return points == 0 ? -min : points ;
