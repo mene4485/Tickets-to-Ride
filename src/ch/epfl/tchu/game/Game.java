@@ -49,10 +49,16 @@ public final class Game {
         for (Map.Entry<PlayerId, Player> m : players.entrySet()) {
             m.getValue().setInitialTicketChoice(gameState.topTickets(Constants.INITIAL_TICKETS_COUNT));
             gameState = gameState.withoutTopTickets(Constants.INITIAL_TICKETS_COUNT);
+            updateState(players, gameState);
         }
-        updateState(players, gameState);
+
         for (Map.Entry<PlayerId, Player> m : players.entrySet()) {
             gameState = gameState.withInitiallyChosenTickets(m.getKey(), m.getValue().chooseInitialTickets());
+        }
+
+
+
+        for (Map.Entry<PlayerId, Player> m : players.entrySet()) {
             PlayerState ps = gameState.playerState(m.getKey());
             int size = ps.tickets().size();
             String s = mapInfo.get(m.getKey()).keptTickets(size);
@@ -118,9 +124,9 @@ public final class Game {
                     SortedBag<Card> initialCards = currentPlayer.initialClaimCards(); //Cards he wants to use to get the route
 
                     //if the route is a tunnel
-                    if (route.level() == Route.Level.UNDERGROUND) {
+                    if (route.level() == Route.Level.UNDERGROUND ) {
 
-                        info(currentPlayerInfo.attemptsTunnelClaim(route, initialCards), players);
+                            info(currentPlayerInfo.attemptsTunnelClaim(route, initialCards), players);
 
                         // draw cards one at a time, checking that the deck is not empty
                         SortedBag.Builder builder = new SortedBag.Builder();
@@ -167,7 +173,13 @@ public final class Game {
                                 info(currentPlayerInfo.didNotClaimRoute(route), players);
                             }
                         }
-                    } else if (route.level() == Route.Level.SKY) {
+                    }
+
+
+
+
+
+                        else if(route.level()== Route.Level.SKY) {
                         info(currentPlayerInfo.attemptsSkyRouteClaim(route, initialCards), players);
                         int additionalCardsCount = route.additionalClaimCardsCount(initialCards, SortedBag.of());
                         if (additionalCardsCount == 0) {
@@ -181,19 +193,19 @@ public final class Game {
                                 info(currentPlayerInfo.additionalSkyRouteCount(route, possibleCards.get(0)), players);
 
                                 SortedBag<Card> additional = currentPlayer.
-                                        chooseAdditionalCards(possibleCards);
-                                if (!additional.isEmpty()) {
+                                         chooseAdditionalCards(possibleCards);
+                                if (!additional.isEmpty()){
 
                                     gameState = gameState.withClaimedRoute(route, initialCards.union(additional));
                                     info(currentPlayerInfo.claimedRoute(route, initialCards.union(additional)), players);
 
-                                } else {
+                                }else{
 
                                     info(currentPlayerInfo.didNotClaimRoute(route), players);
                                 }
 
 
-                            } else {
+                            }else{
                                 info(currentPlayerInfo.didNotClaimRoute(route), players);
                             }
 
