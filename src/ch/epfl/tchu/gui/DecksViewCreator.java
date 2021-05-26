@@ -162,8 +162,8 @@ class DecksViewCreator {
 
             stackPane.setOnMouseClicked(e -> {
                 cardHandler.get().onDrawCard(j);
-         //       cardChoosingSound.start();
-           //     cardChoosingSound.setMicrosecondPosition(0);
+                cardChoosingSound.start();
+                cardChoosingSound.setMicrosecondPosition(0);
             });
 
 
@@ -179,8 +179,8 @@ class DecksViewCreator {
         buttonGraphicCard.setText(StringsFr.CARDS);
         buttonGraphicCard.setOnMouseClicked(e -> {
             cardHandler.get().onDrawCard(Constants.DECK_SLOT);
-        //    cardChoosingSound.start();
-        //    cardChoosingSound.setMicrosecondPosition(0);
+            cardChoosingSound.start();
+            cardChoosingSound.setMicrosecondPosition(0);
         });
 
         buttonGraphicCard.disableProperty().bind(cardHandler.isNull());
