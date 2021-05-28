@@ -237,8 +237,8 @@ public class GraphicalPlayer {
 
         grid.addRow(0, cp, slide, label);
         grid.addRow(1, reset, draw, eraser);
-        grid.setAlignment(Pos.TOP_CENTER);
 
+        grid.setAlignment(Pos.TOP_CENTER);
         draw.setOnAction(e -> {
             drawIsOn.set(!drawIsOn.getValue());
         });
@@ -246,7 +246,7 @@ public class GraphicalPlayer {
         pane.getChildren().add(grid);
 
 
-        grid.setTranslateY(630);
+        grid.setTranslateY(600);
         grid.setTranslateX(-610);
 
 
