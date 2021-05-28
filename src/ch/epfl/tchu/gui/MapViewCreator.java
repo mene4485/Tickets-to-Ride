@@ -141,7 +141,7 @@ class MapViewCreator {
                 Rectangle voie = new Rectangle(RECTANGLE_WIDTH * 2.5, RECTANGLE_HEIGHT + 3);
                 voie.getStyleClass().addAll("track", "filled");
 
-                Text text2 = new Text("-> " + route.stationOpposite(station));
+                Text text2 = new Text("↪ " + route.stationOpposite(station));
                 text2.setFont(Font.font("Helvetica"));
                 text2.setFill(Color.WHITE);
 

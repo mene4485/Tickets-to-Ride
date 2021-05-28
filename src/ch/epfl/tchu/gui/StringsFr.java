@@ -2,6 +2,7 @@ package ch.epfl.tchu.gui;
 
 import ch.epfl.tchu.SortedBag;
 import ch.epfl.tchu.game.Card;
+import javafx.scene.text.Font;
 
 public final class StringsFr {
     private StringsFr() {}
@@ -113,5 +114,10 @@ public final class StringsFr {
             else s.append(n).append(" ").append(Info.cardName(c, n)).append(", ");
         }
         return s.toString();
+    }
+
+    public static Font font(int size,String str ){
+        return Font.loadFont("file:resources/SFUIDisplay-" + str + ".ttf",size);
+
     }
 }

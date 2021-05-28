@@ -42,25 +42,25 @@ public class GraphicalPlayer {
     private final Slider slide;
 
 
-    private Map<Station,BooleanProperty> stationInticket=ticketMapBuilder();
+    private Map<Station, BooleanProperty> stationInticket = ticketMapBuilder();
 
     private Map<Station, BooleanProperty> ticketMapBuilder() {
-        Map<Station, BooleanProperty> map =new HashMap<>();
-                          ChMap.stations().forEach(e->map.put(e,new SimpleBooleanProperty(false)));
+        Map<Station, BooleanProperty> map = new HashMap<>();
+        ChMap.stations().forEach(e -> map.put(e, new SimpleBooleanProperty(false)));
 
-                          return map;
+        return map;
     }
 
     private final Canvas canvas;
     private final GraphicsContext gc;
-    private final StackPane pane ;
+    private final StackPane pane;
     private final ColorPicker cp;
     private final Label label;
     private final Button reset;
     private final ToggleButton draw;
     private final GridPane grid;
     private final ToggleButton eraser;
-    
+
     private BooleanProperty drawIsOn;
 
     public final static int MAX_MESSAGE_NUMBER = 5;
@@ -87,22 +87,19 @@ public class GraphicalPlayer {
         this.claimRouteHandlerObjectProperty = new SimpleObjectProperty<>();
         this.mainStage = new Stage();
 
-        pane  = new StackPane();
+        pane = new StackPane();
         stage = new Stage();
         slide = new Slider();
         canvas = new Canvas(1100, 735);
         gc = canvas.getGraphicsContext2D();
-        cp    = new ColorPicker();
+        cp = new ColorPicker();
         label = new Label("5");
-        grid  = new GridPane();
+        grid = new GridPane();
         reset = new Button("Reset");
-        draw  = new ToggleButton();
+        draw = new ToggleButton();
         eraser = new ToggleButton();
 
-        drawIsOn=new SimpleBooleanProperty(false);
-
-
-
+        drawIsOn = new SimpleBooleanProperty(false);
 
 
         stage.setTitle("tCHu \u2014" + playerNames.get(identity));
@@ -141,11 +138,6 @@ public class GraphicalPlayer {
 
 
     }
-
-
-
-
-
 
 
     private void selectorTicketCreator(Pane mapView, ObservableList<Station> stations) {
@@ -197,7 +189,7 @@ public class GraphicalPlayer {
         slide.setValue(5);
         slide.setShowTickLabels(true);
         slide.setShowTickMarks(true);
-        slide.setMaxWidth(80);
+        slide.setMaxWidth(100);
         slide.valueProperty().addListener(e -> {
             gc.setLineWidth(slide.getValue());
             label.setText(String.format("%.0f", slide.getValue()));
@@ -209,7 +201,6 @@ public class GraphicalPlayer {
 
 
         cp.setOnAction(e -> gc.setStroke(cp.getValue()));
-
 
 
         canvas.setOnMousePressed(e -> {
@@ -235,8 +226,8 @@ public class GraphicalPlayer {
         });
 
 
-        grid.addRow(0, cp, slide, label);
-        grid.addRow(1, reset, draw, eraser);
+        grid.addRow(0, cp, new Text(""), slide, label);
+        grid.addRow(1, reset, new Text("   "), draw, new Text(""), eraser);
         grid.setAlignment(Pos.TOP_CENTER);
 
         draw.setOnAction(e -> {
@@ -248,8 +239,6 @@ public class GraphicalPlayer {
 
         grid.setTranslateY(630);
         grid.setTranslateX(-610);
-
-
 
 
         canvas.setTranslateY(-50);
@@ -335,6 +324,7 @@ public class GraphicalPlayer {
         Button butt = new Button(StringsFr.CHOOSE);
         int minimumTicketsNumber = options.size() - Constants.DISCARDABLE_TICKETS_COUNT;
         Text t = new Text(String.format(StringsFr.CHOOSE_TICKETS, options.size() - Constants.DISCARDABLE_TICKETS_COUNT, StringsFr.plural(minimumTicketsNumber)));
+        t.setFont(StringsFr.font(12,"Light"));
         TextFlow flow = new TextFlow(t);
 
         butt.disableProperty().bind(Bindings.size(listView.getSelectionModel().getSelectedItems()).lessThan(minimumTicketsNumber));
@@ -386,7 +376,7 @@ public class GraphicalPlayer {
     public void chooseClaimCards(List<SortedBag<Card>> options, ActionHandlers.ChooseCardsHandler chooseCardH) {
         assert isFxApplicationThread();
         Text t = new Text(StringsFr.CHOOSE_CARDS);
-
+        t.setFont(StringsFr.font(12,"Light"));
         ObservableList<SortedBag<Card>> cards = FXCollections.observableArrayList(options);
         ListView<SortedBag<Card>> listView = new ListView<>(cards);
         listView.setCellFactory(v ->
@@ -412,6 +402,7 @@ public class GraphicalPlayer {
     public void chooseAdditionalCards(List<SortedBag<Card>> options, ActionHandlers.ChooseCardsHandler chooseCardH) {
         assert isFxApplicationThread();
         Text t = new Text(StringsFr.CHOOSE_ADDITIONAL_CARDS);
+        t.setFont(StringsFr.font(12,"Light"));
         ObservableList<SortedBag<Card>> cards = FXCollections.observableArrayList(options);
         ListView<SortedBag<Card>> listView = new ListView<>(cards);
         listView.setCellFactory(v ->

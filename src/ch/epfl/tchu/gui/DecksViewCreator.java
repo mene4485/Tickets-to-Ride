@@ -121,6 +121,7 @@ class DecksViewCreator {
         Button buttonGraphicTicket = buttonGraphicCreatorTicket(observableGameState);
         buttonGraphicTicket.getStyleClass().add("gauged");
         buttonGraphicTicket.setText(StringsFr.TICKETS);
+        buttonGraphicTicket.setFont(StringsFr.font(15,"Light"));
         buttonGraphicTicket.disableProperty().bind(ticketHandler.isNull());
 
         buttonGraphicTicket.setOnMouseClicked(event -> ticketHandler.get().onDrawnTickets());
@@ -177,6 +178,8 @@ class DecksViewCreator {
 
         buttonGraphicCard.getStyleClass().add("gauged");
         buttonGraphicCard.setText(StringsFr.CARDS);
+
+        buttonGraphicCard.setFont(StringsFr.font(15,"Light"));
         buttonGraphicCard.setOnMouseClicked(e -> {
             cardHandler.get().onDrawCard(Constants.DECK_SLOT);
             //cardChoosingSound.start();

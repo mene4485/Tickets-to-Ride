@@ -1,5 +1,10 @@
 /* Player information */
 
+@font-face {
+    font-family: 'Custom';
+    /*src: url("SFUIDisplay-Light.ttf");*/
+}
+
 #player-stats {
     -fx-spacing: 10;
     -fx-padding: 10;
@@ -15,5 +20,8 @@
     -fx-pref-width: 220;
     -fx-line-spacing: 3;
     -fx-text-alignment: center;
-    -fx-fo
+
+}
+#game-info > Text {
+    -fx-font-family: "Custom";
 }

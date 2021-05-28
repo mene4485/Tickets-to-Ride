@@ -36,7 +36,6 @@ class InfoViewCreator {
     public static VBox createInfoView(PlayerId owner, Map<PlayerId, String> playerNames, ObservableGameState observableGameState, ObservableList<Text> gameInfo) {
         TextFlow textFlow = new TextFlow();
         textFlow.setId("game-info");
-
         VBox playerStats = new VBox();
         playerStats.setId("player-stats");
         List<PlayerId> ids = new ArrayList<>();
@@ -60,8 +59,7 @@ class InfoViewCreator {
             ReadOnlyIntegerProperty points = observableGameState.playerPointsProperty(playerId);
             Text text = new Text();
             text.textProperty().bind(Bindings.format(StringsFr.PLAYER_STATS, playerNames.get(playerId), ticketCount, cardCount, carCount, points));
-            Font font = Font.loadFont("file:resources/SFUIDisplay-Light.ttf",15);
-            text.setFont(font);
+            text.setFont(StringsFr.font(15,"Bold"));
             stat.getChildren().addAll(circle, text);
             playerStats.getChildren().add(stat);
         }

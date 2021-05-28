@@ -188,6 +188,7 @@ public class GraphicalPlayerAdapter implements Player {
      * @return the cards choose by the player
      */
     @Override
+    //TODO modulariser take()
     public SortedBag<Card> chooseAdditionalCards(List<SortedBag<Card>> options) {
         assert (cardQueue.isEmpty());
 
