@@ -90,7 +90,7 @@ public class GraphicalPlayer {
         pane  = new StackPane();
         stage = new Stage();
         slide = new Slider();
-        canvas = new Canvas(600, 600);
+        canvas = new Canvas(1110, 735);
         gc = canvas.getGraphicsContext2D();
         cp    = new ColorPicker();
         label = new Label("5");

@@ -42,10 +42,6 @@ class DecksViewCreator {
     private static ObjectProperty<Ticket> selectedTicket=new SimpleObjectProperty<>();
 
 
-
-
-
-
     /**
      * Create the hand view of a player
      *
