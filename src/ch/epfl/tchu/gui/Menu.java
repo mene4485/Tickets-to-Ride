@@ -125,8 +125,8 @@ public class Menu extends Application {
         jouer.setOnAction(s->{
             if(server.isSelected()){
                 window.hide();
-                String j1=joueur1Input.toString();
-                String j2=joueur2Input.toString();
+                String j1=name1input.getText();
+                String j2=name2input.getText();
 
                 String player1name = j1.equals("") ?  "Ada" : j1 ;
                 String player2name = j2.equals("") ?  "Charles" : j2 ;
@@ -152,8 +152,8 @@ public class Menu extends Application {
 
             }else if(client.isSelected()){
                 window.hide();
-                String ipString=ipAdress.toString();
-                String portString=port.toString();
+                String ipString=ipAdressText.getText();
+                String portString=portText.getText();
 
 
                 String hostName =ipString.equals("") ? "localhost" : ipString;
