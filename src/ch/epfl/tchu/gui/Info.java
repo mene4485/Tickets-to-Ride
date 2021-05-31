@@ -46,7 +46,7 @@ public final class Info {
 
 
     /**
-     * @param card Card
+     * @param card  Card
      * @param count int
      * @return name of card with 's' if there are multiple same cards
      */
@@ -89,7 +89,7 @@ public final class Info {
 
     /**
      * @param playerNames List<String>
-     * @param points int
+     * @param points      int
      * @return syntax if there is a draw
      */
     public static String draw(List<String> playerNames, int points) {
@@ -151,7 +151,7 @@ public final class Info {
     }
 
     /**
-     * @param route Route
+     * @param route        Route
      * @param initialCards SortedBag<Card>
      * @return the message stating that the player wishes to take the given tunnel road using the given cards initially
      */
@@ -161,7 +161,7 @@ public final class Info {
 
 
     /**
-     * @param route Route
+     * @param route        Route
      * @param initialCards SortedBag<Card>
      * @return the message stating that
      */
@@ -171,7 +171,7 @@ public final class Info {
 
 
     /**
-     * @param route Route
+     * @param route        Route
      * @param initialCards SortedBag<Card>
      * @return the message stating that
      */
@@ -188,11 +188,8 @@ public final class Info {
     }
 
 
-
-
-
     /**
-     * @param drawnCard SortedBag<Card>
+     * @param drawnCard      SortedBag<Card>
      * @param additionalCost int
      * @return a message stating that the player has drawn the three additional cards given,
      * and that they involve an additional cost for the number of cards given
@@ -228,7 +225,7 @@ public final class Info {
     }
 
     /**
-     * @param points int
+     * @param points      int
      * @param loserPoints int
      * @return the message declaring that the player wins the game with the given number of points,
      * his opponent having obtained only loserPoints.

@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -37,9 +38,23 @@ public class Menu extends Application {
             }
         });
 
+        TextField name1input = new TextField();
+        TextField name2input = new TextField();
+        ToggleButton server = new ToggleButton();
+        server.setText("Server");
+        ToggleButton client = new ToggleButton();
+        client.setText("Client");
+
+        server.setOnAction(s -> {
+
+        });
+
+
+
+
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(20,20,20,20));
-        layout.getChildren().addAll(nameInput,button);
+        layout.getChildren().addAll(nameInput,button, server, client);
 
         Scene scene = new Scene(layout, 300, 250);
         window.setScene(scene);
