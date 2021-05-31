@@ -152,12 +152,12 @@ public class Menu extends Application {
 
             }else if(client.isSelected()){
                 window.hide();
-                String ipString=ipAdressText.getText();
-                String portString=portText.getText();
+                String ipString=ipAdressInput.getText();
+                String portString=portInput.getText();
 
 
                 String hostName =ipString.equals("") ? "localhost" : ipString;
-                int port1=portString.equals("") ? 5108 : Integer.parseInt(portInput.toString());
+                int port1=portString.equals("") ? 5108 : Integer.parseInt(portString);
 
 
 
