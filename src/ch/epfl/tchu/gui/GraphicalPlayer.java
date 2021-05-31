@@ -37,30 +37,28 @@ import static javafx.application.Platform.isFxApplicationThread;
  */
 public class GraphicalPlayer {
 
-
     private final Stage stage;
     private final Slider slide;
 
-
-    private Map<Station,BooleanProperty> stationInticket=ticketMapBuilder();
+    private Map<Station, BooleanProperty> stationInticket = ticketMapBuilder();
 
     private Map<Station, BooleanProperty> ticketMapBuilder() {
-        Map<Station, BooleanProperty> map =new HashMap<>();
-                          ChMap.stations().forEach(e->map.put(e,new SimpleBooleanProperty(false)));
+        Map<Station, BooleanProperty> map = new HashMap<>();
+        ChMap.stations().forEach(e -> map.put(e, new SimpleBooleanProperty(false)));
 
-                          return map;
+        return map;
     }
 
     private final Canvas canvas;
     private final GraphicsContext gc;
-    private final StackPane pane ;
+    private final StackPane pane;
     private final ColorPicker cp;
     private final Label label;
     private final Button reset;
     private final ToggleButton draw;
     private final GridPane grid;
     private final ToggleButton eraser;
-    
+
     private BooleanProperty drawIsOn;
 
     public final static int MAX_MESSAGE_NUMBER = 5;
@@ -87,22 +85,19 @@ public class GraphicalPlayer {
         this.claimRouteHandlerObjectProperty = new SimpleObjectProperty<>();
         this.mainStage = new Stage();
 
-        pane  = new StackPane();
+        pane = new StackPane();
         stage = new Stage();
         slide = new Slider();
         canvas = new Canvas(1110, 735);
         gc = canvas.getGraphicsContext2D();
-        cp    = new ColorPicker();
+        cp = new ColorPicker();
         label = new Label("5");
-        grid  = new GridPane();
+        grid = new GridPane();
         reset = new Button("Reset");
-        draw  = new ToggleButton();
+        draw = new ToggleButton();
         eraser = new ToggleButton();
 
-        drawIsOn=new SimpleBooleanProperty(false);
-
-
-
+        drawIsOn = new SimpleBooleanProperty(false);
 
 
         stage.setTitle("tCHu \u2014" + playerNames.get(identity));
@@ -141,11 +136,6 @@ public class GraphicalPlayer {
 
 
     }
-
-
-
-
-
 
 
     private void selectorTicketCreator(Pane mapView, ObservableList<Station> stations) {
@@ -211,7 +201,6 @@ public class GraphicalPlayer {
         cp.setOnAction(e -> gc.setStroke(cp.getValue()));
 
 
-
         canvas.setOnMousePressed(e -> {
             gc.beginPath();
             if (drawIsOn.getValue()) {
@@ -247,9 +236,9 @@ public class GraphicalPlayer {
 
 
         grid.setTranslateY(600);
-        //grid.setTranslateX(-610);
-        grid.setLayoutX(600);
-        grid.setLayoutY(600);
+        grid.setTranslateX(-610);
+        //grid.setLayoutX(600);
+        //grid.setLayoutY(600);
 
         canvas.setTranslateY(-50);
         canvas.setTranslateX(70);
