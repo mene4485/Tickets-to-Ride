@@ -22,7 +22,7 @@ public final class ChMap {
         return ALL_TICKETS;
     }
 
-    public static List<Station> aeroports() {
+    public static List<Station> airports() {
         return AEROPORTS;
     }
 

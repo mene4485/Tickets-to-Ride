@@ -8,6 +8,7 @@ import ch.epfl.tchu.game.Station;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
@@ -18,7 +19,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 import javax.sound.sampled.Clip;
@@ -66,6 +66,8 @@ class MapViewCreator {
         gamePane.getChildren().addAll(view, planeBrusio, planeGeneve, planeDelemont, planeStGall);
         gamePane.getStylesheets().addAll("map.css", "colors.css");
 
+        Clip audioChoosingAirRoute = DecksViewCreator.createAudio("resources/airplane.wav");
+            Clip cardChoosingSound = DecksViewCreator.createAudio("resources/tchutchu.wav");
         //routes
         for (Route route : ChMap.routes().subList(0, ChMap.TRAIN_ROUTE_LAST_INDEX)) {
 
@@ -89,16 +91,18 @@ class MapViewCreator {
 
                 caseNode.setId(new StringBuilder().append(route.id()).append("_").append(i).toString());
                 list.add(caseNode);
+
+               // caseNode.setOnMouseClicked().styleProperty().bind(new SimpleStringProperty("-fx-scale-x: 1.1;-fx-scale-y: 1.1;"));
+
             }
             Node routeNode = new Group(list);
             routeNode.setId(route.id());
 
-            Clip cardChoosingSound = DecksViewCreator.createAudio("resources/tchutchu.wav");
             observableGameState.routesProperty(route).addListener((owner, old, newValue) -> {
                 String p = newValue.name();
                 routeNode.getStyleClass().add(p);
-                cardChoosingSound.start();
                 cardChoosingSound.setMicrosecondPosition(0);
+                cardChoosingSound.start();
             });
 
             routeNode.getStyleClass().addAll("route", route.level().name(), route.color() == null ? "NEUTRAL" : route.color().name());
@@ -112,7 +116,6 @@ class MapViewCreator {
                     if (possibleClaimCards.size() == 1) {
                         claimRouteH.onClaimRoute(route, possibleClaimCards.get(0));
                     } else {
-                        // ou est-ce qu'on sait si le mec a pu prendre la route ou pas ?
                         ActionHandlers.ChooseCardsHandler chooseCardsH = chosenCards -> claimRouteH.onClaimRoute(route, chosenCards);
                         cardChooser.chooseCards(possibleClaimCards, chooseCardsH);
                     }
@@ -124,6 +127,7 @@ class MapViewCreator {
 
 
         for (Route route : ChMap.routes().subList(ChMap.TRAIN_ROUTE_LAST_INDEX, ChMap.routes().size())) {
+
 
             for (Station station : route.stations()) {
 
@@ -160,10 +164,8 @@ class MapViewCreator {
                     routeNode.getStyleClass().add(p);
                     text2.setFill(Color.BLACK);
                     oneFlyRoadOwned.set(true);
-                    for (Station airport : ChMap.aeroports()) {
+                    for (Station airport : ChMap.airports()) {
                         if (route.station1().id() == airport.id() || route.station2().id() == airport.id()) {
-                            Clip audioChoosingAirRoute = DecksViewCreator.createAudio("resources/airplane.wav");
-                            audioChoosingAirRoute.start();
                             switch (airport.id()) {
                                 case 27:
                                     planeStGall.getStyleClass().add(p);
@@ -178,12 +180,13 @@ class MapViewCreator {
                                     planeBrusio.getStyleClass().add(p);
                                     break;
                             }
-                            audioChoosingAirRoute.setMicrosecondPosition(0);
                         }
                     }
                 });
                 oneFlyRoadOwned.addListener((owner, old, newValue) -> {
                     if (observableGameState.routesProperty(route).getValue() == null) {
+                            audioChoosingAirRoute.start();
+                            audioChoosingAirRoute.setMicrosecondPosition(0);
                         text2.setText("VOL ANNULÉ");
                         text2.setFill(Color.DARKRED);
                     }

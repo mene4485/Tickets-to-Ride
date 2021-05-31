@@ -58,6 +58,7 @@ public class GraphicalPlayer {
     private final ToggleButton draw;
     private final GridPane grid;
     private final ToggleButton eraser;
+    //private final VBox drawBox;
 
     private BooleanProperty drawIsOn;
 
@@ -121,7 +122,7 @@ public class GraphicalPlayer {
 
 
         BorderPane mainPane =
-                new BorderPane(mapView, null, cardsView, handView, infoView);
+                new BorderPane(mapView, null, cardsView, handView, new Pane(infoView,grid));
 
         pane.getChildren().addAll(mainPane, canvas);
 
@@ -232,13 +233,11 @@ public class GraphicalPlayer {
             drawIsOn.set(!drawIsOn.getValue());
         });
 
-        pane.getChildren().add(grid);
+       // pane.getChildren().add(grid);
 
 
         grid.setTranslateY(600);
-        grid.setTranslateX(-610);
-        //grid.setLayoutX(600);
-        //grid.setLayoutY(600);
+       // grid.setTranslateX(-610);
 
         canvas.setTranslateY(-50);
         canvas.setTranslateX(70);

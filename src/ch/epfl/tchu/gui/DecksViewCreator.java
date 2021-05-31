@@ -178,8 +178,9 @@ class DecksViewCreator {
         buttonGraphicCard.setFont(StringsFr.font(15,"Light"));
         buttonGraphicCard.setOnMouseClicked(e -> {
             cardHandler.get().onDrawCard(Constants.DECK_SLOT);
-            //cardChoosingSound.start();
-            //cardChoosingSound.setMicrosecondPosition(0);
+            cardChoosingSound.setMicrosecondPosition(0);
+            cardChoosingSound.start();
+           // cardChoosingSound.setMicrosecondPosition(0);
         });
 
         buttonGraphicCard.disableProperty().bind(cardHandler.isNull());
