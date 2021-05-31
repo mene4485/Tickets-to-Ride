@@ -121,7 +121,7 @@ public class Menu extends Application {
 
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(20, 20, 20, 20));
-        layout.getChildren().addAll(gridPane);
+        layout.getChildren().addAll(gridPane,jouer);
 
         Scene scene = new Scene(layout, 500, 500);
         window.setScene(scene);
