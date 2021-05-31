@@ -5,14 +5,20 @@ import ch.epfl.tchu.SortedBag;
 import ch.epfl.tchu.game.ChMap;
 import ch.epfl.tchu.game.Route;
 import ch.epfl.tchu.game.Station;
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -20,6 +26,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 import javax.sound.sampled.Clip;
 import java.util.ArrayList;
@@ -93,6 +100,17 @@ class MapViewCreator {
                 list.add(caseNode);
 
                // caseNode.setOnMouseClicked().styleProperty().bind(new SimpleStringProperty("-fx-scale-x: 1.1;-fx-scale-y: 1.1;"));
+                caseNode.setOnMouseClicked(event -> {
+                    Timeline flash = new Timeline(
+                            //new KeyFrame(Duration.seconds(1), new KeyValue(caseNode.translateYProperty(),0,Interpolator.LINEAR)),
+                            new KeyFrame(Duration.seconds(0.2), new KeyValue(caseNode.scaleXProperty(),2,Interpolator.LINEAR)),
+                            new KeyFrame(Duration.seconds(0.4), new KeyValue(caseNode.rotateProperty(),180,Interpolator.LINEAR)),
+                            new KeyFrame(Duration.seconds(0.6), new KeyValue(caseNode.scaleXProperty(),1,Interpolator.LINEAR)),
+                            new KeyFrame(Duration.seconds(0.6), new KeyValue(caseNode.rotateProperty(),265,Interpolator.LINEAR))
+                    );
+                    flash.play();
+                });
+
 
             }
             Node routeNode = new Group(list);
