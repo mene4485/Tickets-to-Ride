@@ -12,30 +12,23 @@ import static javafx.application.Platform.runLater;
 
 /**
  * Class used to represent a GraphicalPlayer as a Player
+ * @see Player
  *
  * @author Albert Troussard (330361)
  * @author Ménélik Nouvellon (328132)
- * @see Player
  */
-public final class GraphicalPlayerAdapter implements Player {
-    private final int BLOCKING_QUEUE_CAPACITY = 1;
+public class GraphicalPlayerAdapter implements Player {
+    private final BlockingQueue<SortedBag<Ticket>> ticketQueue = new ArrayBlockingQueue(1);
+    private final BlockingQueue<Integer> drawCardQueue = new ArrayBlockingQueue<>(1);
+    private final BlockingQueue<Route> routeQueue = new ArrayBlockingQueue<>(1);
+    private final BlockingQueue<SortedBag<Card>> cardQueue = new ArrayBlockingQueue<>(1);
 
-    private final BlockingQueue<SortedBag<Ticket>> ticketQueue;
-    private final BlockingQueue<Integer> drawCardQueue;
-    private final BlockingQueue<Route> routeQueue;
-    private final BlockingQueue<SortedBag<Card>> cardQueue;
-
-    private GraphicalPlayer graphicalPlayer;
+    GraphicalPlayer graphicalPlayer;
 
     /**
      * Empty constructor (so the class can be instanced)
      */
-    public GraphicalPlayerAdapter() {
-        ticketQueue = new ArrayBlockingQueue(BLOCKING_QUEUE_CAPACITY);
-        drawCardQueue = new ArrayBlockingQueue<>(BLOCKING_QUEUE_CAPACITY);
-        routeQueue = new ArrayBlockingQueue<>(BLOCKING_QUEUE_CAPACITY);
-        cardQueue = new ArrayBlockingQueue<>(BLOCKING_QUEUE_CAPACITY);
-    }
+    public GraphicalPlayerAdapter() {}
 
     /**
      * Set the GraphicalPlayer with the given parameters on the javafx thread
@@ -72,7 +65,6 @@ public final class GraphicalPlayerAdapter implements Player {
     /**
      * Call the method chooseTickets of GraphicalPlayer on the javafx thread
      * the ChooseTicketsHandler unique method consist here on just adding the sorted bag of tickets to a blockingQueue
-     *
      * @param tickets that have been distributed
      */
     @Override
@@ -81,12 +73,16 @@ public final class GraphicalPlayerAdapter implements Player {
     }
 
     /**
+     *
      * @return the element at the head of the queue(and remove it from the queue)
-     * @throws Error
      */
     @Override
     public SortedBag<Ticket> chooseInitialTickets() {
-        return takeWithTryCatch(ticketQueue);
+        try {
+            return ticketQueue.take();
+        } catch (InterruptedException e) {
+            throw new Error();
+        }
     }
 
     /**
@@ -96,26 +92,33 @@ public final class GraphicalPlayerAdapter implements Player {
      * the ClaimRouteHandler  unique method consist here on adding the turnKind to a blockingQueue and the route and the cards to different blockingQueue
      *
      * @return the type of action the player wants to do (head of the blockingQueue)
-     * @throws Error
      */
     @Override
     public TurnKind nextTurn() {
-        BlockingQueue<TurnKind> turnKind = new ArrayBlockingQueue<>(BLOCKING_QUEUE_CAPACITY);
+        try {
 
-        runLater(() -> graphicalPlayer.startTurn(() -> turnKind.add(TurnKind.DRAW_TICKETS)
-                , slot -> {
-                    turnKind.add(TurnKind.DRAW_CARDS);
-                    drawCardQueue.add(slot);
+            BlockingQueue<TurnKind> turnKind = new ArrayBlockingQueue<>(1);
 
-                }, (route, cards) -> {
-                    turnKind.add(TurnKind.CLAIM_ROUTE);
-                    routeQueue.add(route);
-                    cardQueue.add(cards);
+            runLater(() -> graphicalPlayer.startTurn(() -> turnKind.add(TurnKind.DRAW_TICKETS)
+                    , slot -> {
+                        turnKind.add(TurnKind.DRAW_CARDS);
+                        drawCardQueue.add(slot);
 
-                }
-        ));
+                    }, (route, cards) -> {
+                        turnKind.add(TurnKind.CLAIM_ROUTE);
+                        routeQueue.add(route);
+                        cardQueue.add(cards);
 
-        return takeWithTryCatch(turnKind);
+                    }
+
+
+            ));
+            return turnKind.take();
+
+
+        } catch (InterruptedException e) {
+            throw new Error();
+        }
     }
 
     /**
@@ -132,31 +135,48 @@ public final class GraphicalPlayerAdapter implements Player {
     }
 
     /**
-     * @return the slot of the card the player wants to take
-     * @throws Error
+     *
+     *@return the slot of the card the player wants to take
      */
     @Override
     public int drawSlot() {
-        if (drawCardQueue.isEmpty()) {
-            runLater(() -> graphicalPlayer.drawCard(drawCardQueue::add));
+        try {
+            if (drawCardQueue.isEmpty()) {
+                runLater(() -> graphicalPlayer.drawCard(drawCardQueue::add));
+            }
+            return drawCardQueue.take();
+
+        } catch (Exception e) {
+            throw new Error();
         }
-        return takeWithTryCatch(drawCardQueue);
+
     }
 
     /**
+     *
      * @return the route the player wants to claim
      */
     @Override
     public Route claimedRoute() {
-        return takeWithTryCatch(routeQueue);
+        try {
+            return routeQueue.take();
+        }catch (InterruptedException e) {
+            throw new Error();
+        }
     }
 
     /**
+     *
      * @return the cards the player wants to use to initially claim  the route
      */
     @Override
     public SortedBag<Card> initialClaimCards() {
-        return cardQueue.remove();
+        try {
+            return cardQueue.take();
+        }catch (InterruptedException e) {
+            throw new Error();
+        }
+
     }
 
     /**
@@ -166,23 +186,18 @@ public final class GraphicalPlayerAdapter implements Player {
      *
      * @param options the possibilities given to the player
      * @return the cards choose by the player
-     * @throws Error
      */
     @Override
+    //TODO modulariser take()
     public SortedBag<Card> chooseAdditionalCards(List<SortedBag<Card>> options) {
         assert (cardQueue.isEmpty());
 
         runLater(() -> graphicalPlayer.chooseAdditionalCards(options, cardQueue::add));
-
-        return takeWithTryCatch(cardQueue);
-    }
-
-
-    private <T> T takeWithTryCatch(BlockingQueue<T> t) {
         try {
-            return t.take();
+            return cardQueue.take();
         } catch (Exception e) {
             throw new Error();
         }
+
     }
 }

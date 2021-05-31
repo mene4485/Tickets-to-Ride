@@ -46,9 +46,9 @@ public class GraphicalPlayer {
 
     private Map<Station, BooleanProperty> ticketMapBuilder() {
         Map<Station, BooleanProperty> map =new HashMap<>();
-                          ChMap.stations().forEach(e->map.put(e,new SimpleBooleanProperty(false)));
+        ChMap.stations().forEach(e->map.put(e,new SimpleBooleanProperty(false)));
 
-                          return map;
+        return map;
     }
 
     private final Canvas canvas;
@@ -60,7 +60,7 @@ public class GraphicalPlayer {
     private final ToggleButton draw;
     private final GridPane grid;
     private final ToggleButton eraser;
-    
+
     private BooleanProperty drawIsOn;
 
     public final static int MAX_MESSAGE_NUMBER = 5;
