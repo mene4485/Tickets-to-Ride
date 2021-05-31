@@ -43,7 +43,7 @@ public class Menu extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         window = primaryStage;
-        window.setTitle("TchuTchu Ma gueule");
+        window.setTitle("TchuTchuTchuTchu");
 
         nameInput = new TextField();
         button = new Button("Ok");
@@ -122,6 +122,23 @@ public class Menu extends Application {
         Button jouer = new Button();
         jouer.setText("Jouer !");
 
+
+        VBox clientBox = new VBox();
+        clientBox.getChildren().addAll(client,ipAdress,port);
+
+        gridPane.addRow(0,serverBox,clientBox);
+
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(20, 20, 20, 20));
+        layout.getChildren().addAll(gridPane,jouer);
+
+        Scene scene = new Scene(layout, 500, 500);
+        window.setScene(scene);
+        window.show();
+
+
+
+
         jouer.setOnAction(s->{
             if(server.isSelected()){
                 window.hide();
@@ -133,7 +150,7 @@ public class Menu extends Application {
 
                 SortedBag<Ticket> tickets = SortedBag.of(ChMap.tickets());
                 Random rng = new Random();
-                ServerSocket serverSocket = null;
+                ServerSocket serverSocket;
                 try {
                     serverSocket = new ServerSocket(5108);
                     Socket socket = serverSocket.accept();
@@ -142,18 +159,20 @@ public class Menu extends Application {
                 Map<PlayerId, Player> players =
                         Map.of(PLAYER_1, new GraphicalPlayerAdapter(),
                                 PLAYER_2, new RemotePlayerProxy(socket));
-
+                    System.out.println("test1");
                 new Thread(() -> Game.play(players, playerNames, tickets, rng))
                         .start();
+                    System.out.println("test2");
 
                 } catch (IOException e) {
+                    System.out.println("fv");
                     e.printStackTrace();
                 }
 
             }else if(client.isSelected()){
                 window.hide();
-                String ipString=ipAdressText.getText();
-                String portString=portText.getText();
+                String ipString=ipAdressInput.getText();
+                String portString=portInput.getText();
 
 
                 String hostName =ipString.equals("") ? "localhost" : ipString;
@@ -170,18 +189,5 @@ public class Menu extends Application {
 
             }
         });
-
-        VBox clientBox = new VBox();
-        clientBox.getChildren().addAll(client,ipAdress,port);
-
-        gridPane.addRow(0,serverBox,clientBox);
-
-        VBox layout = new VBox(10);
-        layout.setPadding(new Insets(20, 20, 20, 20));
-        layout.getChildren().addAll(gridPane,jouer);
-
-        Scene scene = new Scene(layout, 500, 500);
-        window.setScene(scene);
-        window.show();
     }
 }
