@@ -59,7 +59,7 @@ class InfoViewCreator {
             ReadOnlyIntegerProperty points = observableGameState.playerPointsProperty(playerId);
             Text text = new Text();
             text.textProperty().bind(Bindings.format(StringsFr.PLAYER_STATS, playerNames.get(playerId), ticketCount, cardCount, carCount, points));
-            text.setFont(StringsFr.font(15,"Bold"));
+            text.setFont(StringsFr.font(15, "Bold"));
             stat.getChildren().addAll(circle, text);
             playerStats.getChildren().add(stat);
         }

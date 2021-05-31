@@ -12,10 +12,10 @@ import static javafx.application.Platform.runLater;
 
 /**
  * Class used to represent a GraphicalPlayer as a Player
- * @see Player
  *
  * @author Albert Troussard (330361)
  * @author Ménélik Nouvellon (328132)
+ * @see Player
  */
 public class GraphicalPlayerAdapter implements Player {
     private final BlockingQueue<SortedBag<Ticket>> ticketQueue = new ArrayBlockingQueue(1);
@@ -28,7 +28,8 @@ public class GraphicalPlayerAdapter implements Player {
     /**
      * Empty constructor (so the class can be instanced)
      */
-    public GraphicalPlayerAdapter() {}
+    public GraphicalPlayerAdapter() {
+    }
 
     /**
      * Set the GraphicalPlayer with the given parameters on the javafx thread
@@ -65,6 +66,7 @@ public class GraphicalPlayerAdapter implements Player {
     /**
      * Call the method chooseTickets of GraphicalPlayer on the javafx thread
      * the ChooseTicketsHandler unique method consist here on just adding the sorted bag of tickets to a blockingQueue
+     *
      * @param tickets that have been distributed
      */
     @Override
@@ -73,7 +75,6 @@ public class GraphicalPlayerAdapter implements Player {
     }
 
     /**
-     *
      * @return the element at the head of the queue(and remove it from the queue)
      */
     @Override
@@ -135,8 +136,7 @@ public class GraphicalPlayerAdapter implements Player {
     }
 
     /**
-     *
-     *@return the slot of the card the player wants to take
+     * @return the slot of the card the player wants to take
      */
     @Override
     public int drawSlot() {
@@ -153,27 +153,25 @@ public class GraphicalPlayerAdapter implements Player {
     }
 
     /**
-     *
      * @return the route the player wants to claim
      */
     @Override
     public Route claimedRoute() {
         try {
-        return routeQueue.take();
-        }catch (InterruptedException e) {
+            return routeQueue.take();
+        } catch (InterruptedException e) {
             throw new Error();
         }
     }
 
     /**
-     *
      * @return the cards the player wants to use to initially claim  the route
      */
     @Override
     public SortedBag<Card> initialClaimCards() {
         try {
             return cardQueue.take();
-        }catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             throw new Error();
         }
 

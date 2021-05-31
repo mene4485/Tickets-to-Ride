@@ -11,7 +11,6 @@ import java.util.List;
  *
  * @author Albert Troussard (330361)
  * @author Ménélik Nouvellon (328132)
- *
  */
 public class ClientMain extends Application {
 
@@ -22,6 +21,7 @@ public class ClientMain extends Application {
 
     /**
      * Method who is responsible for starting the client
+     *
      * @param primaryStage not used
      * @throws Exception
      */

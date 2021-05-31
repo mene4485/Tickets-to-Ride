@@ -5,6 +5,7 @@ package ch.epfl.tchu.net;
  * <li>INIT_PLAYERS<li>RECEIVE_INFO<li>UPDATE_STATE<li>SET_INITIAL_TICKETS
  * <li>CHOOSE_INITIAL_TICKETS<li>NEXT_TURN<li>CHOOSE_TICKETS<li>DRAW_SLOT
  * <li>ROUTE<li>CARDS<li>CHOOSE_ADDITIONAL_CARDS
+ *
  * @author Albert Troussard (330361)
  * @author Ménélik Nouvellon (328132)
  */

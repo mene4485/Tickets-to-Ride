@@ -70,9 +70,6 @@ public class ObservableGameState {
         this.playerState = playerState;
 
 
-
-
-
         // ----------- PublicGameState ----------- //
 
         //Tickets percentage
@@ -278,7 +275,6 @@ public class ObservableGameState {
         return FXCollections
                 .unmodifiableObservableList(playerTickets);
     }
-
 
 
     /**

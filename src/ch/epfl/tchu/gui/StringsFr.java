@@ -5,7 +5,8 @@ import ch.epfl.tchu.game.Card;
 import javafx.scene.text.Font;
 
 public final class StringsFr {
-    private StringsFr() {}
+    private StringsFr() {
+    }
 
     // Nom des cartes
     public static final String BLACK_CARD = "noire";
@@ -35,7 +36,7 @@ public final class StringsFr {
             "Choisissez les cartes à utiliser pour vous emparer de cette route :";
     public static final String CHOOSE_ADDITIONAL_CARDS =
             "Choisissez les cartes supplémentaires à utiliser pour vous" +
-            " emparer de ce tunnel (ou aucune pour annuler et passer votre tour) :";
+                    " emparer de ce tunnel (ou aucune pour annuler et passer votre tour) :";
 
     // Informations concernant le déroulement de la partie
     public static final String WILL_PLAY_FIRST =
@@ -92,6 +93,7 @@ public final class StringsFr {
 
     /**
      * Retourne une chaîne marquant le pluriel, ou la chaîne vide.
+     *
      * @param value la valeur déterminant la chaîne retournée
      * @return la chaîne vide si la valeur vaut ±1 ou 0, la chaîne "s" sinon
      */
@@ -109,15 +111,16 @@ public final class StringsFr {
         for (Card c : cards.toSet()) {
             aux += 1;
             int n = cards.countOf(c);
-            if (cards.toSet().size() - 1 == aux) s.append(n).append(" ").append(Info.cardName(c, n)).append(StringsFr.AND_SEPARATOR);
+            if (cards.toSet().size() - 1 == aux)
+                s.append(n).append(" ").append(Info.cardName(c, n)).append(StringsFr.AND_SEPARATOR);
             else if (cards.toSet().size() == aux) s.append(n).append(" ").append(Info.cardName(c, n));
             else s.append(n).append(" ").append(Info.cardName(c, n)).append(", ");
         }
         return s.toString();
     }
 
-    public static Font font(int size,String str ){
-        return Font.loadFont("file:resources/SFUIDisplay-" + str + ".ttf",size);
+    public static Font font(int size, String str) {
+        return Font.loadFont("file:resources/SFUIDisplay-" + str + ".ttf", size);
 
     }
 }
