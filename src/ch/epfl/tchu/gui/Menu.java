@@ -1,5 +1,9 @@
 package ch.epfl.tchu.gui;
 
+import ch.epfl.tchu.SortedBag;
+import ch.epfl.tchu.game.*;
+import ch.epfl.tchu.net.RemotePlayerClient;
+import ch.epfl.tchu.net.RemotePlayerProxy;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -11,6 +15,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
+import static ch.epfl.tchu.game.PlayerId.PLAYER_1;
+import static ch.epfl.tchu.game.PlayerId.PLAYER_2;
 
 /**
  * @author Albert Troussard (330361)
@@ -110,6 +124,49 @@ public class Menu extends Application {
 
         jouer.setOnAction(s->{
             if(server.isSelected()){
+                window.hide();
+                String j1=joueur1Input.toString();
+                String j2=joueur2Input.toString();
+
+                String player1name = j1.equals("") ?  "Ada" : j1 ;
+                String player2name = j2.equals("") ?  "Charles" : j2 ;
+
+                SortedBag<Ticket> tickets = SortedBag.of(ChMap.tickets());
+                Random rng = new Random();
+                ServerSocket serverSocket = null;
+                try {
+                    serverSocket = new ServerSocket(5108);
+                    Socket socket = serverSocket.accept();
+                Map<PlayerId, String> playerNames = Map.of(PlayerId.PLAYER_1, player1name, PlayerId.PLAYER_2, player2name);
+
+                Map<PlayerId, Player> players =
+                        Map.of(PLAYER_1, new GraphicalPlayerAdapter(),
+                                PLAYER_2, new RemotePlayerProxy(socket));
+
+                new Thread(() -> Game.play(players, playerNames, tickets, rng))
+                        .start();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }else if(client.isSelected()){
+                window.hide();
+                String ipString=ipAdress.toString();
+                String portString=port.toString();
+
+
+                String hostName =ipString.equals("") ? "localhost" : ipString;
+                int port1=portString.equals("") ? 5108 : Integer.parseInt(portInput.toString());
+
+
+
+                RemotePlayerClient playerClient =
+                        new RemotePlayerClient(new GraphicalPlayerAdapter(),
+                                hostName,
+                                port1);
+
+                new Thread(playerClient::run).start();
 
             }
         });
