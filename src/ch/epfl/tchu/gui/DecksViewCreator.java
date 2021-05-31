@@ -35,6 +35,9 @@ class DecksViewCreator {
     private static final int RECTANGLE_WIDTH = 40;
 
 
+   // private DecksViewCreator(){}
+
+
     public static ReadOnlyObjectProperty<Ticket> selectedTicketProperty() {
         return selectedTicket;
     }
@@ -157,12 +160,6 @@ class DecksViewCreator {
             stackPane.getStyleClass().addAll("null", "card","fuc");
             int j = i;
 
-            stackPane.setOnMouseClicked(e -> {
-                cardHandler.get().onDrawCard(j);
-                //cardChoosingSound.start();
-                //cardChoosingSound.setMicrosecondPosition(0);
-            });
-
 
             vBox.getChildren().add(stackPane);
             stackPane.disableProperty().bind(cardHandler.isNull());
@@ -176,10 +173,12 @@ class DecksViewCreator {
         buttonGraphicCard.setText(StringsFr.CARDS);
 
         buttonGraphicCard.setFont(StringsFr.font(15,"Light"));
+
+
         buttonGraphicCard.setOnMouseClicked(e -> {
             cardHandler.get().onDrawCard(Constants.DECK_SLOT);
-            //cardChoosingSound.start();
-            //cardChoosingSound.setMicrosecondPosition(0);
+            cardChoosingSound.start();
+            cardChoosingSound.setMicrosecondPosition(0);
         });
 
         buttonGraphicCard.disableProperty().bind(cardHandler.isNull());
