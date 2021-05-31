@@ -8,6 +8,7 @@ import ch.epfl.tchu.game.Station;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
@@ -90,6 +91,9 @@ class MapViewCreator {
 
                 caseNode.setId(new StringBuilder().append(route.id()).append("_").append(i).toString());
                 list.add(caseNode);
+
+               // caseNode.setOnMouseClicked().styleProperty().bind(new SimpleStringProperty("-fx-scale-x: 1.1;-fx-scale-y: 1.1;"));
+
             }
             Node routeNode = new Group(list);
             routeNode.setId(route.id());
@@ -139,7 +143,7 @@ class MapViewCreator {
                 StackPane stackpane = new StackPane();
 
                 Rectangle voie = new Rectangle(RECTANGLE_WIDTH * 2.5, RECTANGLE_HEIGHT + 3);
-                voie.getStyleClass().addAll("track", "filled","test");//TODO retirer test
+                voie.getStyleClass().addAll("track", "filled");
 
                 Text text2 = new Text("↪ " + route.stationOpposite(station));
                 text2.setFont(Font.font("Helvetica"));

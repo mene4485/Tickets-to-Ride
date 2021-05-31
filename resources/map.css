@@ -43,8 +43,8 @@ ImageView.plane.StGall.PLAYER_2 {-fx-image: url("airportPlayer2.png");-fx-scale-
 }
 
 .route:hover .track {
-    -fx-scale-x: 1.1;
-    -fx-scale-y: 1.1;
+  /*  -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;*/
 
 }
 
@@ -52,11 +52,25 @@ ImageView.plane.StGall.PLAYER_2 {-fx-image: url("airportPlayer2.png");-fx-scale-
 
 
 
-.rotate-scale-up .track {
-    -webkit-animation: rotate-scale-up 1s linear ;
-    animation: rotate-scale-up 1s linear ;
+.rotate-scale-up:hover {
+   -fx-animated:  rotate-scale-up 1s linear both;
 }
-@-webkit-keyframes rotate-scale-up{0%{-webkit-transform:scale(1) rotateZ(0);transform:scale(1) rotateZ(0)}50%{-webkit-transform:scale(2) rotateZ(180deg);transform:scale(2) rotateZ(180deg)}100%{-webkit-transform:scale(1) rotateZ(360deg);transform:scale(1) rotateZ(360deg)}}@keyframes rotate-scale-up{0%{-webkit-transform:scale(1) rotateZ(0);transform:scale(1) rotateZ(0)}50%{-webkit-transform:scale(2) rotateZ(180deg);transform:scale(2) rotateZ(180deg)}100%{-webkit-transform:scale(1) rotateZ(360deg);transform:scale(1) rotateZ(360deg)}}
+
+
+@keyframes rotate-scale-up {
+    0% {
+        transform: scale(1) rotateZ(0);
+    }
+    50% {
+        transform: scale(2) rotateZ(180deg);
+    }
+    100% {
+        transform: scale(1) rotateZ(360deg);
+    }
+}
+
+
+
 
 .car {
     visibility: hidden;
