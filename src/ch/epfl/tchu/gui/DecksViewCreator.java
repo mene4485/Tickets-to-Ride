@@ -35,12 +35,11 @@ class DecksViewCreator {
     private static final int RECTANGLE_WIDTH = 40;
 
 
-    private static ObjectProperty<Ticket> selectedTicket=new SimpleObjectProperty<>();
-
     public static ReadOnlyObjectProperty<Ticket> selectedTicketProperty() {
         return selectedTicket;
     }
 
+    private static ObjectProperty<Ticket> selectedTicket=new SimpleObjectProperty<>();
 
 
     /**
@@ -55,13 +54,13 @@ class DecksViewCreator {
         view.setId("tickets");
 
 
-        view.addEventHandler(MouseEvent.ANY,e->{
+       view.addEventHandler(MouseEvent.ANY,e->{
 
-            if(view.getSelectionModel().getSelectedItem()!=null){
+           if(view.getSelectionModel().getSelectedItem()!=null){
 
-                selectedTicket.setValue(view.getSelectionModel().getSelectedItem());
-            }
-        });
+        selectedTicket.setValue(view.getSelectionModel().getSelectedItem());
+           }
+       });
 
 
 
