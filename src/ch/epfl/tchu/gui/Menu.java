@@ -43,10 +43,7 @@ import static ch.epfl.tchu.game.PlayerId.PLAYER_2;
  * @author Menelik Nouvellon (328132)
  */
 public class Menu extends Application {
-    static Button button;
     static Stage window;
-    static TextField nameInput;
-
 
     public static void main(String[] args) {
         launch(args);
@@ -181,7 +178,8 @@ public class Menu extends Application {
 
 
         window.setScene(scene);
-        window.getIcons().add(new Image("file:resources/icone.png"));
+        Image image = new Image("file:resources/icone.png");
+        window.getIcons().add(image);
         window.show();
 
 

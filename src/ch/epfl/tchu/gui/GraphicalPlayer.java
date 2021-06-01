@@ -15,6 +15,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldListCell;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -98,8 +99,6 @@ public class GraphicalPlayer {
         eraser = new ToggleButton();
 
 
-
-
         stage.setTitle("tCHu \u2014" + playerNames.get(identity));
 
         MapViewCreator.CardChooser cardChooser = this::chooseClaimCards;
@@ -121,7 +120,7 @@ public class GraphicalPlayer {
 
 
         BorderPane mainPane =
-                new BorderPane(mapView, null, cardsView, handView, new Pane(infoView,grid));
+                new BorderPane(mapView, null, cardsView, handView, new Pane(infoView, grid));
 
         pane.getChildren().addAll(mainPane, canvas);
 
@@ -203,26 +202,25 @@ public class GraphicalPlayer {
 
         canvas.setOnMousePressed(e -> {
             gc.beginPath();
-                if(eraser.isSelected()){
-                    gc.clearRect(e.getX(), e.getY(), gc.getLineWidth() * 2, gc.getLineWidth() * 2);
-                } else if(draw.isSelected()){
-                    gc.lineTo(e.getX(), e.getY());
-                    gc.stroke();
-                }
+            if (eraser.isSelected()) {
+                gc.clearRect(e.getX(), e.getY(), gc.getLineWidth() * 2, gc.getLineWidth() * 2);
+            } else if (draw.isSelected()) {
+                gc.lineTo(e.getX(), e.getY());
+                gc.stroke();
+            }
         });
         canvas.setOnMouseDragged(e -> {
 
 
-                if(eraser.isSelected()){
-                    gc.clearRect(e.getX(), e.getY(), gc.getLineWidth() * 2, gc.getLineWidth() * 2);
-                } else if(draw.isSelected()){
-                    gc.lineTo(e.getX(), e.getY());
-                    gc.stroke();
-                }
+            if (eraser.isSelected()) {
+                gc.clearRect(e.getX(), e.getY(), gc.getLineWidth() * 2, gc.getLineWidth() * 2);
+            } else if (draw.isSelected()) {
+                gc.lineTo(e.getX(), e.getY());
+                gc.stroke();
+            }
         });
-        ToggleGroup group =new ToggleGroup();
-        group.getToggles().addAll(draw,eraser);
-
+        ToggleGroup group = new ToggleGroup();
+        group.getToggles().addAll(draw, eraser);
 
 
         grid.addRow(0, cp, slide, label);
@@ -231,7 +229,7 @@ public class GraphicalPlayer {
         grid.setAlignment(Pos.TOP_CENTER);
 
 
-       // pane.getChildren().add(grid);
+        // pane.getChildren().add(grid);
 
 
         grid.setTranslateY(640);
@@ -343,6 +341,8 @@ public class GraphicalPlayer {
             stage.hide();
             chooseTicketsHandler.onChooseTickets(SortedBag.of(listView.getSelectionModel().getSelectedItems()));
         });
+        Image image = new Image("file:resources/imageTicket.png");
+        stage.getIcons().add(image);
         stage.show();
 
     }

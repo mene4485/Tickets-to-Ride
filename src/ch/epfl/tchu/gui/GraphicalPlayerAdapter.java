@@ -39,11 +39,7 @@ public class GraphicalPlayerAdapter implements Player {
      */
     @Override
     public void initPlayers(PlayerId ownId, Map<PlayerId, String> playerNames) {
-        runLater(() ->
-                {
-                    System.out.println("Rasan jtm");
-                    graphicalPlayer = new GraphicalPlayer(ownId, playerNames);
-                });
+        runLater(() -> graphicalPlayer = new GraphicalPlayer(ownId, playerNames));
     }
 
     /**
