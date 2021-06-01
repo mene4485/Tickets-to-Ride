@@ -176,7 +176,7 @@ public class Menu extends Application {
 
 
                 String hostName =ipString.equals("") ? "localhost" : ipString;
-                int port1=portString.equals("") ? 5108 : Integer.parseInt(portInput.toString());
+                int port1=portString.equals("") ? 5108 : Integer.parseInt(portString);
 
 
 
