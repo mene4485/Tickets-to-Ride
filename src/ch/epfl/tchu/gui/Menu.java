@@ -112,13 +112,13 @@ public class Menu extends Application {
 
         //OwnIpAdress
         String ownIpAdress = ip();
-        Text textBeforeOwnIpAdressText = new Text("My Ip Adress : ");
+        Text textBeforeOwnIpAdressText = new Text("Mon Adresse Ip : ");
         Text ownIpAdressText = new Text(ownIpAdress);
         ownIpAdressText.setStyle("-fx-fill: white; -fx-font-size: 0.8em;");
         ownIpAdressText.setTranslateX(265);
         ownIpAdressText.setTranslateY(-22);
         textBeforeOwnIpAdressText.setStyle("-fx-fill: white; -fx-font-size: 0.8em;");
-        textBeforeOwnIpAdressText.setTranslateX(210);
+        textBeforeOwnIpAdressText.setTranslateX(204);
 
 
 
@@ -140,7 +140,7 @@ public class Menu extends Application {
 
 
         Rectangle copy = new Rectangle();
-        Text t = new Text("Copy");
+        Text t = new Text("Copier");
         t.setTranslateY(10);
         t.setTranslateX(4);
         t.setFont(Font.loadFont("file:resources/cmmi10.ttf",10));
@@ -157,7 +157,7 @@ public class Menu extends Application {
 
         ipAdressInput.setMaxWidth(155);
         portInput.setMaxWidth(155);
-        ipAdressText.setText("C:\\Users\\Tchu> Ip Adress :");
+        ipAdressText.setText("C:\\Users\\Tchu> Adresse Ip :");
         portText.setText("C:\\Users\\Tchu> Port : ");
         ipAdressInput.setStyle("-fx-background-color: black;-fx-text-fill: white;");
         portInput.setStyle("-fx-background-color: black;-fx-text-fill: white;");
@@ -223,7 +223,7 @@ public class Menu extends Application {
             rectangleAutourIpAdressPort.setVisible(client.isSelected());
         });
 
-        //if we click on Jouer's button
+        //if we click on Play's button
         jouer.setOnAction(s -> {
             if (server.isSelected()) {
                 Platform.setImplicitExit(false);
@@ -246,19 +246,16 @@ public class Menu extends Application {
                     Map<PlayerId, Player> players =
                             Map.of(PLAYER_1, new GraphicalPlayerAdapter(),
                                     PLAYER_2, new RemotePlayerProxy(socket));
-                    System.out.println("test1");
                     new Thread(() -> Game.play(players, playerNames, tickets, rng))
                             .start();
-                    System.out.println("test2");
 
                 } catch (IOException e) {
-                    System.out.println("fv");
                     e.printStackTrace();
                 }
 
             } else if (client.isSelected()) {
                 Platform.setImplicitExit(false);
-                Platform.runLater(() -> System.out.println("Inside Platform.runLater()"));
+                Platform.runLater(() -> {}/*System.out.println("Inside Platform.runLater()")*/);
                 window.close();
                 String ipString = ipAdressInput.getText();
                 String portString = portInput.getText();
@@ -289,7 +286,7 @@ public class Menu extends Application {
         ownIpAdressText.setOnMouseClicked(event -> {
             cbc.putString(ownIpAdressText.getText());
             cb.setContent(cbc);
-            t.setText("Copied");
+            t.setText("Copié");
             copy.setWidth(40f);
         });
 

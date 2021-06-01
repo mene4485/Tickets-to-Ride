@@ -16,7 +16,7 @@ public final class Constants {
     /**
      * Nombre de cartes locomotive.
      */
-    public static final int LOCOMOTIVE_CARDS_COUNT = 100;
+    public static final int LOCOMOTIVE_CARDS_COUNT = 14;
 
     /**
      * Nombre total de cartes wagon/locomotive.
@@ -41,7 +41,7 @@ public final class Constants {
 
 
 
-    public static final int PLANE_COUNT=30;
+    public static final int PLANE_COUNT=2;
     /**
      * Numéro d'emplacement fictif désignant la pioche de cartes.
      */
