@@ -131,6 +131,7 @@ public class GraphicalPlayer {
         DrawCreator();
 
         stage.setScene(scene1);
+        stage.getIcons().add(new Image("file:resources/imageTicket.png"));
         stage.show();
 
 
@@ -341,8 +342,8 @@ public class GraphicalPlayer {
             stage.hide();
             chooseTicketsHandler.onChooseTickets(SortedBag.of(listView.getSelectionModel().getSelectedItems()));
         });
-        Image image = new Image("file:resources/imageTicket.png");
-        stage.getIcons().add(image);
+       // Image image = new Image("file:resources/imageTicket.png");
+        //stage.getIcons().add(image);
         stage.show();
 
     }

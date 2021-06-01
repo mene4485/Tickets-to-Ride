@@ -117,11 +117,11 @@ class DecksViewCreator {
         //add the ticket's button
         Button buttonGraphicTicket = buttonGraphicCreatorTicket(observableGameState);
         buttonGraphicTicket.getStyleClass().addAll("gauged");
-        ImageView logoTicket =new ImageView("file:resources/imageTicket.png");
+       /* ImageView logoTicket =new ImageView("file:resources/imageTicket.png");
         logoTicket.setFitWidth(50);
         logoTicket.setFitHeight(30);
 
-        buttonGraphicTicket.setGraphic(logoTicket);
+        buttonGraphicTicket.setGraphic(logoTicket);*/
 
         buttonGraphicTicket.setText(StringsFr.TICKETS);
 
