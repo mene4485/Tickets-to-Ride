@@ -184,7 +184,7 @@ public class Menu extends Application {
         client.setTranslateX(40);
 
         gridPane.addRow(0, serverBox, clientBox);
-        //gridPane.setTranslateY(-20);
+        gridPane.setTranslateY(-20);
         gridPane.setAlignment(Pos.TOP_CENTER);
         gridPane.setHgap(50);
         VBox layout = new VBox(10);
