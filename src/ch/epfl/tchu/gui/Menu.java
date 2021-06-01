@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -53,7 +54,6 @@ public class Menu extends Application {
         window.setTitle("TchuTchu");
 
 
-
         GridPane gridPane = new GridPane();
 
         //Serveur
@@ -80,15 +80,14 @@ public class Menu extends Application {
 
         ToggleButton server = new ToggleButton();
         server.setText("Server");
-        server.setFont(StringsFr.font(15,"Light"));
-       server.getStyleClass().add("server");
+        server.setFont(StringsFr.font(15, "Light"));
+        server.getStyleClass().add("server");
 
 
         ToggleButton client = new ToggleButton();
         client.setText("Client");
-        client.setFont(StringsFr.font(15,"Light"));
+        client.setFont(StringsFr.font(15, "Light"));
         client.getStyleClass().add("client");
-
 
 
         joueur1Input.setVisible(false);
@@ -131,37 +130,35 @@ public class Menu extends Application {
         jouer.setText("Jouer !");
 
 
-Text t =new Text("tCHu 2.0");
-t.setFont(StringsFr.font(50,"Light"));
-t.setTextAlignment(TextAlignment.CENTER);
+        Text t = new Text("tCHu 2.0");
+        t.setFont(StringsFr.font(50, "Light"));
+        t.setTextAlignment(TextAlignment.CENTER);
 
         VBox clientBox = new VBox();
         clientBox.getChildren().addAll(client, ipAdress, port);
 
 
         gridPane.addRow(0, serverBox, clientBox);
-gridPane.setAlignment(Pos.TOP_CENTER);
+        gridPane.setAlignment(Pos.TOP_CENTER);
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(20, 20, 20, 20));
-        layout.getChildren().addAll(t,gridPane, jouer);
+        layout.getChildren().addAll(t, gridPane, jouer);
 
-layout.setAlignment(Pos.CENTER);
+        layout.setAlignment(Pos.CENTER);
         Scene scene = new Scene(layout, 600, 400);
-scene.getStylesheets().add("backGround.css");
+        scene.getStylesheets().add("backGround.css");
         scene.getStylesheets().add("togglebuttonStyle.css");
 
 
-
-
-
         window.setScene(scene);
+        window.getIcons().add(new Image("file:resources/icone.png"));
         window.show();
 
 
         jouer.setOnAction(s -> {
             if (server.isSelected()) {
                 Platform.setImplicitExit(false);
-                Platform.runLater(()->System.out.println("Inside Platform.runLater()"));
+                Platform.runLater(() -> System.out.println("Inside Platform.runLater()"));
                 window.close();
                 String j1 = name1input.getText();
                 String j2 = name2input.getText();
@@ -192,7 +189,7 @@ scene.getStylesheets().add("backGround.css");
 
             } else if (client.isSelected()) {
                 Platform.setImplicitExit(false);
-                Platform.runLater(()->System.out.println("Inside Platform.runLater()"));
+                Platform.runLater(() -> System.out.println("Inside Platform.runLater()"));
                 window.close();
                 String ipString = ipAdressInput.getText();
                 String portString = portInput.getText();
