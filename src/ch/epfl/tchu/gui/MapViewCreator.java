@@ -5,10 +5,7 @@ import ch.epfl.tchu.SortedBag;
 import ch.epfl.tchu.game.ChMap;
 import ch.epfl.tchu.game.Route;
 import ch.epfl.tchu.game.Station;
-import javafx.animation.Interpolator;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -74,7 +71,7 @@ class MapViewCreator {
         gamePane.getStylesheets().addAll("map.css", "colors.css");
 
         Clip audioChoosingAirRoute = DecksViewCreator.createAudio("resources/airplane.wav");
-            Clip cardChoosingSound = DecksViewCreator.createAudio("resources/tchutchu.wav");
+        Clip cardChoosingSound = DecksViewCreator.createAudio("resources/tchutchu.wav");
         //routes
         for (Route route : ChMap.routes().subList(0, ChMap.TRAIN_ROUTE_LAST_INDEX)) {
 
@@ -99,19 +96,19 @@ class MapViewCreator {
                 caseNode.setId(new StringBuilder().append(route.id()).append("_").append(i).toString());
                 list.add(caseNode);
 
-               observableGameState.routesProperty(route).addListener(e->{
+                observableGameState.routesProperty(route).addListener(e -> {
 
-                   double nodeRotateInitial = caseNode.getRotate();
+                    double nodeRotateInitial = caseNode.getRotate();
                     Timeline flash = new Timeline(
-                            new KeyFrame(Duration.seconds(0.2), new KeyValue(caseNode.scaleXProperty(),2,Interpolator.LINEAR)),
-                            new KeyFrame(Duration.seconds(0.2), new KeyValue(caseNode.scaleYProperty(),2,Interpolator.LINEAR)),
-                            new KeyFrame(Duration.seconds(0.4), new KeyValue(caseNode.rotateProperty(),nodeRotateInitial+180,Interpolator.LINEAR)),
-                            new KeyFrame(Duration.seconds(0.6), new KeyValue(caseNode.scaleYProperty(),1,Interpolator.LINEAR)),
-                            new KeyFrame(Duration.seconds(0.6), new KeyValue(caseNode.scaleXProperty(),1,Interpolator.LINEAR)),
-                            new KeyFrame(Duration.seconds(1), new KeyValue(caseNode.rotateProperty(),nodeRotateInitial+360,Interpolator.LINEAR))
+                            new KeyFrame(Duration.seconds(0.2), new KeyValue(caseNode.scaleXProperty(), 2, Interpolator.EASE_IN)),
+                            new KeyFrame(Duration.seconds(0.2), new KeyValue(caseNode.scaleYProperty(), 2, Interpolator.EASE_IN)),
+                            new KeyFrame(Duration.seconds(0.3), new KeyValue(caseNode.rotateProperty(), nodeRotateInitial + 180, Interpolator.EASE_IN)),
+                            new KeyFrame(Duration.seconds(0.5), new KeyValue(caseNode.scaleYProperty(), 1, Interpolator.EASE_IN)),
+                            new KeyFrame(Duration.seconds(0.5), new KeyValue(caseNode.scaleXProperty(), 1, Interpolator.EASE_IN)),
+                            new KeyFrame(Duration.seconds(0.5), new KeyValue(caseNode.rotateProperty(), nodeRotateInitial + 360, Interpolator.EASE_IN))
                     );
                     flash.play();
-               });
+                });
 
 
             }
@@ -186,25 +183,39 @@ class MapViewCreator {
                     oneFlyRoadOwned.set(true);
 
 
-
-
                     for (Station airport : ChMap.airports()) {
                         if (route.station1().id() == airport.id() || route.station2().id() == airport.id()) {
                             switch (airport.id()) {
                                 case 27:
-                                    double initialRotate = planeStGall.getRotate();
-                                    Timeline flash = new Timeline(
-                                            new KeyFrame(Duration.seconds(0.5), new KeyValue(planeStGall.rotateProperty(),initialRotate+180,Interpolator.LINEAR)),
-                                            new KeyFrame(Duration.seconds(1), new KeyValue(planeStGall.rotateProperty(),initialRotate+360,Interpolator.LINEAR))
-                                    );
-                                    flash.play();
+                                    int otherStationId = route.station1().id() == airport.id() ? route.station1().id() : route.station2().id();
+                                    switch (otherStationId){
+                                        case 10 :
+                                            planeStGall.setRotate(planeStGall.getRotate() + 180);
+                                            TranslateTransition transition = new TranslateTransition(new Duration(2000), planeStGall);
+
+                                            transition.setFromX(660);
+                                            transition.setFromY(-100);
+                                            transition.setToX(-230);
+                                            transition.setToY(340);
+                                            transition.play();
+
+                                            planeStGall.setRotate(planeStGall.getRotate() + 360);
+                                            break;
+                                    }
+                                    TranslateTransition transition = new TranslateTransition(new Duration(2000), planeStGall);
+
+                                    transition.setFromX(660);
+                                    transition.setFromY(-100);
+                                    transition.setToX(-230);
+                                    transition.setToY(340);
+                                    transition.play();
                                     planeStGall.getStyleClass().add(p);
                                     break;
                                 case 10:
                                     double initialRotateG = planeGeneve.getRotate();
                                     Timeline flash1 = new Timeline(
-                                            new KeyFrame(Duration.seconds(0.5), new KeyValue(planeGeneve.rotateProperty(),initialRotateG+180,Interpolator.LINEAR)),
-                                            new KeyFrame(Duration.seconds(1), new KeyValue(planeGeneve.rotateProperty(),initialRotateG+360,Interpolator.LINEAR))
+                                            new KeyFrame(Duration.seconds(0.5), new KeyValue(planeGeneve.rotateProperty(), initialRotateG + 180, Interpolator.LINEAR)),
+                                            new KeyFrame(Duration.seconds(1), new KeyValue(planeGeneve.rotateProperty(), initialRotateG + 360, Interpolator.LINEAR))
                                     );
                                     flash1.play();
                                     planeGeneve.getStyleClass().add(p);
@@ -212,8 +223,8 @@ class MapViewCreator {
                                 case 8:
                                     double initialRotateD = planeDelemont.getRotate();
                                     Timeline flash2 = new Timeline(
-                                            new KeyFrame(Duration.seconds(0.5), new KeyValue(planeDelemont.rotateProperty(),initialRotateD+180,Interpolator.LINEAR)),
-                                            new KeyFrame(Duration.seconds(1), new KeyValue(planeDelemont.rotateProperty(),initialRotateD+360,Interpolator.LINEAR))
+                                            new KeyFrame(Duration.seconds(0.5), new KeyValue(planeDelemont.rotateProperty(), initialRotateD + 180, Interpolator.LINEAR)),
+                                            new KeyFrame(Duration.seconds(1), new KeyValue(planeDelemont.rotateProperty(), initialRotateD + 360, Interpolator.LINEAR))
                                     );
                                     flash2.play();
                                     planeDelemont.getStyleClass().add(p);
@@ -221,8 +232,8 @@ class MapViewCreator {
                                 case 5:
                                     double initialRotateB = planeBrusio.getRotate();
                                     Timeline flash3 = new Timeline(
-                                            new KeyFrame(Duration.seconds(0.5), new KeyValue(planeBrusio.rotateProperty(),initialRotateB+180,Interpolator.LINEAR)),
-                                            new KeyFrame(Duration.seconds(1), new KeyValue(planeBrusio.rotateProperty(),initialRotateB+360,Interpolator.LINEAR))
+                                            new KeyFrame(Duration.seconds(0.5), new KeyValue(planeBrusio.rotateProperty(), initialRotateB + 180, Interpolator.LINEAR)),
+                                            new KeyFrame(Duration.seconds(1), new KeyValue(planeBrusio.rotateProperty(), initialRotateB + 360, Interpolator.LINEAR))
                                     );
                                     flash3.play();
                                     planeBrusio.getStyleClass().add(p);
@@ -233,8 +244,8 @@ class MapViewCreator {
                 });
                 oneFlyRoadOwned.addListener((owner, old, newValue) -> {
                     if (observableGameState.routesProperty(route).getValue() == null) {
-                            audioChoosingAirRoute.start();
-                           // audioChoosingAirRoute.setMicrosecondPosition(0);
+                        audioChoosingAirRoute.start();
+                        // audioChoosingAirRoute.setMicrosecondPosition(0);
                         text2.setText("VOL ANNULÉ");
                         text2.setFill(Color.DARKRED);
                     }

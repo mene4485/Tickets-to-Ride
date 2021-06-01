@@ -5,6 +5,7 @@ import ch.epfl.tchu.game.*;
 import ch.epfl.tchu.net.RemotePlayerClient;
 import ch.epfl.tchu.net.RemotePlayerProxy;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -98,7 +99,7 @@ public class Menu extends Application {
         });
 
         VBox serverBox = new VBox();
-        serverBox.getChildren().addAll(server,joueur1Input,joueur2Input);
+        serverBox.getChildren().addAll(server, joueur1Input, joueur2Input);
 
         //Client
 
@@ -108,7 +109,7 @@ public class Menu extends Application {
         portText.setText("Port : ");
 
         ipAdress.getChildren().addAll(ipAdressText, ipAdressInput);
-        port.getChildren().addAll(portText,portInput);
+        port.getChildren().addAll(portText, portInput);
 
         ipAdress.setVisible(false);
         port.setVisible(false);
@@ -127,29 +128,29 @@ public class Menu extends Application {
 
 
         VBox clientBox = new VBox();
-        clientBox.getChildren().addAll(client,ipAdress,port);
+        clientBox.getChildren().addAll(client, ipAdress, port);
 
-        gridPane.addRow(0,serverBox,clientBox);
+        gridPane.addRow(0, serverBox, clientBox);
 
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(20, 20, 20, 20));
-        layout.getChildren().addAll(gridPane,jouer);
+        layout.getChildren().addAll(gridPane, jouer);
 
         Scene scene = new Scene(layout, 500, 500);
         window.setScene(scene);
         window.show();
 
 
+        jouer.setOnAction(s -> {
+            if (server.isSelected()) {
+                Platform.setImplicitExit(false);
+                Platform.runLater(()->System.out.println("Inside Platform.runLater()"));
+                window.close();
+                String j1 = name1input.getText();
+                String j2 = name2input.getText();
 
-
-        jouer.setOnAction(s->{
-            if(server.isSelected()){
-                window.hide();
-                String j1=name1input.getText();
-                String j2=name2input.getText();
-
-                String player1name = j1.equals("") ?  "Ada" : j1 ;
-                String player2name = j2.equals("") ?  "Charles" : j2 ;
+                String player1name = j1.equals("") ? "Ada" : j1;
+                String player2name = j2.equals("") ? "Charles" : j2;
 
                 SortedBag<Ticket> tickets = SortedBag.of(ChMap.tickets());
                 Random rng = new Random();
@@ -157,14 +158,14 @@ public class Menu extends Application {
                 try {
                     serverSocket = new ServerSocket(5108);
                     Socket socket = serverSocket.accept();
-                Map<PlayerId, String> playerNames = Map.of(PlayerId.PLAYER_1, player1name, PlayerId.PLAYER_2, player2name);
+                    Map<PlayerId, String> playerNames = Map.of(PlayerId.PLAYER_1, player1name, PlayerId.PLAYER_2, player2name);
 
-                Map<PlayerId, Player> players =
-                        Map.of(PLAYER_1, new GraphicalPlayerAdapter(),
-                                PLAYER_2, new RemotePlayerProxy(socket));
+                    Map<PlayerId, Player> players =
+                            Map.of(PLAYER_1, new GraphicalPlayerAdapter(),
+                                    PLAYER_2, new RemotePlayerProxy(socket));
                     System.out.println("test1");
-                new Thread(() -> Game.play(players, playerNames, tickets, rng))
-                        .start();
+                    new Thread(() -> Game.play(players, playerNames, tickets, rng))
+                            .start();
                     System.out.println("test2");
 
                 } catch (IOException e) {
@@ -172,15 +173,16 @@ public class Menu extends Application {
                     e.printStackTrace();
                 }
 
-            }else if(client.isSelected()){
-                window.hide();
-                String ipString=ipAdressInput.getText();
-                String portString=portInput.getText();
+            } else if (client.isSelected()) {
+                Platform.setImplicitExit(false);
+                Platform.runLater(()->System.out.println("Inside Platform.runLater()"));
+                window.close();
+                String ipString = ipAdressInput.getText();
+                String portString = portInput.getText();
 
 
-                String hostName =ipString.equals("") ? "localhost" : ipString;
-                int port1=portString.equals("") ? 5108 : Integer.parseInt(portString);
-
+                String hostName = ipString.equals("") ? "localhost" : ipString;
+                int port1 = portString.equals("") ? 5108 : Integer.parseInt(portString);
 
 
                 RemotePlayerClient playerClient =

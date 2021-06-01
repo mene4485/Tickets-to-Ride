@@ -16,7 +16,7 @@ public final class Constants {
     /**
      * Nombre de cartes locomotive.
      */
-    public static final int LOCOMOTIVE_CARDS_COUNT = 14;
+    public static final int LOCOMOTIVE_CARDS_COUNT = 25;
 
     /**
      * Nombre total de cartes wagon/locomotive.
