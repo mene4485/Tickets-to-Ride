@@ -236,8 +236,8 @@ public class GraphicalPlayer {
        // pane.getChildren().add(grid);
 
 
-        grid.setTranslateY(600);
-       // grid.setTranslateX(-610);
+        grid.setTranslateY(640);
+        grid.setTranslateX(20);
 
         canvas.setTranslateY(-50);
         canvas.setTranslateX(70);

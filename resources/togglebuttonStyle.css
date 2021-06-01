@@ -1,0 +1,58 @@
+
+
+.server {
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 1;
+    -fx-background-color:
+            linear-gradient(from 0% 80% to 0% 100%, #138da3 0%, #125263 100%),
+            #2c8cc1,
+            #48afdc,
+            radial-gradient(center 50% 50%, radius 100%, #2abec2, #2c8fa8);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-font-weight: bold;
+    -fx-font-size: 1.1em;
+}
+.server:hover {
+
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 4 0, 0 0 5 0, 0 0 6 0;
+    -fx-background-radius: 5;
+    -fx-background-color:
+            linear-gradient(from 0% 80% to 0% 100%, #138da3 0%, #125263 100%),
+            #2c8cc1,
+            #48afdc,
+            radial-gradient(center 50% 50%, radius 100%, #2abec2, #2c8fa8);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 9,0,0,1 );
+    -fx-font-weight: bold;
+    -fx-font-size: 1.1em;
+
+
+}
+.client {
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 3;
+    -fx-background-color:
+            linear-gradient(from 0% 80% to 0% 100%, #e31b27 0%, #f1021e 100%),
+            #bb353e,
+            #ea4646,
+            radial-gradient(center 50% 50%, radius 100%, #d72a2a, #dc2e43);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-font-weight: bold;
+    -fx-font-size: 1.1em;
+
+}
+ .client:selected {
+
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,2 0 2 0, 2 0 3 0, 2 0 4 0;
+     -fx-background-color:
+             linear-gradient(from 0% 80% to 0% 100%, #e3131f 0%, #ff011d 100%),
+             #b62e37,
+             #ea3d3d,
+             radial-gradient(center 50% 50%, radius 100%, #d02121, #d92339);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 9,0,0,1 );
+
+
+}
