@@ -16,7 +16,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -24,6 +27,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -60,23 +64,47 @@ public class Menu extends Application {
         name2input.setMaxWidth(150);
         Text joueur1 = new Text();
         Text joueur2 = new Text();
+
+        joueur1.setStyle("-fx-fill: lightblue;");
+        name1input.setStyle("-fx-background-color: lightblue;-fx-text-fill: white;");
+        joueur2.setStyle("-fx-fill: pink;");
+        name2input.setStyle("-fx-background-color: pink;-fx-text-fill: white;");
+
         joueur1.setText("Joueur 1");
         joueur2.setText("Joueur 2");
+        /*joueur1.setId("textStyle");
+        joueur2.getStyleClass().add("textStyle");*/
 
         TextField ipAdressInput = new TextField();
         TextField portInput = new TextField();
         Text ipAdressText = new Text();
         Text portText = new Text();
+        Rectangle ipAdressRectangle = new Rectangle();
+      //  ipAdressRectangle.setX(10);
+        //ipAdressRectangle.setY(10);
+        ipAdressRectangle.setFill(Color.WHITE);
+        ipAdressRectangle.setHeight(20f);
+        ipAdressRectangle.setWidth(100f);
+
+        ipAdressRectangle.setTranslateY(15);
+        ipAdressText.setTranslateY(25);
+        Pane ipPane =new Pane(ipAdressRectangle,ipAdressText);
+
+
+
+
+        //ipAdressText.setStyle("-fx-fill: white;");
+        //portText.setStyle("-fx-fill: #ff008c; -fx-font-weight: bold; -fx-padding: 10;");
         VBox ipAdress = new VBox();
         VBox port = new VBox();
 
         VBox joueur1Input = new VBox();
-        joueur1Input.getChildren().addAll(joueur1, name1input);
         VBox joueur2Input = new VBox();
+        joueur1Input.getChildren().addAll(joueur1, name1input);
         joueur2Input.getChildren().addAll(joueur2, name2input);
 
         ToggleButton server = new ToggleButton();
-        server.setText("Server");
+        server.setText("Serveur");
         server.setFont(StringsFr.font(15, "Light"));
         server.getStyleClass().add("server");
 
@@ -108,7 +136,7 @@ public class Menu extends Application {
         ipAdressText.setText("Ip Adress :");
         portText.setText("Port : ");
 
-        ipAdress.getChildren().addAll(ipAdressText, ipAdressInput);
+        ipAdress.getChildren().addAll(ipPane, ipAdressInput);
         port.getChildren().addAll(portText, portInput);
 
         ipAdress.setVisible(false);
