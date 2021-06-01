@@ -5,6 +5,8 @@ import java.io.UncheckedIOException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.stream.Collectors;
 
 /**
  * @author Albert Troussard (330361)
@@ -12,7 +14,11 @@ import java.net.NetworkInterface;
  */
 public final class ShowMyIpAddress {
     public static void main(String[] args) throws IOException {
-        NetworkInterface.networkInterfaces()
+        System.out.println(ip());
+    }
+
+    public static String ip() throws SocketException {
+        return NetworkInterface.networkInterfaces()
                 .filter(i -> {
                     try { return i.isUp() && !i.isLoopback(); }
                     catch (IOException e) {
@@ -21,7 +27,6 @@ public final class ShowMyIpAddress {
                 })
                 .flatMap(NetworkInterface::inetAddresses)
                 .filter(a -> a instanceof Inet4Address)
-                .map(InetAddress::getCanonicalHostName)
-                .forEachOrdered(System.out::println);
+                .map(InetAddress::getCanonicalHostName).collect(Collectors.joining());
     }
 }
