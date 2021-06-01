@@ -63,6 +63,9 @@ public class Menu extends Application {
         name2input.setMaxWidth(150);
         Text joueur1 = new Text();
         Text joueur2 = new Text();
+        joueur1.getStyleClass().add("text_style");
+        joueur2.getStyleClass().add("text_style");
+
         joueur1.setText("Joueur 1");
         joueur2.setText("Joueur 2");
 
@@ -75,6 +78,7 @@ public class Menu extends Application {
 
         VBox joueur1Input = new VBox();
         joueur1Input.getChildren().addAll(joueur1, name1input);
+        joueur1Input.getStylesheets().add("toggleButtonStyle");
         VBox joueur2Input = new VBox();
         joueur2Input.getChildren().addAll(joueur2, name2input);
 
@@ -103,7 +107,7 @@ public class Menu extends Application {
 
         VBox serverBox = new VBox();
         serverBox.getChildren().addAll(server, joueur1Input, joueur2Input);
-server.setTranslateX(40);
+        server.setTranslateX(40);
         //Client
 
         ipAdressInput.setMaxWidth(150);
@@ -131,29 +135,25 @@ server.setTranslateX(40);
         jouer.setText("Jouer !");
 
 
-ImageView logo=new ImageView();
-logo.getStyleClass().add("logoMenu");
-logo.setFitHeight(250);
-logo.setFitWidth(250);
+        ImageView logo = new ImageView();
+        logo.getStyleClass().add("logoMenu");
+        logo.setFitHeight(250);
+        logo.setFitWidth(250);
         VBox clientBox = new VBox();
         clientBox.getChildren().addAll(client, ipAdress, port);
-client.setTranslateX(40);
+        client.setTranslateX(40);
 
-        gridPane.addRow(0, serverBox,clientBox);
+        gridPane.addRow(0, serverBox, clientBox);
         gridPane.setTranslateY(-50);
-gridPane.setAlignment(Pos.TOP_CENTER);
+        gridPane.setAlignment(Pos.TOP_CENTER);
         gridPane.setHgap(50);
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(-70, 20, 20, 20));
-        layout.getChildren().addAll(logo,gridPane, jouer);
+        layout.getChildren().addAll(logo, gridPane, jouer);
 
-layout.setAlignment(Pos.CENTER);
+        layout.setAlignment(Pos.CENTER);
         Scene scene = new Scene(layout, 600, 400);
-scene.getStylesheets().addAll("backGround.css","togglebuttonStyle.css","logo.css");
-
-
-
-
+        scene.getStylesheets().addAll("backGround.css", "togglebuttonStyle.css", "logo.css");
 
 
         window.setScene(scene);
@@ -164,7 +164,7 @@ scene.getStylesheets().addAll("backGround.css","togglebuttonStyle.css","logo.css
         jouer.setOnAction(s -> {
             if (server.isSelected()) {
                 Platform.setImplicitExit(false);
-                Platform.runLater(()->System.out.println("Inside Platform.runLater()"));
+                Platform.runLater(() -> System.out.println("Inside Platform.runLater()"));
                 window.close();
                 String j1 = name1input.getText();
                 String j2 = name2input.getText();
@@ -195,7 +195,7 @@ scene.getStylesheets().addAll("backGround.css","togglebuttonStyle.css","logo.css
 
             } else if (client.isSelected()) {
                 Platform.setImplicitExit(false);
-                Platform.runLater(()->System.out.println("Inside Platform.runLater()"));
+                Platform.runLater(() -> System.out.println("Inside Platform.runLater()"));
                 window.close();
                 String ipString = ipAdressInput.getText();
                 String portString = portInput.getText();
