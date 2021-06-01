@@ -192,6 +192,7 @@ class MapViewCreator {
                         if (route.station1().id() == airport.id() || route.station2().id() == airport.id()) {
                             switch (airport.id()) {
                                 case 27:
+
                                     double initialRotate = planeStGall.getRotate();
                                     Timeline flash = new Timeline(
                                             new KeyFrame(Duration.seconds(0.5), new KeyValue(planeStGall.rotateProperty(),initialRotate+180,Interpolator.LINEAR)),
