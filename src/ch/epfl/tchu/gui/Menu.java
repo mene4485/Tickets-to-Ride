@@ -7,14 +7,18 @@ import ch.epfl.tchu.net.RemotePlayerProxy;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -46,17 +50,10 @@ public class Menu extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         window = primaryStage;
-        window.setTitle("TchuTchuTchuTchu");
+        window.setTitle("TchuTchu");
 
-        nameInput = new TextField();
-        button = new Button("Ok");
-        button.setOnAction(e -> {
-            System.out.println(nameInput.getText());
-            if (nameInput.getText().equals("Jouer")) {
-                Stage11Test s = new Stage11Test();
-                s.start(primaryStage);
-            }
-        });
+
+
         GridPane gridPane = new GridPane();
 
         //Serveur
@@ -83,9 +80,16 @@ public class Menu extends Application {
 
         ToggleButton server = new ToggleButton();
         server.setText("Server");
+        server.setFont(StringsFr.font(15,"Light"));
+       server.getStyleClass().add("server");
+
 
         ToggleButton client = new ToggleButton();
         client.setText("Client");
+        client.setFont(StringsFr.font(15,"Light"));
+        client.getStyleClass().add("client");
+
+
 
         joueur1Input.setVisible(false);
         joueur2Input.setVisible(false);
@@ -127,16 +131,29 @@ public class Menu extends Application {
         jouer.setText("Jouer !");
 
 
+Text t =new Text("tCHu 2.0");
+t.setFont(StringsFr.font(50,"Light"));
+t.setTextAlignment(TextAlignment.CENTER);
+
         VBox clientBox = new VBox();
         clientBox.getChildren().addAll(client, ipAdress, port);
 
-        gridPane.addRow(0, serverBox, clientBox);
 
+        gridPane.addRow(0, serverBox, clientBox);
+gridPane.setAlignment(Pos.TOP_CENTER);
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(20, 20, 20, 20));
-        layout.getChildren().addAll(gridPane, jouer);
+        layout.getChildren().addAll(t,gridPane, jouer);
 
-        Scene scene = new Scene(layout, 500, 500);
+layout.setAlignment(Pos.CENTER);
+        Scene scene = new Scene(layout, 600, 400);
+scene.getStylesheets().add("backGround.css");
+        scene.getStylesheets().add("togglebuttonStyle.css");
+
+
+
+
+
         window.setScene(scene);
         window.show();
 
