@@ -8,12 +8,15 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -27,13 +30,15 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.io.UncheckedIOException;
+import java.net.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import static ch.epfl.tchu.game.PlayerId.PLAYER_1;
 import static ch.epfl.tchu.game.PlayerId.PLAYER_2;
@@ -56,14 +61,13 @@ public class Menu extends Application {
 
 
         GridPane gridPane = new GridPane();
-
-        //Serveur
+        // ---- Joueur 1 / Joueur 2 apparence ----
+        Text joueur1 = new Text();
+        Text joueur2 = new Text();
         TextField name1input = new TextField();
         TextField name2input = new TextField();
         name1input.setMaxWidth(150);
         name2input.setMaxWidth(150);
-        Text joueur1 = new Text();
-        Text joueur2 = new Text();
 
         joueur1.setStyle("-fx-fill: lightblue;");
         name1input.setStyle("-fx-background-color: lightblue;-fx-text-fill: white;");
@@ -72,29 +76,28 @@ public class Menu extends Application {
 
         joueur1.setText("Joueur 1");
         joueur2.setText("Joueur 2");
-        /*joueur1.setId("textStyle");
-        joueur2.getStyleClass().add("textStyle");*/
+        //  -------- // ------- // ------- //
 
-        TextField ipAdressInput = new TextField();
-        TextField portInput = new TextField();
+        // ---- IpAdress / Port appearence ----
         Text ipAdressText = new Text();
         Text portText = new Text();
-        Rectangle ipAdressRectangle = new Rectangle();
+        TextField ipAdressInput = new TextField();
+        TextField portInput = new TextField();
+        //Rectangle ipAdressRectangle = new Rectangle();
       //  ipAdressRectangle.setX(10);
         //ipAdressRectangle.setY(10);
-        ipAdressRectangle.setFill(Color.WHITE);
-        ipAdressRectangle.setHeight(20f);
-        ipAdressRectangle.setWidth(100f);
+        //ipAdressRectangle.setFill(Color.WHITE);
+        //ipAdressRectangle.setHeight(20f);
+        //ipAdressRectangle.setWidth(100f);
 
-        ipAdressRectangle.setTranslateY(15);
-        ipAdressText.setTranslateY(25);
-        Pane ipPane =new Pane(ipAdressRectangle,ipAdressText);
+        //ipAdressRectangle.setTranslateY(15);
+        //ipAdressText.setTranslateY(25);
 
-
-
-
-        //ipAdressText.setStyle("-fx-fill: white;");
-        //portText.setStyle("-fx-fill: #ff008c; -fx-font-weight: bold; -fx-padding: 10;");
+        Font font = Font.loadFont("file:resources/windows_command_prompt.ttf", 15);
+        ipAdressText.setFont(font);
+        portText.setFont(font);
+        ipAdressText.setStyle("-fx-fill: white;");
+        portText.setStyle("-fx-fill: white;");
         VBox ipAdress = new VBox();
         VBox port = new VBox();
 
@@ -103,86 +106,124 @@ public class Menu extends Application {
         joueur1Input.getChildren().addAll(joueur1, name1input);
         joueur2Input.getChildren().addAll(joueur2, name2input);
 
+        HBox clientInput =new HBox();
+        clientInput.getChildren().addAll(joueur1Input,joueur2Input);
+        //  -------- // ------- // ------- //
+
+        //OwnIpAdress
+        String ownIpAdress = ip();
+        Text textBeforeOwnIpAdressText = new Text("My Ip Adress : ");
+        Text ownIpAdressText = new Text(ownIpAdress);
+        ownIpAdressText.setStyle("-fx-fill: white; -fx-font-size: 0.8em;");
+        ownIpAdressText.setTranslateX(265);
+        ownIpAdressText.setTranslateY(-22);
+        textBeforeOwnIpAdressText.setStyle("-fx-fill: white; -fx-font-size: 0.8em;");
+        textBeforeOwnIpAdressText.setTranslateX(210);
+
+
+
+        //Buttons
         ToggleButton server = new ToggleButton();
         server.setText("Serveur");
         server.setFont(StringsFr.font(15, "Light"));
         server.getStyleClass().add("server");
-
 
         ToggleButton client = new ToggleButton();
         client.setText("Client");
         client.setFont(StringsFr.font(15, "Light"));
         client.getStyleClass().add("client");
 
+        Button jouer = new Button();
+        jouer.getStyleClass().add("play");
+        jouer.setText("Jouer !");
+        jouer.setTranslateY(10);
 
+
+        Rectangle copy = new Rectangle();
+        Text t = new Text("Copy");
+        t.setTranslateY(10);
+        t.setTranslateX(4);
+        t.setFont(Font.loadFont("file:resources/cmmi10.ttf",10));
+        copy.setFill(Color.WHITE);
+        copy.setHeight(15f);
+        copy.setWidth(30f);
+        Group copyButton = new Group(copy,t);
+        copyButton.setTranslateX(265);
+        copyButton.setTranslateY(-70);
+
+        VBox serverBox = new VBox();
+        serverBox.getChildren().addAll(server, joueur1Input, joueur2Input);
+        server.setTranslateX(40);
+
+        ipAdressInput.setMaxWidth(155);
+        portInput.setMaxWidth(155);
+        ipAdressText.setText("C:\\Users\\Tchu> Ip Adress :");
+        portText.setText("C:\\Users\\Tchu> Port : ");
+        ipAdressInput.setStyle("-fx-background-color: black;-fx-text-fill: white;");
+        portInput.setStyle("-fx-background-color: black;-fx-text-fill: white;");
+        ipAdressInput.setFont(font);
+        portInput.setFont(font);
+
+
+        ipAdress.getChildren().addAll(ipAdressText,ipAdressInput);
+        port.getChildren().addAll(portText, portInput);
+
+
+        // Logo, background image and arrangement
+        ImageView logo = new ImageView();
+        logo.getStyleClass().add("logoMenu");
+        logo.setFitHeight(250);
+        logo.setFitWidth(250);
+        logo.setTranslateY(50);
+        VBox clientBox = new VBox();
+        VBox rectangleAutourIpAdressPort = new VBox();
+        rectangleAutourIpAdressPort.getChildren().addAll(ipAdress,port);
+        rectangleAutourIpAdressPort.setStyle("-fx-background-color: black; -fx-padding: 5;");
+        rectangleAutourIpAdressPort.setTranslateY(5);
+        clientBox.getChildren().addAll(client, rectangleAutourIpAdressPort);
+        client.setTranslateX(40);
+
+        gridPane.addRow(0, serverBox, clientBox);
+        //gridPane.setTranslateY(-20);
+        gridPane.setAlignment(Pos.TOP_CENTER);
+        gridPane.setHgap(50);
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(-70, 20, 20, 20));
+        layout.getChildren().addAll(logo, gridPane, jouer, textBeforeOwnIpAdressText,ownIpAdressText,copyButton);
+
+        layout.setAlignment(Pos.CENTER);
+        Scene scene = new Scene(layout, 600, 400);
+        scene.getStylesheets().addAll("backGround.css", "togglebuttonStyle.css", "logo.css");
+
+        //Invisible in the beginning
         joueur1Input.setVisible(false);
         joueur2Input.setVisible(false);
+        ipAdress.setVisible(false);
+        port.setVisible(false);
+        rectangleAutourIpAdressPort.setVisible(false);
+        copyButton.setVisible(false);
 
+        //if we click on server's button
         server.setOnAction(s -> {
             joueur1Input.setVisible(server.isSelected());
             joueur2Input.setVisible(server.isSelected());
             client.setSelected(false);
             ipAdress.setVisible(false);
             port.setVisible(false);
+            rectangleAutourIpAdressPort.setVisible(false);
         });
 
-        VBox serverBox = new VBox();
-        serverBox.getChildren().addAll(server, joueur1Input, joueur2Input);
-        server.setTranslateX(40);
-        //Client
-
-        ipAdressInput.setMaxWidth(150);
-        portInput.setMaxWidth(150);
-        ipAdressText.setText("Ip Adress :");
-        portText.setText("Port : ");
-
-        ipAdress.getChildren().addAll(ipPane, ipAdressInput);
-        port.getChildren().addAll(portText, portInput);
-
-        ipAdress.setVisible(false);
-        port.setVisible(false);
-
+        //if we click on client's button
         client.setOnAction(s -> {
             ipAdress.setVisible(client.isSelected());
             port.setVisible(client.isSelected());
             server.setSelected(false);
             joueur1Input.setVisible(false);
             joueur2Input.setVisible(false);
+            rectangleAutourIpAdressPort.setVisible(client.isSelected());
         });
 
-
-        Button jouer = new Button();
-        jouer.getStyleClass().add("play");
-        jouer.setText("Jouer !");
-
-
-        ImageView logo = new ImageView();
-        logo.getStyleClass().add("logoMenu");
-        logo.setFitHeight(250);
-        logo.setFitWidth(250);
-        VBox clientBox = new VBox();
-        clientBox.getChildren().addAll(client, ipAdress, port);
-        client.setTranslateX(40);
-
-        gridPane.addRow(0, serverBox, clientBox);
-        gridPane.setTranslateY(-50);
-        gridPane.setAlignment(Pos.TOP_CENTER);
-        gridPane.setHgap(50);
-        VBox layout = new VBox(10);
-        layout.setPadding(new Insets(-70, 20, 20, 20));
-        layout.getChildren().addAll(logo, gridPane, jouer);
-
-        layout.setAlignment(Pos.CENTER);
-        Scene scene = new Scene(layout, 600, 400);
-        scene.getStylesheets().addAll("backGround.css", "togglebuttonStyle.css", "logo.css");
-
-
-        window.setScene(scene);
-        Image image = new Image("file:resources/icone.png");
-        window.getIcons().add(image);
-        window.show();
-
-
+        //if we click on Jouer's button
         jouer.setOnAction(s -> {
             if (server.isSelected()) {
                 Platform.setImplicitExit(false);
@@ -236,5 +277,38 @@ public class Menu extends Application {
 
             }
         });
+
+        Clipboard cb = Clipboard.getSystemClipboard();
+        ClipboardContent cbc = new ClipboardContent();
+        ownIpAdressText.setOnMouseEntered(event -> {
+            copyButton.setVisible(true);
+        });
+        ownIpAdressText.setOnMouseExited(event -> {
+            copyButton.setVisible(false);
+        });
+        ownIpAdressText.setOnMouseClicked(event -> {
+            cbc.putString(ownIpAdressText.getText());
+            cb.setContent(cbc);
+            t.setText("Copied");
+            copy.setWidth(40f);
+        });
+
+        window.setScene(scene);
+        Image image = new Image("file:resources/icone.png");
+        window.getIcons().add(image);
+        window.show();
+    }
+
+    public static String ip() throws SocketException {
+        return NetworkInterface.networkInterfaces()
+                .filter(i -> {
+                    try { return i.isUp() && !i.isLoopback(); }
+                    catch (IOException e) {
+                        throw new UncheckedIOException(e);
+                    }
+                })
+                .flatMap(NetworkInterface::inetAddresses)
+                .filter(a -> a instanceof Inet4Address)
+                .map(InetAddress::getCanonicalHostName).collect(Collectors.joining());
     }
 }
