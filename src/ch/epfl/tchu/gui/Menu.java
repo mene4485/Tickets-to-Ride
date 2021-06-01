@@ -39,10 +39,7 @@ import static ch.epfl.tchu.game.PlayerId.PLAYER_2;
  * @author Menelik Nouvellon (328132)
  */
 public class Menu extends Application {
-    static Button button;
     static Stage window;
-    static TextField nameInput;
-
 
     public static void main(String[] args) {
         launch(args);
@@ -103,7 +100,7 @@ public class Menu extends Application {
 
         VBox serverBox = new VBox();
         serverBox.getChildren().addAll(server, joueur1Input, joueur2Input);
-server.setTranslateX(40);
+        server.setTranslateX(40);
         //Client
 
         ipAdressInput.setMaxWidth(150);
@@ -131,40 +128,37 @@ server.setTranslateX(40);
         jouer.setText("Jouer !");
 
 
-ImageView logo=new ImageView();
-logo.getStyleClass().add("logoMenu");
-logo.setFitHeight(250);
-logo.setFitWidth(250);
+        ImageView logo = new ImageView();
+        logo.getStyleClass().add("logoMenu");
+        logo.setFitHeight(250);
+        logo.setFitWidth(250);
         VBox clientBox = new VBox();
         clientBox.getChildren().addAll(client, ipAdress, port);
-client.setTranslateX(40);
+        client.setTranslateX(40);
 
-        gridPane.addRow(0, serverBox,clientBox);
+        gridPane.addRow(0, serverBox, clientBox);
         gridPane.setTranslateY(-50);
-gridPane.setAlignment(Pos.TOP_CENTER);
+        gridPane.setAlignment(Pos.TOP_CENTER);
         gridPane.setHgap(50);
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(-70, 20, 20, 20));
-        layout.getChildren().addAll(logo,gridPane, jouer);
+        layout.getChildren().addAll(logo, gridPane, jouer);
 
-layout.setAlignment(Pos.CENTER);
+        layout.setAlignment(Pos.CENTER);
         Scene scene = new Scene(layout, 600, 400);
-scene.getStylesheets().addAll("backGround.css","togglebuttonStyle.css","logo.css");
-
-
-
-
+        scene.getStylesheets().addAll("backGround.css", "togglebuttonStyle.css", "logo.css");
 
 
         window.setScene(scene);
-        window.getIcons().add(new Image("file:resources/icone.png"));
+        Image image = new Image("file:resources/icone.png");
+        window.getIcons().add(image);
         window.show();
 
 
         jouer.setOnAction(s -> {
             if (server.isSelected()) {
                 Platform.setImplicitExit(false);
-                Platform.runLater(()->System.out.println("Inside Platform.runLater()"));
+                Platform.runLater(() -> System.out.println("Inside Platform.runLater()"));
                 window.close();
                 String j1 = name1input.getText();
                 String j2 = name2input.getText();
@@ -195,7 +189,7 @@ scene.getStylesheets().addAll("backGround.css","togglebuttonStyle.css","logo.css
 
             } else if (client.isSelected()) {
                 Platform.setImplicitExit(false);
-                Platform.runLater(()->System.out.println("Inside Platform.runLater()"));
+                Platform.runLater(() -> System.out.println("Inside Platform.runLater()"));
                 window.close();
                 String ipString = ipAdressInput.getText();
                 String portString = portInput.getText();

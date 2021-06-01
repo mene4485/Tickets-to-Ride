@@ -8,6 +8,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.media.AudioClip;
@@ -107,7 +108,7 @@ class DecksViewCreator {
     public static Node createCardsView(ObservableGameState observableGameState, ObjectProperty<ActionHandlers.DrawTicketsHandler> ticketHandler, ObjectProperty<ActionHandlers.DrawCardHandler> cardHandler) {
         VBox vBox = new VBox();
         vBox.setId("card-pane");
-        vBox.getStylesheets().addAll("decks.css", "colors.css");
+        vBox.getStylesheets().addAll("decks.css", "colors.css","logo.css");
 
         currentPlayerCreator(vBox,observableGameState);
 
@@ -115,8 +116,17 @@ class DecksViewCreator {
 
         //add the ticket's button
         Button buttonGraphicTicket = buttonGraphicCreatorTicket(observableGameState);
-        buttonGraphicTicket.getStyleClass().add("gauged");
+        buttonGraphicTicket.getStyleClass().addAll("gauged");
+        ImageView logoTicket =new ImageView("file:resources/imageTicket.png");
+        logoTicket.setFitWidth(50);
+        logoTicket.setFitHeight(30);
+
+        buttonGraphicTicket.setGraphic(logoTicket);
+
         buttonGraphicTicket.setText(StringsFr.TICKETS);
+
+
+
         buttonGraphicTicket.setFont(StringsFr.font(15,"Light"));
         buttonGraphicTicket.disableProperty().bind(ticketHandler.isNull());
 
@@ -197,7 +207,6 @@ class DecksViewCreator {
         Circle c= new Circle(10);
         Text t=new Text();
         t.setFont(StringsFr.font(12,"Light"));
-
 
         vBox.getChildren().addAll(c,t);
 
