@@ -187,56 +187,73 @@ class MapViewCreator {
                         if (route.station1().id() == airport.id() || route.station2().id() == airport.id()) {
                             switch (airport.id()) {
                                 case 27:
-                                    int otherStationId = route.station1().id() == airport.id() ? route.station1().id() : route.station2().id();
-                                    switch (otherStationId){
-                                        case 10 :
-                                            planeStGall.setRotate(planeStGall.getRotate() + 180);
-                                            TranslateTransition transition = new TranslateTransition(new Duration(2000), planeStGall);
-
-                                            transition.setFromX(660);
-                                            transition.setFromY(-100);
-                                            transition.setToX(-230);
-                                            transition.setToY(340);
-                                            transition.play();
-
-                                            planeStGall.setRotate(planeStGall.getRotate() + 360);
+                                    planeStGall.getStyleClass().add(p);
+                                    int otherStationId = route.station1().id() == airport.id() ? route.station2().id() : route.station1().id();
+                                    switch (otherStationId) {
+                                        case 10:
+                                            turnAnimation(180, planeStGall.getRotate(), planeStGall);
+                                            planeTransition(660, -100, -230, 340, planeStGall);
+                                            break;
+                                        case 8:
+                                            turnAnimation(210, planeStGall.getRotate(), planeStGall);
+                                            planeTransition(660, -100, 40, -100, planeStGall);
+                                            break;
+                                        case 5:
+                                            turnAnimation(120, planeStGall.getRotate(), planeStGall);
+                                            planeTransition(660, -100, 800, 310, planeStGall);
                                             break;
                                     }
-                                    TranslateTransition transition = new TranslateTransition(new Duration(2000), planeStGall);
-
-                                    transition.setFromX(660);
-                                    transition.setFromY(-100);
-                                    transition.setToX(-230);
-                                    transition.setToY(340);
-                                    transition.play();
-                                    planeStGall.getStyleClass().add(p);
                                     break;
                                 case 10:
-                                    double initialRotateG = planeGeneve.getRotate();
-                                    Timeline flash1 = new Timeline(
-                                            new KeyFrame(Duration.seconds(0.5), new KeyValue(planeGeneve.rotateProperty(), initialRotateG + 180, Interpolator.LINEAR)),
-                                            new KeyFrame(Duration.seconds(1), new KeyValue(planeGeneve.rotateProperty(), initialRotateG + 360, Interpolator.LINEAR))
-                                    );
-                                    flash1.play();
+                                    otherStationId = route.station1().id() == airport.id() ? route.station2().id() : route.station1().id();
                                     planeGeneve.getStyleClass().add(p);
+                                    switch (otherStationId) {
+                                        case 27:
+                                            turnAnimation(10, planeGeneve.getRotate(), planeGeneve);
+                                            planeTransition(-230, 340, 660, -100, planeGeneve);
+                                            break;
+                                        case 8:
+                                            turnAnimation(-10, planeGeneve.getRotate(), planeGeneve);
+                                            planeTransition(-230, 340, 40, -100, planeGeneve);
+                                            break;
+                                        case 5:
+                                            turnAnimation(30, planeGeneve.getRotate(), planeGeneve);
+                                            planeTransition(-230, 340, 800, 310, planeGeneve);
+                                    }
                                     break;
                                 case 8:
-                                    double initialRotateD = planeDelemont.getRotate();
-                                    Timeline flash2 = new Timeline(
-                                            new KeyFrame(Duration.seconds(0.5), new KeyValue(planeDelemont.rotateProperty(), initialRotateD + 180, Interpolator.LINEAR)),
-                                            new KeyFrame(Duration.seconds(1), new KeyValue(planeDelemont.rotateProperty(), initialRotateD + 360, Interpolator.LINEAR))
-                                    );
-                                    flash2.play();
                                     planeDelemont.getStyleClass().add(p);
+                                    otherStationId = route.station1().id() == airport.id() ? route.station2().id() : route.station1().id();
+                                    switch (otherStationId) {
+                                        case 27:
+                                            turnAnimation(30, planeDelemont.getRotate(), planeDelemont);
+                                            planeTransition(40, -100, 660, -100, planeDelemont);
+                                            break;
+                                        case 10:
+                                            turnAnimation(160, planeDelemont.getRotate(), planeDelemont);
+                                            planeTransition(40, -100, -230, 340, planeDelemont);
+                                            break;
+                                        case 5:
+                                            turnAnimation(90, planeDelemont.getRotate(), planeDelemont);
+                                            planeTransition(40, -100, 800, 310, planeDelemont);
+                                    }
                                     break;
                                 case 5:
-                                    double initialRotateB = planeBrusio.getRotate();
-                                    Timeline flash3 = new Timeline(
-                                            new KeyFrame(Duration.seconds(0.5), new KeyValue(planeBrusio.rotateProperty(), initialRotateB + 180, Interpolator.LINEAR)),
-                                            new KeyFrame(Duration.seconds(1), new KeyValue(planeBrusio.rotateProperty(), initialRotateB + 360, Interpolator.LINEAR))
-                                    );
-                                    flash3.play();
                                     planeBrusio.getStyleClass().add(p);
+                                    otherStationId = route.station1().id() == airport.id() ? route.station2().id() : route.station1().id();
+                                    switch (otherStationId) {
+                                        case 27:
+                                            turnAnimation(-30, planeBrusio.getRotate(), planeBrusio);
+                                            planeTransition(800, 310, 660, -100, planeBrusio);
+                                            break;
+                                        case 10:
+                                            turnAnimation(200, planeBrusio.getRotate(), planeBrusio);
+                                            planeTransition(800, 310, -230, 340, planeBrusio);
+                                            break;
+                                        case 8:
+                                            turnAnimation(270, planeBrusio.getRotate(), planeBrusio);
+                                            planeTransition(800, 310, 40, -100, planeBrusio);
+                                    }
                                     break;
                             }
                         }
@@ -272,6 +289,22 @@ class MapViewCreator {
 
 
         return gamePane;
+    }
+
+    private static void planeTransition(double xStart, double yStart, double xEnd, double yEnd, ImageView plane) {
+        TranslateTransition transition = new TranslateTransition(new Duration(2500), plane);
+        transition.setFromX(xStart);
+        transition.setFromY(yStart);
+        transition.setToX(xEnd);
+        transition.setToY(yEnd);
+        transition.play();
+    }
+
+    private static void turnAnimation(double angle, double initalAngle, ImageView plane) {
+        Timeline flash = new Timeline(
+                new KeyFrame(Duration.seconds(0.2), new KeyValue(plane.rotateProperty(), initalAngle + angle, Interpolator.LINEAR))
+        );
+        flash.play();
     }
 
     /**

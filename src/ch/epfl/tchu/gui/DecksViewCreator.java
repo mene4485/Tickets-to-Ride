@@ -196,7 +196,7 @@ class DecksViewCreator {
     private static void currentPlayerCreator(VBox vBox, ObservableGameState observableGameState) {
         Circle c= new Circle(10);
         Text t=new Text();
-        t.setFont(new Font("Tahoma",9));
+        t.setFont(StringsFr.font(12,"Light"));
 
 
         vBox.getChildren().addAll(c,t);
