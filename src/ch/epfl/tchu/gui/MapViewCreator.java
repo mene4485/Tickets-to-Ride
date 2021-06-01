@@ -99,17 +99,19 @@ class MapViewCreator {
                 caseNode.setId(new StringBuilder().append(route.id()).append("_").append(i).toString());
                 list.add(caseNode);
 
-               // caseNode.setOnMouseClicked().styleProperty().bind(new SimpleStringProperty("-fx-scale-x: 1.1;-fx-scale-y: 1.1;"));
-                caseNode.setOnMouseClicked(event -> {
+               observableGameState.routesProperty(route).addListener(e->{
+
+                   double nodeRotateInitial = caseNode.getRotate();
                     Timeline flash = new Timeline(
-                            //new KeyFrame(Duration.seconds(1), new KeyValue(caseNode.translateYProperty(),0,Interpolator.LINEAR)),
                             new KeyFrame(Duration.seconds(0.2), new KeyValue(caseNode.scaleXProperty(),2,Interpolator.LINEAR)),
-                            new KeyFrame(Duration.seconds(0.4), new KeyValue(caseNode.rotateProperty(),180,Interpolator.LINEAR)),
+                            new KeyFrame(Duration.seconds(0.2), new KeyValue(caseNode.scaleYProperty(),2,Interpolator.LINEAR)),
+                            new KeyFrame(Duration.seconds(0.4), new KeyValue(caseNode.rotateProperty(),nodeRotateInitial+180,Interpolator.LINEAR)),
+                            new KeyFrame(Duration.seconds(0.6), new KeyValue(caseNode.scaleYProperty(),1,Interpolator.LINEAR)),
                             new KeyFrame(Duration.seconds(0.6), new KeyValue(caseNode.scaleXProperty(),1,Interpolator.LINEAR)),
-                            new KeyFrame(Duration.seconds(0.6), new KeyValue(caseNode.rotateProperty(),265,Interpolator.LINEAR))
+                            new KeyFrame(Duration.seconds(1), new KeyValue(caseNode.rotateProperty(),nodeRotateInitial+360,Interpolator.LINEAR))
                     );
                     flash.play();
-                });
+               });
 
 
             }
@@ -182,19 +184,47 @@ class MapViewCreator {
                     routeNode.getStyleClass().add(p);
                     text2.setFill(Color.BLACK);
                     oneFlyRoadOwned.set(true);
+
+
+
+
                     for (Station airport : ChMap.airports()) {
                         if (route.station1().id() == airport.id() || route.station2().id() == airport.id()) {
                             switch (airport.id()) {
                                 case 27:
+                                    double initialRotate = planeStGall.getRotate();
+                                    Timeline flash = new Timeline(
+                                            new KeyFrame(Duration.seconds(0.5), new KeyValue(planeStGall.rotateProperty(),initialRotate+180,Interpolator.LINEAR)),
+                                            new KeyFrame(Duration.seconds(1), new KeyValue(planeStGall.rotateProperty(),initialRotate+360,Interpolator.LINEAR))
+                                    );
+                                    flash.play();
                                     planeStGall.getStyleClass().add(p);
                                     break;
                                 case 10:
+                                    double initialRotateG = planeGeneve.getRotate();
+                                    Timeline flash1 = new Timeline(
+                                            new KeyFrame(Duration.seconds(0.5), new KeyValue(planeGeneve.rotateProperty(),initialRotateG+180,Interpolator.LINEAR)),
+                                            new KeyFrame(Duration.seconds(1), new KeyValue(planeGeneve.rotateProperty(),initialRotateG+360,Interpolator.LINEAR))
+                                    );
+                                    flash1.play();
                                     planeGeneve.getStyleClass().add(p);
                                     break;
                                 case 8:
+                                    double initialRotateD = planeDelemont.getRotate();
+                                    Timeline flash2 = new Timeline(
+                                            new KeyFrame(Duration.seconds(0.5), new KeyValue(planeDelemont.rotateProperty(),initialRotateD+180,Interpolator.LINEAR)),
+                                            new KeyFrame(Duration.seconds(1), new KeyValue(planeDelemont.rotateProperty(),initialRotateD+360,Interpolator.LINEAR))
+                                    );
+                                    flash2.play();
                                     planeDelemont.getStyleClass().add(p);
                                     break;
                                 case 5:
+                                    double initialRotateB = planeBrusio.getRotate();
+                                    Timeline flash3 = new Timeline(
+                                            new KeyFrame(Duration.seconds(0.5), new KeyValue(planeBrusio.rotateProperty(),initialRotateB+180,Interpolator.LINEAR)),
+                                            new KeyFrame(Duration.seconds(1), new KeyValue(planeBrusio.rotateProperty(),initialRotateB+360,Interpolator.LINEAR))
+                                    );
+                                    flash3.play();
                                     planeBrusio.getStyleClass().add(p);
                                     break;
                             }
@@ -204,7 +234,7 @@ class MapViewCreator {
                 oneFlyRoadOwned.addListener((owner, old, newValue) -> {
                     if (observableGameState.routesProperty(route).getValue() == null) {
                             audioChoosingAirRoute.start();
-                            audioChoosingAirRoute.setMicrosecondPosition(0);
+                           // audioChoosingAirRoute.setMicrosecondPosition(0);
                         text2.setText("VOL ANNULÉ");
                         text2.setFill(Color.DARKRED);
                     }
