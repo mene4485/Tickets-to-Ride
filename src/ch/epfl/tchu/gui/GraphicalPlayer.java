@@ -60,7 +60,6 @@ public class GraphicalPlayer {
     private final ToggleButton eraser;
     //private final VBox drawBox;
 
-    private BooleanProperty drawIsOn;
 
     public final static int MAX_MESSAGE_NUMBER = 5;
 
@@ -98,7 +97,7 @@ public class GraphicalPlayer {
         draw = new ToggleButton();
         eraser = new ToggleButton();
 
-        drawIsOn = new SimpleBooleanProperty(false);
+
 
 
         stage.setTitle("tCHu \u2014" + playerNames.get(identity));
@@ -174,7 +173,7 @@ public class GraphicalPlayer {
         draw.getStyleClass().add("toggle-button-Draw");
         eraser.getStyleClass().add("toggle-button-Gomme");
 
-        canvas.disableProperty().bind(drawIsOn.not());
+        canvas.disableProperty().bind(draw.selectedProperty().not().and(eraser.selectedProperty().not()));
 
 
         reset.setOnAction(e -> resetDraw());
@@ -204,34 +203,33 @@ public class GraphicalPlayer {
 
         canvas.setOnMousePressed(e -> {
             gc.beginPath();
-            if (drawIsOn.getValue()) {
-                if (eraser.isSelected()) {
+                if(eraser.isSelected()){
                     gc.clearRect(e.getX(), e.getY(), gc.getLineWidth() * 2, gc.getLineWidth() * 2);
-                } else {
+                } else if(draw.isSelected()){
                     gc.lineTo(e.getX(), e.getY());
                     gc.stroke();
                 }
-            }
         });
         canvas.setOnMouseDragged(e -> {
-            if (drawIsOn.getValue()) {
-                if (eraser.isSelected()) {
+
+
+                if(eraser.isSelected()){
                     gc.clearRect(e.getX(), e.getY(), gc.getLineWidth() * 2, gc.getLineWidth() * 2);
-                } else {
+                } else if(draw.isSelected()){
                     gc.lineTo(e.getX(), e.getY());
                     gc.stroke();
                 }
-            }
         });
+        ToggleGroup group =new ToggleGroup();
+        group.getToggles().addAll(draw,eraser);
+
 
 
         grid.addRow(0, cp, slide, label);
         grid.addRow(1, reset, draw, eraser);
 
         grid.setAlignment(Pos.TOP_CENTER);
-        draw.setOnAction(e -> {
-            drawIsOn.set(!drawIsOn.getValue());
-        });
+
 
        // pane.getChildren().add(grid);
 
