@@ -89,9 +89,10 @@
     -fx-background-radius: 10;
 }
 
-.text_style{
+.textStyle{
     -fx-text-alignment: center;
     -fx-background-color: white;
+    -fx-background-size: 50;
 }
 
 
