@@ -19,15 +19,23 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
+import javax.swing.event.ChangeListener;
+import java.awt.*;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.*;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -74,7 +82,7 @@ public class Menu extends Application {
         TextField ipAdressInput = new TextField();
         TextField portInput = new TextField();
         //Rectangle ipAdressRectangle = new Rectangle();
-        //ipAdressRectangle.setX(10);
+      //  ipAdressRectangle.setX(10);
         //ipAdressRectangle.setY(10);
         //ipAdressRectangle.setFill(Color.WHITE);
         //ipAdressRectangle.setHeight(20f);
@@ -108,8 +116,7 @@ public class Menu extends Application {
         ownIpAdressText.setTranslateX(265);
         ownIpAdressText.setTranslateY(-22);
         textBeforeOwnIpAdressText.setStyle("-fx-fill: white; -fx-font-size: 0.8em;");
-        textBeforeOwnIpAdressText.setTranslateX(204);
-
+        textBeforeOwnIpAdressText.setTranslateX(195);
 
 
         //Buttons
@@ -133,11 +140,11 @@ public class Menu extends Application {
         Text t = new Text("Copy");
         t.setTranslateY(10);
         t.setTranslateX(4);
-        t.setFont(Font.loadFont("file:resources/cmmi10.ttf",10));
+        t.setFont(Font.loadFont("file:resources/cmmi10.ttf", 10));
         copy.setFill(Color.WHITE);
         copy.setHeight(15f);
         copy.setWidth(30f);
-        Group copyButton = new Group(copy,t);
+        Group copyButton = new Group(copy, t);
         copyButton.setTranslateX(265);
         copyButton.setTranslateY(-70);
 
@@ -281,16 +288,17 @@ public class Menu extends Application {
         });
 
         window.setScene(scene);
-        //Image image = new Image("file:resources/icone.png");
-        //window.getIcons().add(image);
+        Image image = new Image("file:resources/icone.png");
+        window.getIcons().add(image);
         window.show();
     }
 
     public static String ip() throws SocketException {
         return NetworkInterface.networkInterfaces()
                 .filter(i -> {
-                    try { return i.isUp() && !i.isLoopback(); }
-                    catch (IOException e) {
+                    try {
+                        return i.isUp() && !i.isLoopback();
+                    } catch (IOException e) {
                         throw new UncheckedIOException(e);
                     }
                 })
