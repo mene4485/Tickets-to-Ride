@@ -30,6 +30,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import javax.sound.sampled.Clip;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.io.IOException;
@@ -56,6 +57,7 @@ public class Menu extends Application {
     public void start(Stage primaryStage) throws Exception {
         Stage window = primaryStage;
         window.setTitle("TchuTchu");
+        Clip cffAudio = DecksViewCreator.createAudio("resources/suisse_romande.wav");
 
 
         GridPane gridPane = new GridPane();
@@ -113,10 +115,10 @@ public class Menu extends Application {
         Text textBeforeOwnIpAdressText = new Text("Mon Adresse Ip : ");
         Text ownIpAdressText = new Text(ownIpAdress);
         ownIpAdressText.setStyle("-fx-fill: white; -fx-font-size: 0.8em;");
-        ownIpAdressText.setTranslateX(265);
+        ownIpAdressText.setTranslateX(220);
         ownIpAdressText.setTranslateY(-22);
         textBeforeOwnIpAdressText.setStyle("-fx-fill: white; -fx-font-size: 0.8em;");
-        textBeforeOwnIpAdressText.setTranslateX(195);
+        textBeforeOwnIpAdressText.setTranslateX(120);
 
 
         //Buttons
@@ -145,8 +147,9 @@ public class Menu extends Application {
         copy.setHeight(15f);
         copy.setWidth(30f);
         Group copyButton = new Group(copy, t);
-        copyButton.setTranslateX(265);
-        copyButton.setTranslateY(-70);
+
+        //copyButton.setTranslateX(265);
+        //copyButton.setLayoutY(-70);
 
         VBox serverBox = new VBox();
         serverBox.getChildren().addAll(server, joueur1Input, joueur2Input);
@@ -240,6 +243,8 @@ public class Menu extends Application {
                     Socket socket = serverSocket.accept();
                     Map<PlayerId, String> playerNames = Map.of(PlayerId.PLAYER_1, player1name, PlayerId.PLAYER_2, player2name);
 
+                    cffAudio.setMicrosecondPosition(0);
+                    cffAudio.start();
                     Map<PlayerId, Player> players =
                             Map.of(PLAYER_1, new GraphicalPlayerAdapter(),
                                     PLAYER_2, new RemotePlayerProxy(socket));
@@ -267,6 +272,8 @@ public class Menu extends Application {
                                 hostName,
                                 port1);
 
+                cffAudio.setMicrosecondPosition(0);
+                cffAudio.start();
                 new Thread(playerClient::run).start();
 
             }
@@ -274,7 +281,9 @@ public class Menu extends Application {
 
         Clipboard cb = Clipboard.getSystemClipboard();
         ClipboardContent cbc = new ClipboardContent();
-        ownIpAdressText.setOnMouseEntered(event -> {
+        ownIpAdressText.setOnMouseMoved(event -> {
+            copyButton.setTranslateX(event.getX() + 156);
+            copyButton.setTranslateY(event.getY() -60);
             copyButton.setVisible(true);
         });
         ownIpAdressText.setOnMouseExited(event -> {
