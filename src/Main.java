@@ -1,4 +1,5 @@
 import ch.epfl.tchu.gui.ClientMain;
+import ch.epfl.tchu.gui.Menu;
 
 /**
  * @author Albert Troussard (330361)
@@ -6,6 +7,6 @@ import ch.epfl.tchu.gui.ClientMain;
  */
 public class Main {
     public static void main(String[] args) {
-        ClientMain.main(args);
+        Menu.main(args);
     }
 }
