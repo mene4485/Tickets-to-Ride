@@ -17,7 +17,6 @@ public final class Game {
 
 
     private Game() {
-
     }
 
     /**

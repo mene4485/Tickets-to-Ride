@@ -84,7 +84,7 @@ public class Menu extends Application {
         TextField ipAdressInput = new TextField();
         TextField portInput = new TextField();
         //Rectangle ipAdressRectangle = new Rectangle();
-      //  ipAdressRectangle.setX(10);
+        //  ipAdressRectangle.setX(10);
         //ipAdressRectangle.setY(10);
         //ipAdressRectangle.setFill(Color.WHITE);
         //ipAdressRectangle.setHeight(20f);
@@ -106,8 +106,8 @@ public class Menu extends Application {
         joueur1Input.getChildren().addAll(joueur1, name1input);
         joueur2Input.getChildren().addAll(joueur2, name2input);
 
-        HBox clientInput =new HBox();
-        clientInput.getChildren().addAll(joueur1Input,joueur2Input);
+        HBox clientInput = new HBox();
+        clientInput.getChildren().addAll(joueur1Input, joueur2Input);
         //  -------- // ------- // ------- //
 
         //OwnIpAdress
@@ -118,8 +118,7 @@ public class Menu extends Application {
         ownIpAdressText.setTranslateX(265);
         ownIpAdressText.setTranslateY(-22);
         textBeforeOwnIpAdressText.setStyle("-fx-fill: white; -fx-font-size: 0.8em;");
-        textBeforeOwnIpAdressText.setTranslateX(204);
-
+        textBeforeOwnIpAdressText.setTranslateX(195);
 
 
         //Buttons
@@ -140,14 +139,14 @@ public class Menu extends Application {
 
 
         Rectangle copy = new Rectangle();
-        Text t = new Text("Copier");
+        Text t = new Text("Copy");
         t.setTranslateY(10);
         t.setTranslateX(4);
-        t.setFont(Font.loadFont("file:resources/cmmi10.ttf",10));
+        t.setFont(Font.loadFont("file:resources/cmmi10.ttf", 10));
         copy.setFill(Color.WHITE);
         copy.setHeight(15f);
         copy.setWidth(30f);
-        Group copyButton = new Group(copy,t);
+        Group copyButton = new Group(copy, t);
         copyButton.setTranslateX(265);
         copyButton.setTranslateY(-70);
 
@@ -165,7 +164,7 @@ public class Menu extends Application {
         portInput.setFont(font);
 
 
-        ipAdress.getChildren().addAll(ipAdressText,ipAdressInput);
+        ipAdress.getChildren().addAll(ipAdressText, ipAdressInput);
         port.getChildren().addAll(portText, portInput);
 
 
@@ -177,7 +176,7 @@ public class Menu extends Application {
         logo.setTranslateY(50);
         VBox clientBox = new VBox();
         VBox rectangleAutourIpAdressPort = new VBox();
-        rectangleAutourIpAdressPort.getChildren().addAll(ipAdress,port);
+        rectangleAutourIpAdressPort.getChildren().addAll(ipAdress, port);
         rectangleAutourIpAdressPort.setStyle("-fx-background-color: black; -fx-padding: 5;");
         rectangleAutourIpAdressPort.setTranslateY(5);
         clientBox.getChildren().addAll(client, rectangleAutourIpAdressPort);
@@ -189,7 +188,7 @@ public class Menu extends Application {
         gridPane.setHgap(50);
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(-70, 20, 20, 20));
-        layout.getChildren().addAll(logo, gridPane, jouer, textBeforeOwnIpAdressText,ownIpAdressText,copyButton);
+        layout.getChildren().addAll(logo, gridPane, jouer, textBeforeOwnIpAdressText, ownIpAdressText, copyButton);
 
         layout.setAlignment(Pos.CENTER);
         Scene scene = new Scene(layout, 600, 400);
@@ -255,7 +254,8 @@ public class Menu extends Application {
 
             } else if (client.isSelected()) {
                 Platform.setImplicitExit(false);
-                Platform.runLater(() -> {}/*System.out.println("Inside Platform.runLater()")*/);
+                Platform.runLater(() -> {
+                }/*System.out.println("Inside Platform.runLater()")*/);
                 window.close();
                 String ipString = ipAdressInput.getText();
                 String portString = portInput.getText();
@@ -286,7 +286,7 @@ public class Menu extends Application {
         ownIpAdressText.setOnMouseClicked(event -> {
             cbc.putString(ownIpAdressText.getText());
             cb.setContent(cbc);
-            t.setText("Copié");
+            t.setText("Copied");
             copy.setWidth(40f);
         });
 
@@ -299,8 +299,9 @@ public class Menu extends Application {
     public static String ip() throws SocketException {
         return NetworkInterface.networkInterfaces()
                 .filter(i -> {
-                    try { return i.isUp() && !i.isLoopback(); }
-                    catch (IOException e) {
+                    try {
+                        return i.isUp() && !i.isLoopback();
+                    } catch (IOException e) {
                         throw new UncheckedIOException(e);
                     }
                 })
