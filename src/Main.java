@@ -1,5 +1,6 @@
 import ch.epfl.tchu.gui.ClientMain;
 import ch.epfl.tchu.gui.Menu;
+import ch.epfl.tchu.gui.ServerMain;
 
 /**
  * @author Albert Troussard (330361)

@@ -19,23 +19,15 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-
-import javax.swing.event.ChangeListener;
-import java.awt.*;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.*;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -48,15 +40,13 @@ import static ch.epfl.tchu.game.PlayerId.PLAYER_2;
  * @author Menelik Nouvellon (328132)
  */
 public class Menu extends Application {
-    static Stage window;
-
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        window = primaryStage;
+        Stage window = primaryStage;
         window.setTitle("TchuTchu");
 
 
@@ -84,7 +74,7 @@ public class Menu extends Application {
         TextField ipAdressInput = new TextField();
         TextField portInput = new TextField();
         //Rectangle ipAdressRectangle = new Rectangle();
-      //  ipAdressRectangle.setX(10);
+        //ipAdressRectangle.setX(10);
         //ipAdressRectangle.setY(10);
         //ipAdressRectangle.setFill(Color.WHITE);
         //ipAdressRectangle.setHeight(20f);
@@ -140,7 +130,7 @@ public class Menu extends Application {
 
 
         Rectangle copy = new Rectangle();
-        Text t = new Text("Copier");
+        Text t = new Text("Copy");
         t.setTranslateY(10);
         t.setTranslateX(4);
         t.setFont(Font.loadFont("file:resources/cmmi10.ttf",10));
@@ -286,13 +276,13 @@ public class Menu extends Application {
         ownIpAdressText.setOnMouseClicked(event -> {
             cbc.putString(ownIpAdressText.getText());
             cb.setContent(cbc);
-            t.setText("Copié");
+            t.setText("Copied");
             copy.setWidth(40f);
         });
 
         window.setScene(scene);
-        Image image = new Image("file:resources/icone.png");
-        window.getIcons().add(image);
+        //Image image = new Image("file:resources/icone.png");
+        //window.getIcons().add(image);
         window.show();
     }
 

@@ -24,6 +24,44 @@
       <element id="file-copy" path="$PROJECT_DIR$/../javafx-sdk-11.0.2/lib/libjavafx_font.dylib" />
       <element id="file-copy" path="$PROJECT_DIR$/../javafx-sdk-11.0.2/lib/libjavafx_iio.dylib" />
       <element id="file-copy" path="$PROJECT_DIR$/../javafx-sdk-11.0.2/lib/libjfxmedia_avf.dylib" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/togglebuttonStyle.css" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/icone.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/logo.css" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/imageTicket.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/CARTE_DRAPEAU_SUISSE.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/logotCHuMenu.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/trainBackground.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/backGround.css" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/map.css" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/decks.css" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/info.css" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/pen.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/graphicalPlayer.css" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/gomme.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/airplane.wav" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/tchutchu.wav" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/CardSound.wav" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/shuffling-cards-1.wav" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/paperSound.mp3" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/planeShadow.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/colors.css" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/airportPlayer1.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/airportPlayer2.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/airportNone.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/plane.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/train-car.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/map.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/locomotive.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/chooser.css" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/san_francisco-webfont.woff" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/san_francisco-webfont.woff2" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/cmmi10.ttf" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/windows_command_prompt.ttf" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/SFUIDisplay-Bold.ttf" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/SFUIDisplay-Light.ttf" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/SFNSDisplay-Black.otf" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/SFNSDisplay-Light.otf" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/module-info.java" />
     </root>
   </artifact>
 </component>
