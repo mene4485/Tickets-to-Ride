@@ -2,8 +2,6 @@ package ch.epfl.tchu;
 
 import ch.epfl.tchu.SortedBag;
 import ch.epfl.tchu.game.*;
-import ch.epfl.tchu.gui.GraphicalPlayerAdapter;
-import ch.epfl.tchu.gui.StringsFr;
 import ch.epfl.tchu.net.RemotePlayerClient;
 import ch.epfl.tchu.net.RemotePlayerProxy;
 import javafx.application.Application;
@@ -52,6 +50,7 @@ import static ch.epfl.tchu.game.PlayerId.PLAYER_2;
 public class Main extends Application {
     static Stage window;
 
+public class Menu extends Application {
     public static void main(String[] args) {
         launch(args);
     }
@@ -60,6 +59,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         window = primaryStage;
         window.setTitle("TchuTchu");
+        Clip cffAudio = DecksViewCreator.createAudio("resources/suisse_romande.wav");
 
 
         GridPane gridPane = new GridPane();
@@ -108,8 +108,8 @@ public class Main extends Application {
         joueur1Input.getChildren().addAll(joueur1, name1input);
         joueur2Input.getChildren().addAll(joueur2, name2input);
 
-        HBox clientInput = new HBox();
-        clientInput.getChildren().addAll(joueur1Input, joueur2Input);
+        HBox clientInput =new HBox();
+        clientInput.getChildren().addAll(joueur1Input,joueur2Input);
         //  -------- // ------- // ------- //
 
         //OwnIpAdress
@@ -117,10 +117,10 @@ public class Main extends Application {
         Text textBeforeOwnIpAdressText = new Text("Mon Adresse Ip : ");
         Text ownIpAdressText = new Text(ownIpAdress);
         ownIpAdressText.setStyle("-fx-fill: white; -fx-font-size: 0.8em;");
-        ownIpAdressText.setTranslateX(265);
+        ownIpAdressText.setTranslateX(220);
         ownIpAdressText.setTranslateY(-22);
         textBeforeOwnIpAdressText.setStyle("-fx-fill: white; -fx-font-size: 0.8em;");
-        textBeforeOwnIpAdressText.setTranslateX(195);
+        textBeforeOwnIpAdressText.setTranslateX(120);
 
 
         //Buttons
@@ -166,7 +166,7 @@ public class Main extends Application {
         portInput.setFont(font);
 
 
-        ipAdress.getChildren().addAll(ipAdressText, ipAdressInput);
+        ipAdress.getChildren().addAll(ipAdressText,ipAdressInput);
         port.getChildren().addAll(portText, portInput);
 
 
@@ -178,7 +178,7 @@ public class Main extends Application {
         logo.setTranslateY(50);
         VBox clientBox = new VBox();
         VBox rectangleAutourIpAdressPort = new VBox();
-        rectangleAutourIpAdressPort.getChildren().addAll(ipAdress, port);
+        rectangleAutourIpAdressPort.getChildren().addAll(ipAdress,port);
         rectangleAutourIpAdressPort.setStyle("-fx-background-color: black; -fx-padding: 5;");
         rectangleAutourIpAdressPort.setTranslateY(5);
         clientBox.getChildren().addAll(client, rectangleAutourIpAdressPort);
@@ -190,7 +190,7 @@ public class Main extends Application {
         gridPane.setHgap(50);
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(-70, 20, 20, 20));
-        layout.getChildren().addAll(logo, gridPane, jouer, textBeforeOwnIpAdressText, ownIpAdressText, copyButton);
+        layout.getChildren().addAll(logo, gridPane, jouer, textBeforeOwnIpAdressText,ownIpAdressText,copyButton);
 
         layout.setAlignment(Pos.CENTER);
         Scene scene = new Scene(layout, 600, 400);
@@ -244,6 +244,8 @@ public class Main extends Application {
                     Socket socket = serverSocket.accept();
                     Map<PlayerId, String> playerNames = Map.of(PlayerId.PLAYER_1, player1name, PlayerId.PLAYER_2, player2name);
 
+                    cffAudio.setMicrosecondPosition(0);
+                    cffAudio.start();
                     Map<PlayerId, Player> players =
                             Map.of(PLAYER_1, new GraphicalPlayerAdapter(),
                                     PLAYER_2, new RemotePlayerProxy(socket));
@@ -256,8 +258,7 @@ public class Main extends Application {
 
             } else if (client.isSelected()) {
                 Platform.setImplicitExit(false);
-                Platform.runLater(() -> {
-                }/*System.out.println("Inside Platform.runLater()")*/);
+                Platform.runLater(() -> {}/*System.out.println("Inside Platform.runLater()")*/);
                 window.close();
                 String ipString = ipAdressInput.getText();
                 String portString = portInput.getText();
@@ -272,6 +273,8 @@ public class Main extends Application {
                                 hostName,
                                 port1);
 
+                cffAudio.setMicrosecondPosition(0);
+                cffAudio.start();
                 new Thread(playerClient::run).start();
 
             }
@@ -279,7 +282,9 @@ public class Main extends Application {
 
         Clipboard cb = Clipboard.getSystemClipboard();
         ClipboardContent cbc = new ClipboardContent();
-        ownIpAdressText.setOnMouseEntered(event -> {
+        ownIpAdressText.setOnMouseMoved(event -> {
+            copyButton.setTranslateX(event.getX() + 156);
+            copyButton.setTranslateY(event.getY() -60);
             copyButton.setVisible(true);
         });
         ownIpAdressText.setOnMouseExited(event -> {
