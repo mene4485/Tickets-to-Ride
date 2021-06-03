@@ -1,7 +1,9 @@
-package ch.epfl.tchu.gui;
+package ch.epfl.tchu;
 
 import ch.epfl.tchu.SortedBag;
 import ch.epfl.tchu.game.*;
+import ch.epfl.tchu.gui.GraphicalPlayerAdapter;
+import ch.epfl.tchu.gui.StringsFr;
 import ch.epfl.tchu.net.RemotePlayerClient;
 import ch.epfl.tchu.net.RemotePlayerProxy;
 import javafx.application.Application;
@@ -47,7 +49,7 @@ import static ch.epfl.tchu.game.PlayerId.PLAYER_2;
  * @author Albert Troussard (330361)
  * @author Menelik Nouvellon (328132)
  */
-public class Menu extends Application {
+public class Main extends Application {
     static Stage window;
 
     public static void main(String[] args) {

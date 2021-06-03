@@ -185,11 +185,11 @@ public final class Game {
                             info(currentPlayerInfo.noadditionalSkyRoute(route), players);
                             gameState = gameState.withClaimedRoute(route, initialCards);
                         } else {
+                                info(currentPlayerInfo.additionalSkyRouteCount(route, additionalCardsCount), players);
                             List<SortedBag<Card>> possibleCards = gameState.currentPlayerState().
                                     possibleAdditionalCards(additionalCardsCount, initialCards, SortedBag.of());
 
                             if (!possibleCards.isEmpty()) {
-                                info(currentPlayerInfo.additionalSkyRouteCount(route, possibleCards.get(0)), players);
 
                                 SortedBag<Card> additional = currentPlayer.
                                          chooseAdditionalCards(possibleCards);
