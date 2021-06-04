@@ -172,11 +172,11 @@ public final class Info {
 
     /**
      * @param route        Route
-     * @param initialCards SortedBag<Card>
+     * @param count        count
      * @return the message stating that
      */
-    public String additionalSkyRouteCount(Route route, SortedBag<Card> initialCards) {
-        return String.format(StringsFr.ADDITIONNAL_SKYROUTE_COUNT, playerName, Info.routeName(route), StringsFr.sortedBagName(initialCards));
+    public String additionalSkyRouteCount(Route route, int count) {
+        return String.format(StringsFr.ADDITIONNAL_SKYROUTE_COUNT, playerName, Info.routeName(route), count,cardName(Card.LOCOMOTIVE,count));
     }
 
     /**

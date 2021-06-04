@@ -2,6 +2,7 @@ package ch.epfl.tchu.gui;
 
 import ch.epfl.tchu.SortedBag;
 import ch.epfl.tchu.game.*;
+import ch.epfl.tchu.gui.DecksViewCreator;
 import ch.epfl.tchu.net.RemotePlayerClient;
 import ch.epfl.tchu.net.RemotePlayerProxy;
 import javafx.application.Application;
@@ -48,14 +49,16 @@ import static ch.epfl.tchu.game.PlayerId.PLAYER_2;
  * @author Albert Troussard (330361)
  * @author Menelik Nouvellon (328132)
  */
-public class Menu extends Application {
+public class Main extends Application {
+    static Stage window;
+
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Stage window = primaryStage;
+        window = primaryStage;
         window.setTitle("TchuTchu");
         Clip cffAudio = DecksViewCreator.createAudio("resources/suisse_romande.wav");
 
@@ -84,7 +87,7 @@ public class Menu extends Application {
         TextField ipAdressInput = new TextField();
         TextField portInput = new TextField();
         //Rectangle ipAdressRectangle = new Rectangle();
-      //  ipAdressRectangle.setX(10);
+        //  ipAdressRectangle.setX(10);
         //ipAdressRectangle.setY(10);
         //ipAdressRectangle.setFill(Color.WHITE);
         //ipAdressRectangle.setHeight(20f);
@@ -147,9 +150,8 @@ public class Menu extends Application {
         copy.setHeight(15f);
         copy.setWidth(30f);
         Group copyButton = new Group(copy, t);
-
-        //copyButton.setTranslateX(265);
-        //copyButton.setLayoutY(-70);
+        copyButton.setTranslateX(265);
+        copyButton.setTranslateY(-70);
 
         VBox serverBox = new VBox();
         serverBox.getChildren().addAll(server, joueur1Input, joueur2Input);

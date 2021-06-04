@@ -60,7 +60,7 @@ public final class StringsFr {
             "%s tente de s'emparer du la route aérienne %s au moyen de %s !\n";
 
     public static final String ADDITIONNAL_SKYROUTE_COUNT =
-            "Après un tirage au sort, si %s veut s'emparer de la route aérienne %s il devra utiliser %s !\n";
+            "Après un tirage au sort, si %s veut s'emparer de la route aérienne %s il devra utiliser %s %s\n";
 
     public static final String NO_ADDITIONNAL_SKYROUTE =
             "Après un tirage au sort, %s n'a besoin d'aucune carte supplémentaire pour s'emparer de la route aérienne %s !\n";
