@@ -33,12 +33,12 @@ class DecksViewCreator {
     private static final int RECTANGLE_WIDTH = 40;
 
 
-    public static ReadOnlyObjectProperty<Ticket> selectedTicketProperty() {
-        return selectedTicket;
-    }
 
     private static ObjectProperty<Ticket> selectedTicket=new SimpleObjectProperty<>();
 
+    public static ReadOnlyObjectProperty<Ticket> selectedTicketProperty() {
+        return selectedTicket;
+    }
 
     /**
      * Create the hand view of a player

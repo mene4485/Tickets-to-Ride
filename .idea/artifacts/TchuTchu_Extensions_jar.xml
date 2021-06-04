@@ -62,6 +62,8 @@
       <element id="file-copy" path="$PROJECT_DIR$/resources/SFNSDisplay-Black.otf" />
       <element id="file-copy" path="$PROJECT_DIR$/resources/SFNSDisplay-Light.otf" />
       <element id="file-copy" path="$PROJECT_DIR$/src/module-info.java" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/suisse_romande.wav" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/suisse_romande.mp3" />
     </root>
   </artifact>
 </component>
