@@ -1,7 +1,8 @@
-package ch.epfl.tchu;
+package ch.epfl.tchu.gui;
 
 import ch.epfl.tchu.SortedBag;
 import ch.epfl.tchu.game.*;
+import ch.epfl.tchu.gui.DecksViewCreator;
 import ch.epfl.tchu.net.RemotePlayerClient;
 import ch.epfl.tchu.net.RemotePlayerProxy;
 import javafx.application.Application;
@@ -30,6 +31,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import javax.sound.sampled.Clip;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.io.IOException;
@@ -50,7 +52,6 @@ import static ch.epfl.tchu.game.PlayerId.PLAYER_2;
 public class Main extends Application {
     static Stage window;
 
-public class Menu extends Application {
     public static void main(String[] args) {
         launch(args);
     }
