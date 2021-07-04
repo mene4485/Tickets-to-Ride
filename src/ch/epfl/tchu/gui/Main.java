@@ -86,15 +86,6 @@ public class Main extends Application {
         Text portText = new Text();
         TextField ipAdressInput = new TextField();
         TextField portInput = new TextField();
-        //Rectangle ipAdressRectangle = new Rectangle();
-        //  ipAdressRectangle.setX(10);
-        //ipAdressRectangle.setY(10);
-        //ipAdressRectangle.setFill(Color.WHITE);
-        //ipAdressRectangle.setHeight(20f);
-        //ipAdressRectangle.setWidth(100f);
-
-        //ipAdressRectangle.setTranslateY(15);
-        //ipAdressText.setTranslateY(25);
 
         Font font = Font.loadFont("file:resources/windows_command_prompt.ttf", 15);
         ipAdressText.setFont(font);
